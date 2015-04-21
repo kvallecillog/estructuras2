@@ -15,6 +15,9 @@ module FSM
 	input wire Reset,
 	input wire valid_data,
 	input wire ack,
+// MODIFICAR, AUN NO TENGO EL OUTPUT DE LA MAQUINA.
+	input wire in,
+	output reg out,
 
 // Señales del datapath
 
@@ -51,7 +54,7 @@ module FSM
 			begin
 		
 			CurrentState <= `IDLE;
-			Out <= 0;	
+			out <= 0;	
 		
 			end
 			
@@ -60,7 +63,7 @@ module FSM
 			begin
 		
 			CurrentState <= NextState;
-			Out <= NextOut;	
+			out <= NextOut;	
 		
 			end
 			
@@ -79,7 +82,7 @@ module FSM
 			`IDLE:
 			begin
 				
-				//NextOut = 0;
+				NextOut = 0; // LO TRAE POR DEFECTO EL CODIGO REVISAR!
 				
 				// Si valid_data es 0 mantengase en el estado IDLE.
 
@@ -123,8 +126,8 @@ module FSM
 			
 			begin
 
-				
-				// NextOut = 1;
+				// lo traia por defecto el codigo, REVISAR.
+				 NextOut = 1;
 
 
 				// Cuando se ingresa al estado calcular el producto cambia respecto
@@ -144,17 +147,30 @@ module FSM
 				b_sel = 1;
 
 
+
+
 				if (cont < 32 && b_lsb == 1)
+					
+					begin
 
 					NextState = `CALC;
 
 					// Si el bit lsb de b era 1 sumo al producto a.
 					add_sel = 1;
 
+					end
+				
+				// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
+				add_sel = 0;
+				
 				if (cont <32 && b_lsb == 0)
 					
+					begin
+							
 					NextState = `CALC;
 
+					end
+				
 				else 
 
 					NextState = `DONE;
