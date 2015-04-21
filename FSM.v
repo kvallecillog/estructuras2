@@ -81,11 +81,26 @@ module FSM
 			`IDLE:
 			begin
 				
-				NextOut = 0;
+				//NextOut = 0;
 				
 				// Si valid_data es 0 mantengase en el estado IDLE.
 
+				
+				// En el estado IDLE la señal prod_sel selecciona
+				// el producto inicializado en 0.
+
 				prod_sel = 0;
+
+				// En el estado IDLE la señal a_sel selecciona
+				// el operando "a" inicial sin rotar.
+
+				a_sel = 0;
+
+				// En el estado IDLE la señal a_sel selecciona
+				// el operando "b" inicial sin rotar.
+
+				b_sel = 0;
+
 
 				if (valid_data == 0)
 
@@ -97,9 +112,11 @@ module FSM
 
 					NextState = `CALC;
 				
+				
 					//# Cuando entre por primera vez a calcular inicie 
 					//# el contador de 32 bits.
 					//# REVISAR!
+				
 					cont_flag=1;
 			end
 			
@@ -108,8 +125,25 @@ module FSM
 			
 			begin
 
-				NextOut = 1;
+				
+				// NextOut = 1;
 
+
+				// Cuando se ingresa al estado calcular el producto cambia respecto
+				// a su valor inicial.
+
+				prod_sel = 1;
+
+
+				// En el estado CALC la señal a_sel selecciona
+				// el operando "a" que ya  ha sido rotado.
+
+				a_sel = 1;
+
+				// En el estado CALC la señal a_sel selecciona
+				// el operando "b" que ya ha sido rotado.
+
+				b_sel = 1;
 
 
 				if (cont < 32 && b_lsb == 1)
