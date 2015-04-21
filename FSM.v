@@ -25,7 +25,8 @@ module FSM
 	output reg a_sel,
 	output reg b_sel,
 	output reg prod_sel,
-	output reg add_sel
+	output reg add_sel,
+	output reg cont_flag
 
 );
 
@@ -84,6 +85,8 @@ module FSM
 				
 				// Si valid_data es 0 mantengase en el estado IDLE.
 
+				prod_sel = 0;
+
 				if (valid_data == 0)
 
 					NextState = `IDLE;
@@ -93,6 +96,11 @@ module FSM
 				else
 
 					NextState = `CALC;
+				
+					//# Cuando entre por primera vez a calcular inicie 
+					//# el contador de 32 bits.
+					//# REVISAR!
+					cont_flag=1;
 			end
 			
 
@@ -102,9 +110,13 @@ module FSM
 
 				NextOut = 1;
 
+
+
 				if (cont < 32 && b_lsb == 1)
 
 					NextState = `CALC;
+
+					// Si el bit lsb de b era 1 sumo al producto a.
 					add_sel = 1;
 
 				if (cont <32 && b_lsb == 0)
@@ -114,6 +126,11 @@ module FSM
 				else 
 
 					NextState = `DONE;
+
+					//# Cuando termine la cuenta baje la bandera del 
+					//# contador de 32 bits.
+					//# REVISAR!
+					cont_flag=0;
 
 			end
 			
