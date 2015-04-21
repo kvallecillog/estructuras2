@@ -15,8 +15,6 @@ module FSM
 	input wire Reset,
 	input wire valid_data,
 	input wire ack,
-	input wire In,
-	output reg Out,
 
 // Señales del datapath
 
