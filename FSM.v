@@ -21,6 +21,7 @@ module FSM
 // Señales del datapath
 
 	input wire b_lsb,
+	input wire cont,
 	output reg a_sel,
 	output reg b_sel,
 	output reg prod_sel,
@@ -101,9 +102,17 @@ module FSM
 
 				NextOut = 1;
 
-				if (In == 0)
-					NextState = `IDLE;
-				else
+				if (cont < 32 && b_lsb == 1)
+
+					NextState = `CALC;
+					add_sel = 1;
+
+				if (cont <32 && b_lsb == 0)
+					
+					NextState = `CALC;
+
+				else 
+
 					NextState = `DONE;
 
 			end
