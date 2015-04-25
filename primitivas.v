@@ -1,32 +1,32 @@
 `timescale 1ns/1ps
 
 // Se definen los retardos de las compuertas.
-`define TCOMPEqual 1
-`define TCOMPmay_me 1.4
-`define Tcont 1
-`define TcontRst 1 
-`define Treg 0.8
-`define TregRst 0.85
-`define TFF 0.5
-`define TFFrst 0.5
+`define TCOMPEqual 0
+`define TCOMPmay_me 0
+`define Tcont 0
+`define TcontRst 0 
+`define Treg 0
+`define TregRst 0
+`define TFF 0
+`define TFFrst 0
 `define DATA_BUS 32
-`define Tand 0.395
-`define Tor 0.35
-`define Tnor 0.35
-`define Tinv 0.7
-`define Tmux2 0.36
-`define Tmux8 1.3
-`define Tdemux 1.2
-`define Tbuf 0.5
+`define Tand 0
+`define Tor 0
+`define Tnor 0
+`define Tinv 0
+`define Tmux2 0
+`define Tmux8 1
+`define Tdemux 1
+`define Tbuf 0
 
 // Se definen los tiempos de set up y hold para los componentes síncronos.
-`define TsetupFF 0.1
-`define TholdFF 0.1
-`define TsetupReg 0.35
+`define TsetupFF 0
+`define TholdFF 0
+`define TsetupReg 0
 `define TholdReg 0
-`define TsetuppE 0.6
+`define TsetuppE 0
 `define TholdpE 0
-`define TsetupcE 0.6
+`define TsetupcE 0
 `define TholdcE 0
 
 

@@ -4,13 +4,24 @@
 
 module multiplicador(prod, Done_Flag, a, b, clk, reset, valid_data, ack);
 
-	output [31:0] prod;
+	output [63:0] prod;
 	output Done_Flag;
-	input [15:0] a, b;
+	input [31:0] a, b;
 	input clk,reset,valid_data,ack;
 
 	datapath data(a, b, prod, b_sel, a_sel, prod_sel, b_lsb, add_sel, clk, reset);
 
-	FSM control(clk, reset, valid_data, ack, b_lsb, a_sel, b_sel, prod_sel, Done_Flag);
+	FSM control(
+		.Clock(clk),
+		.Reset(reset),
+		.valid_data(valid_data),
+		.ack(ack),
+		.b_lsb(b_lsb),
+		.a_sel(a_sel),
+		.b_sel(b_sel),
+		.prod_sel(prod_sel),
+		.add_sel(add_sel),
+		.Done_Flag(Done_Flag)
+	);
 
 endmodule
