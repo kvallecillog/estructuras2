@@ -28,7 +28,7 @@ module FSM
 );
 
 	// contador de 6 bits para contar hasta 32.
-	
+
 	reg [5:0] cont; 
 	
 	// Registros de estado actual y proximo estado.
@@ -174,10 +174,16 @@ module FSM
 					end
 				
 				else 
-
+					begin
+	
 					NextState = `DONE;
 
+					// Reinicio del contador.
+					
 					cont = 0;
+
+					end
+
 	
 			end
 			
