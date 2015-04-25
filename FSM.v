@@ -1,4 +1,4 @@
-
+	
 `timescale 1ns / 1ps
 `define IDLE 0
 `define CALC 1
@@ -15,9 +15,6 @@ module FSM
 	input wire Reset,
 	input wire valid_data,
 	input wire ack,
-// MODIFICAR, AUN NO TENGO EL OUTPUT DE LA MAQUINA.
-	input wire in,
-	output reg out,
 // Señales del datapath
 	input wire b_lsb,
 	output reg a_sel,
@@ -39,7 +36,7 @@ module FSM
 
 	// Registro proxima salida
 
-	reg NextOut; //Solo para hacer la salida sincrónica
+	// reg NextOut; //Solo para hacer la salida sincrónica
 	
 
 	//Logica de Estado Presente y de Salida Sincrónica
@@ -55,7 +52,7 @@ module FSM
 			begin
 		
 			CurrentState <= `IDLE;
-			out <= 0;	
+		//	out <= 0;	
 		
 			end
 			
@@ -64,7 +61,7 @@ module FSM
 			begin
 		
 			CurrentState <= NextState;
-			out <= NextOut;	
+		//	out <= NextOut;	
 		
 			end
 			
@@ -83,7 +80,7 @@ module FSM
 			`IDLE:
 			begin
 				
-				NextOut = 0; // LO TRAE POR DEFECTO EL CODIGO REVISAR!
+			//	NextOut = 0; // LO TRAE POR DEFECTO EL CODIGO REVISAR!
 				
 				// Si valid_data es 0 mantengase en el estado IDLE.
 
@@ -127,7 +124,7 @@ module FSM
 			begin
 
 				// lo traia por defecto el codigo, REVISAR.
-				 NextOut = 1;
+			//	 NextOut = 1;
 
 
 				// Cuando se ingresa al estado calcular el producto cambia respecto
@@ -198,7 +195,7 @@ module FSM
 			
 			begin
 
-				NextOut = 0;
+			//	NextOut = 0;
 
 				// Si ack es 0 mantengase en el estado DONE.
 				
@@ -233,7 +230,7 @@ module FSM
 			begin
 
 				NextState = `IDLE;
-				NextOut = 0;
+			//	NextOut = 0;
 
 			end
 		
