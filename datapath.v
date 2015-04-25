@@ -49,7 +49,7 @@ module datapath(a,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset);
 	assign aShift = outRegA << 1;
 	
 	// Shift B
-	assign bShift = outRegB << 1;
+	assign bShift = outRegB >> 1;
 	
 	// Add A+Prod
 	wire [63:0] addResult;

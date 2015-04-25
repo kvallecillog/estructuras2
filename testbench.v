@@ -31,16 +31,16 @@ module tester(clk, reset, a, b, ack, Done_Flag, producto, valid_data);
 	#400 $finish;
 	end
 
-	// always @(*) 
-	// begin
-	// 	if (Done_Flag) begin
-	// 		ack = 1;	
-	// 	end
-	// 	else
-	// 	begin
-	// 		ack = 0;			
-	// 	end
-	// end
+	always @(*) 
+	begin
+		if (Done_Flag) begin
+			ack = 1;	
+		end
+		else
+		begin
+			ack = 0;			
+		end
+	end
 
 	initial begin #25 repeat(100) #5 clk=~clk; end
 

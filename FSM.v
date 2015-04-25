@@ -28,11 +28,13 @@ module FSM
 
 	// contador de 6 bits para contar hasta 32.
 
-	reg [5:0] cont; 
+	integer cont; 
 	
 	// Registros de estado actual y proximo estado.
 
 	reg [1:0] CurrentState, NextState;
+
+	reg a,b,c;
 
 	// Registro proxima salida
 
@@ -70,7 +72,7 @@ module FSM
 	
 	//Lógica de Próximo Estado de Máquina Moore (Salida solo depende del estado)
 	
-	always @ ( * )
+	always @ ( posedge Clock )
 
 	begin
 
@@ -99,10 +101,17 @@ module FSM
 				// el operando "b" inicial sin rotar.
 
 				b_sel = 0;
+				a = 0;
+				b= 0;
+				c=0;
 
 				// Inicializacion de contador.
 
 				cont = 0;
+
+
+				// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
+				add_sel = 0;
 
 				// Inicializacion de bandera done.
 				Done_Flag = 0 ;
@@ -147,56 +156,60 @@ module FSM
 				b_sel = 1;
 
 
-				cont = cont + 1;
+		
 				
-				NextState = `CALC;
-				// if (cont < 32 && b_lsb == 1)
+				// NextState = `CALC;
+				if (cont < 32 && b_lsb == 1)
 					
-				// 	begin
+					begin
 
-				// 	NextState = `CALC;
+					a<=1;
 
-				// 	// Si el bit lsb de b era 1 sumo al producto a.
-				// 	add_sel = 1;
+					NextState = `CALC;
 
-				// 	cont = cont + 1;
+					// Si el bit lsb de b era 1 sumo al producto a.
+					add_sel = 1;
 
-				// 	end
+					cont = cont + 1;
+
+					end
 
 				
-				// if (cont <32 && b_lsb == 0)
+				else if (cont <32 && b_lsb == 0)
 					
-				// 	begin
+					begin
+
+					b=1;
 							
-				// 	NextState = `CALC;
+					NextState = `CALC;
 
-				// 	cont = cont + 1;
+					cont = cont + 1;
 
 
-				// 	// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
-				// 	add_sel = 0;
+					// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
+					add_sel = 1;
 
-				// 	end
+					end
 				
-				// else 
-				// 	begin
+				else 
+					begin
+
+					c= 1;
 	
-				// 	NextState = `DONE;
+					NextState = `DONE;
 
-				// 	// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
-				// 	add_sel = 0;
+					// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
+					add_sel = 0;
 
-				// 	// Reinicio del contador.
+					// Reinicio del contador.
 
-				// 	cont = 0;
+					cont = 0;
 
-				// 	end
+					end
 
 	
 			end
 			
-
-
 			`DONE:
 
 			// El estado DONE envia el mensaje hacia afuera del multiplicador, 
@@ -205,6 +218,9 @@ module FSM
 			begin
 
 			//	NextOut = 0;
+
+			// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
+			add_sel = 0;
 
 				// Si ack es 0 mantengase en el estado DONE.
 				
