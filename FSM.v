@@ -104,6 +104,9 @@ module FSM
 
 				cont = 0;
 
+				// Inicializacion de bandera done.
+				Done_Flag = 0 ;
+
 
 				if (valid_data == 0)
 
@@ -145,7 +148,8 @@ module FSM
 
 
 				cont = cont + 1;
-
+				
+				NextState = `CALC;
 				// if (cont < 32 && b_lsb == 1)
 					
 				// 	begin
