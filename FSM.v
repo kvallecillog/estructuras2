@@ -27,7 +27,9 @@ module FSM
 
 );
 
-	reg cont; 
+	// contador de 6 bits para contar hasta 32.
+	
+	reg [5:0] cont; 
 	
 	// Registros de estado actual y proximo estado.
 
@@ -98,6 +100,10 @@ module FSM
 				// el operando "b" inicial sin rotar.
 
 				b_sel = 0;
+
+				// Inicializacion de contador.
+
+				cont = 0;
 
 
 				if (valid_data == 0)
