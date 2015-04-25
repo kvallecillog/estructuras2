@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `include "primitivas.v"
 
-module multiplicador(a,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset);
+module datapath(a,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset);
 
 	// Inputs
 	input [31:0] a,b;
