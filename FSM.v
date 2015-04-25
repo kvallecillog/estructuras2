@@ -18,20 +18,17 @@ module FSM
 // MODIFICAR, AUN NO TENGO EL OUTPUT DE LA MAQUINA.
 	input wire in,
 	output reg out,
-
 // Señales del datapath
-
 	input wire b_lsb,
-	input wire cont,
 	output reg a_sel,
 	output reg b_sel,
 	output reg prod_sel,
-	output reg add_sel,
-	output reg cont_flag
+	output reg add_sel
 
 );
 
-
+	reg cont; 
+	
 	// Registros de estado actual y proximo estado.
 
 	reg [1:0] CurrentState, NextState;
@@ -114,11 +111,6 @@ module FSM
 					NextState = `CALC;
 				
 				
-					//# Cuando entre por primera vez a calcular inicie 
-					//# el contador de 32 bits.
-					//# REVISAR!
-				
-					cont_flag=1;
 			end
 			
 
@@ -158,6 +150,8 @@ module FSM
 					// Si el bit lsb de b era 1 sumo al producto a.
 					add_sel = 1;
 
+					cont = cont + 1;
+
 					end
 				
 				// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
@@ -169,17 +163,16 @@ module FSM
 							
 					NextState = `CALC;
 
+					cont = cont + 1;
+
 					end
 				
 				else 
 
 					NextState = `DONE;
 
-					//# Cuando termine la cuenta baje la bandera del 
-					//# contador de 32 bits.
-					//# REVISAR!
-					cont_flag=0;
-
+					cont = 0;
+	
 			end
 			
 
