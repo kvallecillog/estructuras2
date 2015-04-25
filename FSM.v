@@ -23,7 +23,9 @@ module FSM
 	output reg a_sel,
 	output reg b_sel,
 	output reg prod_sel,
-	output reg add_sel
+	output reg add_sel,
+// Salida de para el test bench	
+	output reg Done_Flag
 
 );
 
@@ -179,7 +181,7 @@ module FSM
 					NextState = `DONE;
 
 					// Reinicio del contador.
-					
+
 					cont = 0;
 
 					end
@@ -201,14 +203,29 @@ module FSM
 				// Si ack es 0 mantengase en el estado DONE.
 				
 				if (ack == 0)
-				
+					begin
+					
+					// Bandera que indica que el resultado esta listo.
+
+					Done_Flag = 1;
+
 					NextState = `DONE;
+
+					end
+
 				
 				// Si ack es 1 vaya al estado IDLE.
 				else
-				
+					
+					begin
+
+					// Bandera que indica que el resultado esta listo.
+					
+					Done_Flag = 0;
+
 					NextState = `IDLE;
 
+					end
 			end
 			
 			default:
