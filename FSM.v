@@ -36,6 +36,12 @@ module FSM
 
 	reg a,b,c;
 
+	always @(*)begin
+
+		add_sel = b_lsb; 
+
+	end
+
 	// Registro proxima salida
 
 	// reg NextOut; //Solo para hacer la salida sincrónica
@@ -90,74 +96,67 @@ module FSM
 				// En el estado IDLE la señal prod_sel selecciona
 				// el producto inicializado en 0.
 
-				prod_sel = 0;
+				prod_sel <= 0;
 
 				// En el estado IDLE la señal a_sel selecciona
 				// el operando "a" inicial sin rotar.
 
-				a_sel = 0;
+				a_sel <= 0;
 
 				// En el estado IDLE la señal a_sel selecciona
 				// el operando "b" inicial sin rotar.
 
-				b_sel = 0;
+				b_sel <= 0;
 				a = 0;
 				b= 0;
 				c=0;
 
 				// Inicializacion de contador.
 
-				cont = 0;
+				cont <= 0;
 
 
 				// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
-				add_sel = 0;
+				// add_sel <= 0;
 
 				// Inicializacion de bandera done.
-				Done_Flag = 0 ;
+				Done_Flag <= 0 ;
 
 
 				if (valid_data == 0)
 
-					NextState = `IDLE;
+					NextState <= `IDLE;
 				
 				// Si valid_data es 1 vaya al estado CALC.
 
 				else
 
-					NextState = `CALC;
-				
+					NextState <= `CALC;
 				
 			end
-			
 
 			`CALC:
 			
 			begin
 
 				// lo traia por defecto el codigo, REVISAR.
-			//	 NextOut = 1;
-
+				//	 NextOut = 1;
 
 				// Cuando se ingresa al estado calcular el producto cambia respecto
 				// a su valor inicial.
 
-				prod_sel = 1;
-
+				prod_sel <= 1;
 
 				// En el estado CALC la señal a_sel selecciona
 				// el operando "a" que ya  ha sido rotado.
 
-				a_sel = 1;
+				a_sel <= 1;
 
 				// En el estado CALC la señal a_sel selecciona
 				// el operando "b" que ya ha sido rotado.
 
-				b_sel = 1;
+				b_sel <= 1;
 
-
-		
-				
 				// NextState = `CALC;
 				if (cont < 32 && b_lsb == 1)
 					
@@ -165,12 +164,12 @@ module FSM
 
 					a<=1;
 
-					NextState = `CALC;
+					NextState <= `CALC;
 
 					// Si el bit lsb de b era 1 sumo al producto a.
-					add_sel = 1;
+					// add_sel <= 1;
 
-					cont = cont + 1;
+					cont <= cont + 1;
 
 					end
 
@@ -181,13 +180,13 @@ module FSM
 
 					b=1;
 							
-					NextState = `CALC;
+					NextState <= `CALC;
 
-					cont = cont + 1;
+					cont <= cont + 1;
 
 
 					// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
-					add_sel = 1;
+					// add_sel <= 0;
 
 					end
 				
@@ -196,14 +195,14 @@ module FSM
 
 					c= 1;
 	
-					NextState = `DONE;
+					NextState <= `DONE;
 
 					// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
-					add_sel = 0;
+					// add_sel <= 0;
 
 					// Reinicio del contador.
 
-					cont = 0;
+					cont <= 0;
 
 					end
 
@@ -220,7 +219,7 @@ module FSM
 			//	NextOut = 0;
 
 			// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
-			add_sel = 0;
+			// add_sel <= 0;
 
 				// Si ack es 0 mantengase en el estado DONE.
 				
@@ -229,9 +228,9 @@ module FSM
 					
 					// Bandera que indica que el resultado esta listo.
 
-					Done_Flag = 1;
+					Done_Flag <= 1;
 
-					NextState = `DONE;
+					NextState <= `DONE;
 
 					end
 
@@ -243,9 +242,9 @@ module FSM
 
 					// Bandera que indica que el resultado esta listo.
 					
-					Done_Flag = 0;
+					Done_Flag <= 0;
 
-					NextState = `IDLE;
+					NextState <= `IDLE;
 
 					end
 			end
@@ -254,7 +253,7 @@ module FSM
 			
 			begin
 
-				NextState = `IDLE;
+				NextState <= `IDLE;
 			//	NextOut = 0;
 
 			end

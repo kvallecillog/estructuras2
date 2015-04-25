@@ -57,7 +57,7 @@ module datapath(a,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset);
 	
 	
 	// Mux add_sel
-	mux128a64 muxAddSel(.select(add_sel),.d1(addResult),.d2(outRegProd),.q(outAddSelMux));
+	mux128a64 muxAddSel(.select(add_sel),.d1(outRegProd),.d2(addResult),.q(outAddSelMux));
 	
 	assign prod = outRegProd;
 	
