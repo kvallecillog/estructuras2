@@ -158,9 +158,7 @@ module FSM
 					cont = cont + 1;
 
 					end
-				
-				// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
-				add_sel = 0;
+
 				
 				if (cont <32 && b_lsb == 0)
 					
@@ -170,12 +168,19 @@ module FSM
 
 					cont = cont + 1;
 
+
+					// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
+					add_sel = 0;
+
 					end
 				
 				else 
 					begin
 	
 					NextState = `DONE;
+
+					// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
+					add_sel = 0;
 
 					// Reinicio del contador.
 
