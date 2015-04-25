@@ -144,49 +144,49 @@ module FSM
 				b_sel = 1;
 
 
+				cont = cont + 1;
 
-
-				if (cont < 32 && b_lsb == 1)
+				// if (cont < 32 && b_lsb == 1)
 					
-					begin
+				// 	begin
 
-					NextState = `CALC;
+				// 	NextState = `CALC;
 
-					// Si el bit lsb de b era 1 sumo al producto a.
-					add_sel = 1;
+				// 	// Si el bit lsb de b era 1 sumo al producto a.
+				// 	add_sel = 1;
 
-					cont = cont + 1;
+				// 	cont = cont + 1;
 
-					end
+				// 	end
 
 				
-				if (cont <32 && b_lsb == 0)
+				// if (cont <32 && b_lsb == 0)
 					
-					begin
+				// 	begin
 							
-					NextState = `CALC;
+				// 	NextState = `CALC;
 
-					cont = cont + 1;
+				// 	cont = cont + 1;
 
 
-					// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
-					add_sel = 0;
+				// 	// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
+				// 	add_sel = 0;
 
-					end
+				// 	end
 				
-				else 
-					begin
+				// else 
+				// 	begin
 	
-					NextState = `DONE;
+				// 	NextState = `DONE;
 
-					// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
-					add_sel = 0;
+				// 	// Se selecciona reg_prod mientras NO se cumpla b & 0x1 == 1:
+				// 	add_sel = 0;
 
-					// Reinicio del contador.
+				// 	// Reinicio del contador.
 
-					cont = 0;
+				// 	cont = 0;
 
-					end
+				// 	end
 
 	
 			end
