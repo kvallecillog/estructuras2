@@ -18,8 +18,8 @@ module tester(clk, reset, a, b, ack, Done_Flag, producto, valid_data);
 	$dumpfile("kenny.vcd");
 	$dumpvars;
 	clk=0;
-	a=2;
-	b=2;
+	a=34;
+	b=76;
 	valid_data=0;
 	ack = 0;
 	reset = 0;
@@ -52,6 +52,6 @@ module testbench;
 	wire [31:0] a,b;
 	
 	tester test(clk, reset, a, b, ack, Done_Flag, producto, valid_data);
-	multiplicador imul(producto, Done_Flag, a, b, clk, reset, valid_data, ack);
+	multiplicador #(32) imul(producto, Done_Flag, a, b, clk, reset, valid_data, ack);
 
 endmodule
