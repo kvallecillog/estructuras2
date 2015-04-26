@@ -43,8 +43,8 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
       Out = {a_sel, b_sel, prod_sel, add_sel, done_flag};
       
       if (CurrentState == `IDLE || CurrentState == `DONE) cont = 0;
-      // REVISAR
-      if (CurrentState == `CALC) cont = cont + 1; 
+      
+      if (CurrentState == `CALC && a_sel) cont = cont + 1; 
       
     end
   end
@@ -67,19 +67,12 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
 	
 	  NextState <= `IDLE;
 	  
-	
 	end
 	
 	else begin
 	
 	  NextState <= `CALC;
-	  /*
-	  a_sel <= 1;
-	  b_sel <= 1;
-	  prod_sel <= 1; 
-	  add_sel <= 0; 
-	  done_flag <= 0;
-	  */
+
 	end
 	  
       end
@@ -92,14 +85,14 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
 	prod_sel <= 1; 
 	done_flag <= 0;
 	
-	if (cont <= 32 && b_lsb) begin
+	if (cont < 32 && b_lsb) begin
 	
 	  add_sel <= 1;
 	  NextState <= `CALC;
 	
 	end
 	  
-	else if(cont <= 32 && !b_lsb) begin
+	else if(cont < 32 && !b_lsb) begin
 	
 	  add_sel <= 0;
 	  NextState <= `CALC;
