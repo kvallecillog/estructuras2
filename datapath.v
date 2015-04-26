@@ -3,50 +3,56 @@
 
 `define SIZE_DATA 32
 
-module datapath(a,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset);
+module datapath(a32,b32,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset);
 
 	parameter size = `SIZE_DATA;
 	// Inputs
-	input [size-1:0] a,b;
-	wire [size-1:0] a,b;
+	input [size-1:0] a32,b32;
+	wire [2*size-1:0] a,b;
 	input wire b_sel,a_sel,prod_sel,add_sel;
 	input wire clk,reset;
 
+	// extras
+	reg [size-1:0] clear = 0;
+	assign a = {clear,a32};
+	assign b = {clear,b32};
+	
+	
 	// Outputs
 	output wire [2*size-1:0] prod;
 	output wire b_lsb;
 	
 	// Mux A
-	wire [size-1:0] outMuxA;
-	wire [size-1:0] aShift;
-	mux2NaN #(.size(32)) muxA (.select(a_sel),.d1(a),.d2(aShift),.q(outMuxA));
+	wire [2*size-1:0] outMuxA;
+	wire [2*size-1:0] aShift;
+	mux2NaN #(.size(2*size)) muxA (.select(a_sel),.d1(a),.d2(aShift),.q(outMuxA));
 	
 	// Mux B
-	wire [size-1:0] outMuxB;
-	wire [size-1:0] bShift;
-	mux2NaN #(.size(32)) muxB (.select(b_sel),.d1(b),.d2(bShift),.q(outMuxB));
+	wire [2*size-1:0] outMuxB;
+	wire [2*size-1:0] bShift;
+	mux2NaN #(.size(2*size)) muxB (.select(b_sel),.d1(b),.d2(bShift),.q(outMuxB));
 	
 	// Mux prod
 	wire [2*size-1:0] outMuxProd;
 	wire [2*size-1:0] outAddSelMux;
-	mux2NaN #(.size(64)) muxProd (.select(prod_sel),.d1(64'b0),.d2(outAddSelMux),.q(outMuxProd));
+	mux2NaN #(.size(2*size)) muxProd (.select(prod_sel),.d1(64'b0),.d2(outAddSelMux),.q(outMuxProd));
 	
 	// Reg A
-	wire [size-1:0] outRegA;
-	wire [size-1:0] outRegA_bar;
-	regN #(.size(32)) regA (.in(outMuxA),.clk(clk),.clr(reset),.out(outRegA),.out_bar(outRegA_bar));
+	wire [2*size-1:0] outRegA;
+	wire [2*size-1:0] outRegA_bar;
+	regN #(.size(2*size)) regA (.in(outMuxA),.clk(clk),.clr(reset),.out(outRegA),.out_bar(outRegA_bar));
 	
 	// Reg B
-	wire [size-1:0] outRegB;
-	wire [size-1:0] outRegB_bar;
-	regN #(.size(32)) regB (.in(outMuxB),.clk(clk),.clr(reset),.out(outRegB),.out_bar(outRegB_bar));
+	wire [2*size-1:0] outRegB;
+	wire [2*size-1:0] outRegB_bar;
+	regN #(.size(2*size)) regB (.in(outMuxB),.clk(clk),.clr(reset),.out(outRegB),.out_bar(outRegB_bar));
 	// Se asigna el valor de b_lsb como el bit menos significativo de la salida del registro B.
-	assign b_lsb = outRegB[0];
+	assign b_lsb = outMuxB[0];
 	
 	// Reg Prod
 	wire [2*size-1:0] outRegProd;
 	wire [2*size-1:0] outRegProd_bar;
-	regN #(.size(64)) regProd (.in(outMuxProd),.clk(clk),.clr(reset),.out(outRegProd),.out_bar(outRegProd_bar));
+	regN #(.size(2*size)) regProd (.in(outMuxProd),.clk(clk),.clr(reset),.out(outRegProd),.out_bar(outRegProd_bar));
 	
 	// Shift A
 	assign aShift = outRegA << 1;
@@ -56,11 +62,11 @@ module datapath(a,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset);
 	
 	// Add A+Prod
 	wire [2*size-1:0] addResult;
-	adderN #(.size(64)) sumador64 ({32'b0,outRegA},outRegProd,addResult);
+	adderN #(.size(2*size)) sumador64 (outRegA,outRegProd,addResult);
 	
 	
 	// Mux add_sel
-	mux2NaN #(.size(64)) muxAddSel(.select(add_sel),.d1(outRegProd),.d2(addResult),.q(outAddSelMux));
+	mux2NaN #(.size(2*size)) muxAddSel(.select(add_sel),.d1(outRegProd),.d2(addResult),.q(outAddSelMux));
 	
 	assign prod = outRegProd;
 	

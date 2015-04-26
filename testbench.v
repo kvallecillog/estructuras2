@@ -18,15 +18,15 @@ module tester(clk, reset, a, b, ack, Done_Flag, producto, valid_data);
 	$dumpfile("kenny.vcd");
 	$dumpvars;
 	clk=0;
-	a=34;
-	b=76;
+	a=32'hFFFFFFFF;
+	b=32'hFFFFFFFF;
 	valid_data=0;
 	ack = 0;
 	reset = 0;
 
 	#50 reset = 1;
 	#20 reset = 0;
-	#20 valid_data = 1;	
+	#25 valid_data = 1;	
 
 	#400 $finish;
 	end
@@ -34,15 +34,16 @@ module tester(clk, reset, a, b, ack, Done_Flag, producto, valid_data);
 	always @(*) 
 	begin
 		if (Done_Flag) begin
-			ack = 1;	
+			ack = 1;
+			valid_data = 0;
 		end
-		else
-		begin
+		
+		else begin
 			ack = 0;			
 		end
 	end
 
-	initial begin #25 repeat(100) #5 clk=~clk; end
+	initial begin #25 repeat(10000000) #5 clk=~clk; end
 
 endmodule
 

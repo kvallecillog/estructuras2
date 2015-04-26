@@ -253,9 +253,8 @@ module FSM
 			
 			begin
 
-				NextState <= `IDLE;
-			//	NextOut = 0;
-
+			   NextState <= `IDLE;
+			
 			end
 		
 
