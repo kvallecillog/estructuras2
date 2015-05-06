@@ -8,7 +8,7 @@
 
 //------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------
-//Modulo de registro de N bits.
+// Modulo de registro de N bits.
 //------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------
 module regN(in,clk,clr/*,enable*/,out,out_bar);
@@ -16,10 +16,10 @@ module regN(in,clk,clr/*,enable*/,out,out_bar);
 	parameter size = `SIZE_REG;
 	
 	// Se tienen las entradas:
-	// - in: el dato de entrada, un vector de 32 bits.
+	// - in: el dato de entrada, un vector de SIZE bits.
 	// - clk: reloj del registro.
 	// - clr: reset del registro.
-	// - out, out_bar: salidas del registro, son vectores de 32 bits.
+	// - out, out_bar: salidas del registro, son vectores de SIZE bits.
 	input [size-1:0] in;
 	input clk,clr;
 	output [size-1:0] out;
@@ -29,6 +29,7 @@ module regN(in,clk,clr/*,enable*/,out,out_bar);
 	reg [size-1:0]clear;
 	
 	// Se crea un bloque para definir la función que realiza un registro tipo PIPO (Parallel Input Parallel Output).
+	// Si ocurre un flanco positivo del reloj y reset (clr) se encuentra a 0 se pasa el dato de entrada a la salida.
 	always @(posedge clk) begin
 
 		if (clr==0 /*&& enable==1*/) begin 
@@ -42,6 +43,7 @@ module regN(in,clk,clr/*,enable*/,out,out_bar);
 	
 	
 	// Si ocurre un clr, la salida de los registros se vuelve 0 en q y 1 en q_bar.
+	// REVISAR SI DEBE SER UN POSEDGE O POR NIVEL.
 	always @(posedge clr) begin
 	
 		clear = 0;
@@ -62,7 +64,7 @@ endmodule
 
 //------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------
-//Modulo Multiplexor 2N a N
+// Modulo Multiplexor 2N a N
 //------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------
 
@@ -70,12 +72,21 @@ module mux2NaN(select, d1,d2, q);
 
 	parameter size = `SIZE_MUX;
 
+	 // Se tiene como entradas:
+	 // - select: corresponde a la entrada de seleccion, como
+	 //   se esta escogiendo entre 2 vectores de SIZE bits se necesita
+	 //   unicamente 1 bit para la seleccion.
+	 //
+	 // - d1, d2: Corresponden a vectores de SIZE bits de entrada del mux
+	 //
+	 // Se tiene como salida:
+	 // - q: Corresponde a un vector de SIZE bits que es la salida del mux.
 	input select;
 	output [size-1:0]q;
 	reg [size-1:0] q;
 	input [size-1:0] d1,d2;
 
-	//Secuencia de selección de datos
+	// Secuencia de selección de datos
 	always @(*) begin
 
 		case(select)
@@ -96,7 +107,7 @@ endmodule
 
 //------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------
-//Modulo sumador de N bits
+// Modulo sumador de N bits
 //------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------
 
@@ -104,11 +115,17 @@ module adderN(in1,in2,out);
 
 	parameter size = `SIZE_ADDER;
 
+	// Se tiene como entrada los 2 vectores a sumar de tamaño SIZE.
+	input [size-1:0] in1,in2;
+	
+	// Se tiene como salida un vecctor que es el resultado de la suma
+	// y es tamaño SIZE al igual que las entradas.
 	output [size-1:0]out;
 	reg [size-1:0] out;
-	input [size-1:0] in1,in2;
+	
 
-	//Secuencia de selección de datos
+	// Cada vez que cambie alguna de las entradas, se recalcula
+	// el resultado de la suma.
 	always @(*) begin
 
 	  out = in1+in2;

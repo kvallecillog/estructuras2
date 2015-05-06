@@ -63,12 +63,14 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
 	add_sel <= 0; 
 	done_flag <= 0;
 	
+	// Mientras los datos sean invalidos, se mantiene en el estado inicial.
 	if (valid_data == 0) begin
 	
 	  NextState <= `IDLE;
 	  
 	end
 	
+	// Si los datos se vuelven validos se pasa al estado de calculo.
 	else begin
 	
 	  NextState <= `CALC;
@@ -79,19 +81,30 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
       
       /////////////////////////////////////////
       `CALC: begin
-	
+      
+	// Se debe poner las señales de seleccion a 1 para seleccionar
+	// en los muxes del datapath los datos shifted al final del datapath
+	// y en el caso del prod_sel los datos resultantes del sumador.
 	a_sel <= 1;
 	b_sel <= 1;
 	prod_sel <= 1; 
 	done_flag <= 0;
 	
+	// Mientras el conteo se mantenga menor a 32 y el LSB de B
+	// sea 1 se pone la señal de seleccion del mux de salida del sumador
+	// a 1 para que eliga el resultado sumado. Además como la cuenta es
+	// menor a 32 se continua calculando.
 	if (cont < 32 && b_lsb) begin
 	
 	  add_sel <= 1;
 	  NextState <= `CALC;
 	
 	end
-	  
+	
+	// Si la cuenta se mantiene menor a 32 y el LSB de B es 0 se pone
+	// el selector del mux de salida del sumador a 1 para que eliga
+	// el resultado sin sumar. Además como la cuenta es menor a 32 se continua
+	// calculando.
 	else if(cont < 32 && !b_lsb) begin
 	
 	  add_sel <= 0;
@@ -99,6 +112,8 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
 	  
 	end  
 	
+	// En caso de que la cuenta no sea menor a 32 se pasa al estado DONE.
+	// Además se deja pone add_sel a 0 para evitar que el resultado cambie.
 	else begin
 	
 	  add_sel <= 0;
@@ -110,12 +125,18 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
     ////////////////////////////////////////////////////////////////////
       `DONE:begin
 	
+	// Las señales de seleccion se pasan a 0 ya que no es necesario seguir
+	// operando sobre los operandos.
 	a_sel <= 0;
 	b_sel <= 0;
-	prod_sel <= 1; 
 	add_sel <= 0;
+	// prod_sel se mantiene a 1 para mantener el resultado de la multiplicacion
+	prod_sel <= 1; 
+	
 	done_flag <= 1;
      
+	// Si ocurre un ACK significa que el dato ya fue entregado y por tanto
+	// se puede regresar al estado inicial.
 	if (ack) begin
 	
 	  NextState = `IDLE;
