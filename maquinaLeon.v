@@ -15,10 +15,10 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
   input wire b_lsb;
   
   // Salida de para el test bench.
-  output reg [4:0] Out;
+  output reg [6:0] Out;
 
   // Señales internas de la máquina.
-  reg a_sel, b_sel, prod_sel, add_sel, done_flag;
+  reg a_sel, b_sel, prod_sel, add_sel, done_flag, enable, koala;
   
   // Señales de estados.
   reg [1:0] CurrentState, NextState;
@@ -39,8 +39,10 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
     
     else begin
     
+      
       CurrentState = NextState;
-      Out = {a_sel, b_sel, prod_sel, add_sel, done_flag};
+      
+      Out = {a_sel, b_sel, prod_sel, add_sel, done_flag, enable, koala};
       
       if (CurrentState == `IDLE || CurrentState == `DONE) cont = 0;
       
@@ -53,6 +55,18 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
   //Lógica de Próximo Estado de Máquina Moore (Salida solo depende del estado)
   always @ ( * ) begin
   
+    if ((CurrentState == `IDLE && NextState == `CALC) 
+	   || (CurrentState == `CALC && NextState == `CALC) ) enable = 1;
+   
+    else enable = 0;
+
+    // ***********************************************************************
+    // MORA ESTO ES LO QUE HACE QUE LA SEÑAL QUE UD PIDIÓ CAMBIE DE 0 A 1
+    if (CurrentState == `IDLE && NextState == `CALC) koala = 1;
+   
+    else koala = 0;
+    // ************************************************************************
+    
     case (CurrentState)
       ////////////////////////////////////////
       `IDLE: begin

@@ -11,7 +11,7 @@
 // Modulo de registro de N bits.
 //------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------
-module regN(in,clk,clr/*,enable*/,out,out_bar);
+module regN(in,clk,clr,enable,out,out_bar);
 	
 	parameter size = `SIZE_REG;
 	
@@ -21,7 +21,7 @@ module regN(in,clk,clr/*,enable*/,out,out_bar);
 	// - clr: reset del registro.
 	// - out, out_bar: salidas del registro, son vectores de SIZE bits.
 	input [size-1:0] in;
-	input clk,clr;
+	input clk,clr,enable;
 	output [size-1:0] out;
 	output [size-1:0] out_bar;
 	reg [size-1:0] out;
@@ -32,7 +32,7 @@ module regN(in,clk,clr/*,enable*/,out,out_bar);
 	// Si ocurre un flanco positivo del reloj y reset (clr) se encuentra a 0 se pasa el dato de entrada a la salida.
 	always @(posedge clk) begin
 
-		if (clr==0 /*&& enable==1*/) begin 
+		if (clr==0 && enable==1) begin 
 		 
 			out <= in;
 			out_bar <= !in;

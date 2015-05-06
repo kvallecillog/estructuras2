@@ -3,14 +3,14 @@
 
 `define SIZE_DATA 32
 
-module datapath(a32,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset);
+module datapath(a32,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset, enable);
 
 	parameter size = `SIZE_DATA;
 	// Inputs
 	input [size-1:0] a32,b;
 	wire [2*size-1:0] a;
 	input wire b_sel,a_sel,prod_sel,add_sel;
-	input wire clk,reset;
+	input wire clk,reset, enable;
 
 	// extras
 	reg [size-1:0] clear = 0;
@@ -39,19 +39,19 @@ module datapath(a32,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset);
 	// Reg A
 	wire [2*size-1:0] outRegA;
 	wire [2*size-1:0] outRegA_bar;
-	regN #(.size(2*size)) regA (.in(outMuxA),.clk(clk),.clr(reset),.out(outRegA),.out_bar(outRegA_bar));
+	regN #(.size(2*size)) regA (.in(outMuxA),.clk(clk),.clr(reset),.enable(enable),.out(outRegA),.out_bar(outRegA_bar));
 	
 	// Reg B
 	wire [size-1:0] outRegB;
 	wire [size-1:0] outRegB_bar;
-	regN #(.size(size)) regB (.in(outMuxB),.clk(clk),.clr(reset),.out(outRegB),.out_bar(outRegB_bar));
+	regN #(.size(size)) regB (.in(outMuxB),.clk(clk),.clr(reset),.enable(enable),.out(outRegB),.out_bar(outRegB_bar));
 	// Se asigna el valor de b_lsb como el bit menos significativo de la salida del registro B.
 	assign b_lsb = outMuxB[0];
 	
 	// Reg Prod
 	wire [2*size-1:0] outRegProd;
 	wire [2*size-1:0] outRegProd_bar;
-	regN #(.size(2*size)) regProd (.in(outMuxProd),.clk(clk),.clr(reset),.out(outRegProd),.out_bar(outRegProd_bar));
+	regN #(.size(2*size)) regProd (.in(outMuxProd),.clk(clk),.clr(reset),.enable(enable),.out(outRegProd),.out_bar(outRegProd_bar));
 	
 	// Shift A
 	assign aShift = outRegA << 1;
