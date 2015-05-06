@@ -34,7 +34,7 @@ module tester(clk, reset, a, b, ack, Done_Flag, producto, valid_data);
 	always @(*) 
 	begin
 		if (Done_Flag) begin
-			#5 ack = 1;
+			#23 ack = 1;
 			valid_data = 0;
 		end
 		

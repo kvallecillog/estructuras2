@@ -11,7 +11,7 @@
 //Modulo de registro de N bits.
 //------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------
-module regN(in,clk,clr,out,out_bar);
+module regN(in,clk,clr/*,enable*/,out,out_bar);
 	
 	parameter size = `SIZE_REG;
 	
@@ -31,7 +31,7 @@ module regN(in,clk,clr,out,out_bar);
 	// Se crea un bloque para definir la función que realiza un registro tipo PIPO (Parallel Input Parallel Output).
 	always @(posedge clk) begin
 
-		if (clr==0) begin 
+		if (clr==0 /*&& enable==1*/) begin 
 		 
 			out <= in;
 			out_bar <= !in;
@@ -44,13 +44,13 @@ module regN(in,clk,clr,out,out_bar);
 	// Si ocurre un clr, la salida de los registros se vuelve 0 en q y 1 en q_bar.
 	always @(posedge clr) begin
 	
-		
-		
 		clear = 0;
 		
 		if (clr==1) begin 
+		
 			out <= clear; 
 			out_bar<= ~clear; 
+			
 		end
 	
 	end 
