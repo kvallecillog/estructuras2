@@ -18,7 +18,7 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
   output reg [6:0] Out;
 
   // Señales internas de la máquina.
-  reg a_sel, b_sel, prod_sel, add_sel, done_flag, enable, koala;
+  reg a_sel, b_sel, prod_sel, add_sel, done_flag, enable, ret_ack;
   
   // Señales de estados.
   reg [1:0] CurrentState, NextState;
@@ -42,7 +42,7 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
       
       CurrentState = NextState;
       
-      Out = {a_sel, b_sel, prod_sel, add_sel, done_flag, enable, koala};
+      Out = {a_sel, b_sel, prod_sel, add_sel, done_flag, enable, ret_ack};
       
       if (CurrentState == `IDLE || CurrentState == `DONE) cont = 0;
       
@@ -62,9 +62,9 @@ module FSM (Clock,Reset,valid_data,ack,b_lsb,Out);
 
     // ***********************************************************************
     // MORA ESTO ES LO QUE HACE QUE LA SEÑAL QUE UD PIDIÓ CAMBIE DE 0 A 1
-    if (CurrentState == `IDLE && NextState == `CALC) koala = 1;
+    if (CurrentState == `IDLE && NextState == `CALC) ret_ack = 1;
    
-    else koala = 0;
+    else ret_ack = 0;
     // ************************************************************************
     
     case (CurrentState)

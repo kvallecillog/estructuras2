@@ -2,10 +2,10 @@
 `include "datapath.v"
 `include "maquinaLeon.v"
 
-module multiplicador(prod, Done_Flag, a, b, clk, reset, valid_data, ack, koala);
+module multiplicador(prod, Done_Flag, a, b, clk, reset, valid_data, ack, ret_ack);
 
 	output [63:0] prod;
-	output Done_Flag, koala;
+	output Done_Flag, ret_ack;
 	input [31:0] a, b;
 	input clk,reset,valid_data,ack;
 	wire [6:0] Out;
@@ -20,6 +20,6 @@ module multiplicador(prod, Done_Flag, a, b, clk, reset, valid_data, ack, koala);
 	assign add_sel = Out[3];
 	assign Done_Flag = Out[2];
 	assign enable = Out[1];
-	assign koala = Out[0];
+	assign ret_ack = Out[0];
 	
 endmodule
