@@ -2,11 +2,15 @@
 `include "datapath.v"
 `include "maquinaLeon.v"
 
+`define SIZE_MUL 32
+
 module multiplicador(prod, Done_Flag, a, b, clk, reset, valid_data, ack, ret_ack);
 
-	output [63:0] prod;
+	parameter size = `SIZE;
+
+	output [2*size-1:0] prod;
 	output Done_Flag, ret_ack;
-	input [31:0] a, b;
+	input [size-1:0] a, b;
 	input clk,reset,valid_data,ack;
 	wire [6:0] Out;
 

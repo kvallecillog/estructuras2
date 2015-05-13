@@ -15,7 +15,7 @@ module datapath(a32,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset, enable)
 	// extras
 	reg [size-1:0] clear = 0;
 	assign a = {clear,a32};
-	
+	reg [2*size-1:0] clear2 = 0;
 	
 	// Outputs
 	output wire [2*size-1:0] prod;
@@ -34,7 +34,7 @@ module datapath(a32,b,prod,b_sel,a_sel,prod_sel,b_lsb,add_sel,clk,reset, enable)
 	// Mux prod
 	wire [2*size-1:0] outMuxProd;
 	wire [2*size-1:0] outAddSelMux;
-	mux2NaN #(.size(2*size)) muxProd (.select(prod_sel),.d1(64'b0),.d2(outAddSelMux),.q(outMuxProd));
+	mux2NaN #(.size(2*size)) muxProd (.select(prod_sel),.d1(clear2),.d2(outAddSelMux),.q(outMuxProd));
 	
 	// Reg A
 	wire [2*size-1:0] outRegA;
