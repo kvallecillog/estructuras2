@@ -18,10 +18,10 @@ module tester(clk, reset, a, b, c, d, ack, Done_Flag, producto, valid_data, ret_
 	$dumpfile("senales4.vcd");
 	$dumpvars;
 	clk=0;
-	a=10;
-	b=10;
-	c=10;
-	d=10;
+	a=150;
+	b=2;
+	c=700;
+	d=1250;
 	valid_data=0;
 	ack = 0;
 	reset = 0;
@@ -31,30 +31,6 @@ module tester(clk, reset, a, b, c, d, ack, Done_Flag, producto, valid_data, ret_
 	#25 valid_data = 1;	
 
 	#800 $finish;
-	a=19347;
-	b=0;
-	valid_data=0;
-	ack=0;
-	
-	#50 valid_data = 1;
-	#400
-
-	a=0;
-	b=0;
-	valid_data=0;
-	ack=0;
-	
-	#50 valid_data = 1;
-	#400 
-
-	a=4294967295;
-	b=4294967295;
-	valid_data=0;
-	ack=0;
-
-	#50 valid_data = 1;
-			
-	#400 $finish;
 	
 	end
 
@@ -62,7 +38,7 @@ module tester(clk, reset, a, b, c, d, ack, Done_Flag, producto, valid_data, ret_
 	begin
 		if (Done_Flag) begin
 			#23 ack = 1;
-			$display("Las entradas son a = %d, b = %d y el producto es a x b = %d",a,b,producto);
+			$display("Las entradas son a = %d, b = %d, c = %d, d = %d, y el producto total es = %d",a,b,c,d,producto);
 		end
 		
 		else begin

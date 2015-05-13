@@ -5,12 +5,12 @@ module tester(clk, reset, a, b, c, ack, Done_Flag, producto, valid_data, ret_ack
 
 	output [31:0] a,b,c;
 	output clk, reset, valid_data, ack;
-	input [63:0] producto;
+	input [127:0] producto;
 	input Done_Flag, ret_ack;
 
 	reg clk, reset, valid_data, ack;
 	reg [31:0] a,b,c;
-	wire [63:0] producto;
+	wire [127:0] producto;
 
 	initial begin
 
@@ -30,30 +30,6 @@ module tester(clk, reset, a, b, c, ack, Done_Flag, producto, valid_data, ret_ack
 	#25 valid_data = 1;	
 
 	#800 $finish;
-	a=19347;
-	b=0;
-	valid_data=0;
-	ack=0;
-	
-	#50 valid_data = 1;
-	#400
-
-	a=0;
-	b=0;
-	valid_data=0;
-	ack=0;
-	
-	#50 valid_data = 1;
-	#400 
-
-	a=4294967295;
-	b=4294967295;
-	valid_data=0;
-	ack=0;
-
-	#50 valid_data = 1;
-			
-	#400 $finish;
 	
 	end
 
@@ -61,7 +37,7 @@ module tester(clk, reset, a, b, c, ack, Done_Flag, producto, valid_data, ret_ack
 	begin
 		if (Done_Flag) begin
 			#23 ack = 1;
-			$display("Las entradas son a = %d, b = %d y el producto es a x b = %d",a,b,producto);
+			$display("Las entradas son a = %d, b = %d, c = %d y el producto total es = %d",a,b,c,producto);
 		end
 		
 		else begin
@@ -79,7 +55,8 @@ endmodule
 
 module testbench;
 		
-	wire [63:0] producto_interno, producto;
+	wire [63:0] producto_interno;
+	wire [127:0] producto;
 	wire [31:0] a,b,c;
 	
 	tester test(clk, reset, a, b, c, ack, Done_Flag, producto, valid_data, ret_ack);

@@ -6,7 +6,7 @@
 
 module multiplicador(prod, Done_Flag, a, b, clk, reset, valid_data, ack, ret_ack);
 
-	parameter size = `SIZE;
+	parameter size = `SIZE_MUL;
 
 	output [2*size-1:0] prod;
 	output Done_Flag, ret_ack;
@@ -14,7 +14,7 @@ module multiplicador(prod, Done_Flag, a, b, clk, reset, valid_data, ack, ret_ack
 	input clk,reset,valid_data,ack;
 	wire [6:0] Out;
 
-	datapath data(a, b, prod, b_sel, a_sel, prod_sel, b_lsb, add_sel, clk, reset, enable);
+	datapath #(size) data(a, b, prod, b_sel, a_sel, prod_sel, b_lsb, add_sel, clk, reset, enable);
 	
 	FSM control(clk,reset,valid_data,ack,b_lsb,Out);
 	
