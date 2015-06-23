@@ -1,4 +1,4 @@
-`include "tarea4.v"
+`include "id.v"
 
 module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
 
@@ -28,7 +28,7 @@ module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,o
 		valor = 35;
 		instr = {`LDCA, valor};
 		#20 instr = {`LDCB,clear};
-		// HAZARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		// HAZARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GOOOOOOOOOL!!!
 		// SI EL VALOR DEL BRANCH + EL NEWPC ES MAYOR
 		// A LAS 1024 POSICIONES DE MEMORIA ENTONCES
 		// EMPIEZA EN 0 DE NUEVO POR EJEMPLO NEWPC=1000
@@ -56,6 +56,6 @@ module tester;
 	wire [5:0] operation;
 	
 	probador test(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
-	pegar pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
+	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
 
 endmodule
