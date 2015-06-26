@@ -41,6 +41,14 @@
 `define NOP	6'h25
 
 
-
+// Tamaños para el ROM.
 `define WIDTH_INSTR_MEM 16
 `define LENGTH_INSTR_MEM 10
+
+// Tamaños para el RAM.
+`define WIDTH_DATA_MEM 8
+`define LENGTH_DATA_MEM 10
+
+
+// Cantidad de bits de la operacion
+`define OPERATION_SIZE 6

@@ -1,7 +1,7 @@
 `include "instrDefine.v"
 
 // ---------------------------------------------------------------------------------------------
-module iFetch(clk,reset,iBr_dir,iBr_taken,oFetchedInst);
+module iFetch(clk,reset,iBr_dir,iBr_taken,oFetchedInst,oNew_pc);
 
 	// Se define las entradas del modulo IF:
 	// - br_dir: direccion que se carga al pc cuando cuando un branch es tomado.
@@ -15,12 +15,13 @@ module iFetch(clk,reset,iBr_dir,iBr_taken,oFetchedInst);
 	// - fetched_inst: direccion de 10 bits con los datos de la siguiente instruccion a decodificar
 	output reg [`WIDTH_INSTR_MEM-1:0] oFetched_inst;
 	output wire [`WIDTH_INSTR_MEM-1:0] oFetchedInst;
+	output wire [`LENGTH_INSTR_MEM-1:0] oNew_pc;
+
 	
 	// Internas
 	wire [`LENGTH_INSTR_MEM-1:0] wPc_pointer;
-	wire [`LENGTH_INSTR_MEM-1:0] wNew_pc;
 	
-	pc pcIF(clk,reset,iBr_dir,iBr_taken,wPc_pointer,wNew_pc);
+	pc pcIF(clk,reset,iBr_dir,iBr_taken,wPc_pointer,oNew_pc);
 	
 	ROM instructMem(wPc_pointer,oFetchedInst);
 	
