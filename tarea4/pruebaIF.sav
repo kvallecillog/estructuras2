@@ -1,0 +1,53 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Wed Jun 24 08:39:36 2015
+[*]
+[dumpfile] "/home/aglt93/Escritorio/repositorios/estructuras2/tarea4/pruebaIF.vcd"
+[dumpfile_mtime] "Wed Jun 24 08:38:14 2015"
+[dumpfile_size] 2962
+[savefile] "/home/aglt93/Escritorio/repositorios/estructuras2/tarea4/pruebaIF.sav"
+[timestart] 0
+[size] 1301 744
+[pos] -1 -1
+*-4.311898 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tester.
+[sst_width] 223
+[signals_width] 174
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@28
+tester.test.clk
+@22
+tester.test.iBr_dir[9:0]
+@28
+tester.test.iBr_taken
+@800023
+tester.test.oFetchedInst[15:0]
+@c00023
+#{Instrucion} (0)tester.test.oFetchedInst[15:0] (1)tester.test.oFetchedInst[15:0] (2)tester.test.oFetchedInst[15:0] (3)tester.test.oFetchedInst[15:0] (4)tester.test.oFetchedInst[15:0] (5)tester.test.oFetchedInst[15:0]
+@29
+(0)tester.test.oFetchedInst[15:0]
+(1)tester.test.oFetchedInst[15:0]
+(2)tester.test.oFetchedInst[15:0]
+(3)tester.test.oFetchedInst[15:0]
+(4)tester.test.oFetchedInst[15:0]
+(5)tester.test.oFetchedInst[15:0]
+@1401201
+-group_end
+@29
+(6)tester.test.oFetchedInst[15:0]
+(7)tester.test.oFetchedInst[15:0]
+(8)tester.test.oFetchedInst[15:0]
+(9)tester.test.oFetchedInst[15:0]
+(10)tester.test.oFetchedInst[15:0]
+(11)tester.test.oFetchedInst[15:0]
+(12)tester.test.oFetchedInst[15:0]
+(13)tester.test.oFetchedInst[15:0]
+(14)tester.test.oFetchedInst[15:0]
+(15)tester.test.oFetchedInst[15:0]
+@1001201
+-group_end
+@28
+tester.test.reset
+[pattern_trace] 1
+[pattern_trace] 0

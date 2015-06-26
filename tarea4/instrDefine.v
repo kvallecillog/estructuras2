@@ -19,13 +19,13 @@
 `define ANDB 	6'h0F
 `define ANDCA 	6'h10
 `define ANDCB	6'h11
-`define ORA		6'h12
-`define ORB		6'h13
+`define ORA	6'h12
+`define ORB	6'h13
 `define ORCA	6'h14
 `define ORCB	6'h15
 `define ASLA	6'h16
 `define ASRA	6'h17
-`define JMP		6'h18
+`define JMP	6'h18
 `define BAEQ	6'h19
 `define BANE	6'h1A
 `define BACS	6'h1B
@@ -38,3 +38,9 @@
 `define BBCC	6'h22
 `define BBMI	6'h23
 `define BBPL	6'h24
+`define NOP	6'h25
+
+
+
+`define WIDTH_INSTR_MEM 16
+`define LENGTH_INSTR_MEM 10
