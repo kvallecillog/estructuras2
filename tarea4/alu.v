@@ -120,7 +120,7 @@ module alu(
 	 	oAluData<=iAluOper1[7];
 		end
 
-
+		default: oAluData<=0;
 	endcase
 
 	end
