@@ -1,9 +1,107 @@
-`include "id.v"
-`include "iFetch.v"
+`timescale 1ns/1ps
+
+`include "pipeline.v"
+
+
+// PROBADOR DEL PIPELINE IF_ID LISTOS.
+module probador (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
+  wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
+
+	// Salidas
+	output reg clk;
+	output reg reset;
+	//output reg wBrTaken_IF;
+	//output reg [9:0] wBrDir_IF;
+	output reg [7:0] wData_WB;
+	
+	// Entradas.
+	input wire [7:0] wAcumA_ID;
+	input wire [7:0] wAcumB_ID;
+	input wire [9:0] wBrDir_ID;
+	input wire wBrTaken_ID;
+	input wire [1:0] wOutSelMux_ID;
+	input wire [5:0] wOperation_ID;
+	
+	//assign wBrTaken_ID = wBrTaken_IF;
+	
+
+	initial begin
+	
+		$dumpfile("pruebaPIPE.vcd");
+		$dumpvars;
+		
+		clk = 0;
+		reset = 1;
+		#23 reset = 0;
+		
+		wData_WB = 6;
+		#5 wData_WB = 7;
+		
+		
+		#70 $finish;
+		
+	end
+	
+	always clk = #5 ~clk;
+	
+
+endmodule
+
+
+module tester;
+
+	wire clk;
+	wire reset;
+	wire [7:0] wData_WB;
+	//wire [9:0] wBrDir_IF;
+	wire [7:0] wAcumA_ID;
+	wire [7:0] wAcumB_ID;
+	wire [9:0] wBrDir_ID;
+	wire wBrTaken_ID;
+	wire [1:0] wOutSelMux_ID;
+	//wire wBrTaken_IF;
+	wire [5:0] wOperation_ID;
+	
+	
+	probador test(clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
+  wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
+	
+	
+	pipeline pegado (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
+  wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
+
+endmodule
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 // PROBADOR DEL Ifetch
 module probador(clk,reset,iBr_dir,iBr_taken,oFetchedInst);
 
@@ -51,6 +149,7 @@ module tester;
 	iFetch pegado(clk,reset,iBr_dir,iBr_taken,oFetchedInst);
 
 endmodule
+*/
 
 
 
@@ -68,8 +167,8 @@ endmodule
 
 
 
-
-/* PROBADOR DEL ID.
+/*
+//PROBADOR DEL ID.
 module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
 
 
@@ -129,5 +228,4 @@ module tester;
 	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
 
 endmodule
-
 */

@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 `include "instrDefine.v"
 
 // Constantes para el control de los acumuladores.
@@ -31,12 +32,12 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 	// - branchDir: Corresponde a la direccion a la que se debe dirigir el branch.
 	// - branchTaken: Corresponde a la selección de un mux si tomar o no el branch.
 	// - controlAcum: Corresponde a la señal de control del acumulador, la cual según la instruccion
-	// 				  tiene como salidas los siguientes valores:
-	//					- noLoad (000) : Implica que no se tiene que cargar ningún valor al acumulador.
-	//					- loadConstantA (001):
-	//					- loadConstantB (010):
-	//					- loadMemoryA (011):
-	//					- loadMemoryB (100):
+	// 	tiene como salidas los siguientes valores:
+	//	- noLoad (000) : Implica que no se tiene que cargar ningún valor al acumulador.
+	//	- loadConstantA (001):
+	//	- loadConstantB (010):
+	//	- loadMemoryA (011):
+	//	- loadMemoryB (100):
 	//
 	// - outMuxSel: Señales de control del mux de la etapa de EX. Permite seleccionar entre el valor de los registros
 	//				o la constante enviada como salida de este modulo como constant.
@@ -87,7 +88,7 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 		// que esto se realiza para maximizar el uso de recursos.
 		if(instrDecod == `JMP || instrDecod == `STA || instrDecod == `STB) branchDir = instrInfo;
 		// Para las otras instrucciones es relativo.
-		else branchDir = newPC + saltoRel;
+		else branchDir = newPC + {4'b0,saltoRel};
 		
 		
 		case(instrDecod)
@@ -407,6 +408,15 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 				
 			end
 			
+			`NOP: begin
+			
+				branchTaken = 0;
+				controlAcum = `noLoad;
+				outSelMux = `selConstants;
+			
+			
+			end
+			
 		endcase
 		
 	end
@@ -466,6 +476,14 @@ module acumAB(constant,data,control, salidaAcumA, salidaAcumB);
 				salidaAcumA = salidaAcumA;
 				salidaAcumB = data;
 				
+			end
+			
+			
+			default: begin
+			
+			  salidaAcumA = 0;
+			  salidaAcumB = 0;
+			  
 			end
 		
 		endcase

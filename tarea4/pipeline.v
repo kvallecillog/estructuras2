@@ -1,9 +1,13 @@
+`timescale 1ns/1ps
+
 `include "iFetch.v"
 `include "id.v"
 
 `define SIZE_REG(X,Y) X+Y  
 
-module pipeline (clk,reset,wData_WB,wBrDir_IF,wBrTaken_IF,
+
+
+module pipeline (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
   wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
 
   // Entradas 
@@ -15,8 +19,12 @@ module pipeline (clk,reset,wData_WB,wBrDir_IF,wBrTaken_IF,
   wire [`LENGTH_INSTR_MEM-1:0] wNewPC_IF;
   //Entradas temporales!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   input [`WIDTH_DATA_MEM-1:0] wData_WB;
-  input wire [`LENGTH_INSTR_MEM-1:0] wBrDir_IF;
-  input wire wBrTaken_IF;
+  wire [`LENGTH_INSTR_MEM-1:0] wBrDir_IF;
+  wire wBrTaken_IF;
+  
+  assign wBrTaken_IF = wBrTaken_ID;
+  assign wBrDir_IF = wBrDir_ID;
+  
   iFetch etapa1 (.clk(clk),.reset(reset),.iBr_dir(wBrDir_IF),
     .iBr_taken(wBrTaken_IF),.oFetchedInst(wFetchedInst_IF),.oNew_pc(wNewPC_IF));
   //////////////////////////////////////////////////////////////////////////////
@@ -25,7 +33,7 @@ module pipeline (clk,reset,wData_WB,wBrDir_IF,wBrTaken_IF,
  
   ////////////////////////////////////////////////////////////////////////////////////////
    wire [`SIZE_REG(`LENGTH_INSTR_MEM,`WIDTH_INSTR_MEM)-1:0] inputReg_IF_ID; 
-   assign reg_IF_ID = {wFetchedInst_IF,wNewPC_IF};
+   assign inputReg_IF_ID = {wFetchedInst_IF,wNewPC_IF};
    
    
    wire [`SIZE_REG(`LENGTH_INSTR_MEM,`WIDTH_INSTR_MEM)-1:0] outReg_IF_ID;
@@ -84,7 +92,6 @@ module regN(clk,clr,enable,in,out,out_bar);
 	output [size-1:0] out_bar;
 	reg [size-1:0] out;
 	reg [size-1:0] out_bar;
-	reg [size-1:0]clear;
 	
 	// Se crea un bloque para definir la función que realiza un registro tipo PIPO (Parallel Input Parallel Output).
 	// Si ocurre un flanco positivo del reloj y reset (clr) se encuentra a 0 se pasa el dato de entrada a la salida.
@@ -104,12 +111,10 @@ module regN(clk,clr,enable,in,out,out_bar);
 	// REVISAR SI DEBE SER UN POSEDGE O POR NIVEL.
 	always @(posedge clr) begin
 	
-		clear = 0;
-		
 		if (clr==1) begin 
 		
-			out <= clear; 
-			out_bar<= ~clear; 
+			out <= 0; 
+			out_bar<= 1; 
 			
 		end
 	

@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 `include "instrDefine.v"
 
 // ---------------------------------------------------------------------------------------------
@@ -13,7 +15,6 @@ module iFetch(clk,reset,iBr_dir,iBr_taken,oFetchedInst,oNew_pc);
 	
 	// Se definen las salidas del modulo IF.
 	// - fetched_inst: direccion de 10 bits con los datos de la siguiente instruccion a decodificar
-	output reg [`WIDTH_INSTR_MEM-1:0] oFetched_inst;
 	output wire [`WIDTH_INSTR_MEM-1:0] oFetchedInst;
 	output wire [`LENGTH_INSTR_MEM-1:0] oNew_pc;
 
@@ -91,15 +92,17 @@ module ROM(iDir,oInstruc);
    
    case(iDir)
     
-      0: oInstruc = {`LDA,rClear};
+      0: oInstruc = {`LDA,10'h123};
       
-      1: oInstruc = {`LDB,rClear};
+      1: oInstruc = {`LDB,10'h124};
 	
-      2: oInstruc = {`STA,rClear};
+      2: oInstruc = {`STA,10'h125};
 	
       3: oInstruc = {`ADDA,rClear};
       
-      50: oInstruc = {`ADDB,rClear};
+      4: oInstruc = {`BACS,4'b0,6'd50};
+      
+      56: oInstruc = {`ADDB,rClear};
      
       default: oInstruc = {`NOP,rClear};
     
