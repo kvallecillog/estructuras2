@@ -52,7 +52,7 @@ module alu(
 		// Se asume que el iAluOper1 contiene el acumulador A y el iAluOper2 contiene el acumulador B o la constante.
 		`SUBB,`SUBCB: begin
 		
-		{BCA,oAluData}<=iAluOper2-iAluOper1;
+		{BCB,oAluData}<=iAluOper2-iAluOper1;
 
 		end
 
