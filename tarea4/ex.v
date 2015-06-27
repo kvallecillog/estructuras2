@@ -6,77 +6,31 @@ module ex(
  input wire iAcumA,	
  input wire iAcumB,
  input wire iConst,
+ input wire [5:0] iAluInstSel,
  output [7:0] oAluData
 
 );
 
 reg [7:0] iAluOper1;
- reg [7:0] iAluOper2;
- wire [5:0] iAluInstSel;
- // output zero,
- //output reg BCA,
- //output reg BCB,
+reg [7:0] iAluOper2;
+
 wire zero,BCA,BCB;
 
 always @(iAluInstSel,iAluOper1,iAluOper2) begin
 
 case(iAluInstSel)
 
-	`ADDA,`SUBA: begin
+	`ADDA,`ADDB,`SUBA,`ANDA,`ANDB,`ORA,`ORB: begin
 	iAluOper1<=iAcumA;
 	iAluOper2<=iAcumB;	
 	end
-	`ADDCA,`SUBCA: begin
+
+	`ADDCA,`SUBCA,`ANDCA,`ORCA: begin
 	iAluOper1<=iAcumA;
 	iAluOper2<=iConst;
 	end
 
-	`ADDCB,`SUBCB:begin
-	iAluOper1<=iConst;
-	iAluOper2<=iAcumB;
-	end
-
-
-	`ADDA,`SUBA: begin
-	iAluOper1<=iAcumA;
-	iAluOper2<=iAcumB;	
-	end
-	`ADDCA,`SUBCA: begin
-	iAluOper1<=iAcumA;
-	iAluOper2<=iConst;
-	end
-
-	`ADDCB,`SUBCB:begin
-	iAluOper1<=iConst;
-	iAluOper2<=iAcumB;
-	end
-
-	`ANDA,`ANDB:begin
-	iAluOper1<=iAcumA;
-	iAluOper2<=iAcumB;
-	end
-
-	`ANDCA:begin
-	iAluOper1<=iAcumA;
-	iAluOper2<=iConst;
-	end
-
-	`ANDCB:begin
-	iAluOper1<=iConst;
-	iAluOper2<=iAcumB;
-	end
-
-	`ORA,`ORB:begin
-	iAluOper1<=iAcumA;
-	iAluOper2<=iAcumB;
-	end
-
-	`ORCA:begin
-	iAluOper1<=iAcumA;
-	iAluOper2<=iConst;
-	end
-
-	`ORCB:begin
+	`ADDCB,`SUBCB,`ANDCB,`ORCB:begin
 	iAluOper1<=iConst;
 	iAluOper2<=iAcumB;
 	end
@@ -84,7 +38,6 @@ case(iAluInstSel)
 	`ASLA,`ASRA:begin
 	iAluOper1<=iAcumA;
 	end
-
 
 endcase
 
