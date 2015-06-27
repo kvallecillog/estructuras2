@@ -1,0 +1,217 @@
+$date
+	Wed Jun 24 02:48:05 2015
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module id $end
+$var wire 10 ! branchDir [9:0] $end
+$var wire 1 " branchTaken $end
+$var wire 8 # constant [7:0] $end
+$var wire 3 $ controlAcum [2:0] $end
+$var wire 8 % data [7:0] $end
+$var wire 16 & instr [15:0] $end
+$var wire 10 ' newPC [9:0] $end
+$var wire 6 ( operation [5:0] $end
+$var wire 2 ) outSelMux [1:0] $end
+$var wire 8 * salidaAcumA [7:0] $end
+$var wire 8 + salidaAcumB [7:0] $end
+$scope module acumuladores $end
+$var wire 8 , constant [7:0] $end
+$var wire 3 - control [2:0] $end
+$var wire 8 . data [7:0] $end
+$var reg 8 / salidaAcumA [7:0] $end
+$var reg 8 0 salidaAcumB [7:0] $end
+$upscope $end
+$scope module decodificador $end
+$var wire 8 1 constant [7:0] $end
+$var wire 16 2 instr [15:0] $end
+$var wire 6 3 instrDecod [5:0] $end
+$var wire 10 4 instrInfo [9:0] $end
+$var wire 10 5 newPC [9:0] $end
+$var wire 6 6 operation [5:0] $end
+$var wire 6 7 saltoRel [5:0] $end
+$var reg 10 8 branchDir [9:0] $end
+$var reg 1 9 branchTaken $end
+$var reg 3 : controlAcum [2:0] $end
+$var reg 2 ; outSelMux [1:0] $end
+$upscope $end
+$upscope $end
+$scope module tester $end
+$var wire 1 < clk $end
+$var wire 10 = iBr_dir [9:0] $end
+$var wire 1 > iBr_taken $end
+$var wire 16 ? oFetchedInst [15:0] $end
+$var wire 1 @ reset $end
+$scope module test $end
+$var wire 16 A oFetchedInst [15:0] $end
+$var reg 1 B clk $end
+$var reg 10 C iBr_dir [9:0] $end
+$var reg 1 D iBr_taken $end
+$var reg 1 E reset $end
+$upscope $end
+$scope module pegado $end
+$var wire 1 < clk $end
+$var wire 10 F iBr_dir [9:0] $end
+$var wire 1 > iBr_taken $end
+$var wire 16 G oFetchedInst [15:0] $end
+$var wire 1 @ reset $end
+$var wire 10 H wNew_pc [9:0] $end
+$var wire 10 I wPc_pointer [9:0] $end
+$var reg 16 J oFetched_inst [15:0] $end
+$scope module pcIF $end
+$var wire 1 < clk $end
+$var wire 10 K iBr_dir [9:0] $end
+$var wire 1 > iBr_taken $end
+$var wire 1 @ reset $end
+$var reg 10 L oNew_pc [9:0] $end
+$var reg 10 M oPc_pointer [9:0] $end
+$upscope $end
+$scope module instructMem $end
+$var wire 10 N iDir [9:0] $end
+$var reg 16 O oInstruc [15:0] $end
+$var reg 10 P rClear [9:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 P
+b1001010000000000 O
+bx N
+bx M
+bx L
+bx K
+bx J
+bx I
+bx H
+b1001010000000000 G
+bx F
+1E
+xD
+bx C
+0B
+b1001010000000000 A
+1@
+b1001010000000000 ?
+x>
+bx =
+0<
+bx ;
+bx :
+x9
+bx 8
+bz 7
+bz 6
+bz 5
+bz 4
+bz 3
+bz 2
+bz 1
+bx 0
+bx /
+bz .
+bx -
+bz ,
+bx +
+bx *
+bx )
+bz (
+bz '
+bz &
+bz %
+bx $
+bz #
+x"
+bx !
+$end
+#5
+b0 O
+b0 ?
+b0 A
+b0 G
+b1 L
+b1 H
+b0 M
+b0 I
+b0 N
+1B
+1<
+#10
+0B
+0<
+#15
+1B
+1<
+#20
+0B
+0<
+0E
+0@
+#25
+b10000000000 O
+b10000000000 ?
+b10000000000 A
+b10000000000 G
+b10 L
+b10 H
+b1 M
+b1 I
+b1 N
+1B
+1<
+#30
+0B
+0<
+#35
+b1110000000000 O
+b1110000000000 ?
+b1110000000000 A
+b1110000000000 G
+b110011 L
+b110011 H
+b110010 M
+b110010 I
+b110010 N
+1B
+1<
+1D
+1>
+b110010 C
+b110010 =
+b110010 F
+b110010 K
+#40
+0B
+0<
+#45
+1B
+1<
+#50
+0B
+0<
+#55
+1B
+1<
+#60
+0B
+0<
+#65
+1B
+1<
+#70
+0B
+0<
+#75
+1B
+1<
+#80
+0B
+0<
+#85
+1B
+1<

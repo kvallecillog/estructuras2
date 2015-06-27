@@ -1,5 +1,75 @@
 `include "id.v"
+`include "iFetch.v"
 
+
+
+
+// PROBADOR DEL Ifetch
+module probador(clk,reset,iBr_dir,iBr_taken,oFetchedInst);
+
+
+	// Entradas.
+	output reg clk;
+	output reg reset;
+	output reg [9:0] iBr_dir;
+	output reg iBr_taken;
+	
+	// Salidas.
+	input wire [15:0] oFetchedInst;
+
+	initial begin
+	
+		$dumpfile("pruebaIF.vcd");
+		$dumpvars;
+		
+		clk = 0;
+		reset = 1;
+		#20 reset = 0;
+		#15 iBr_dir = 50;
+		    iBr_taken = 1;
+		
+		
+		#50 $finish;
+		
+	end
+	
+	always clk = #5 ~clk;
+	
+
+endmodule
+
+
+module tester;
+
+	wire clk;
+	wire reset;
+	wire [9:0] iBr_dir;
+	wire iBr_taken;
+	wire [15:0] oFetchedInst;
+	
+	probador test(clk,reset,iBr_dir,iBr_taken,oFetchedInst);
+	iFetch pegado(clk,reset,iBr_dir,iBr_taken,oFetchedInst);
+
+endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* PROBADOR DEL ID.
 module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
 
 
@@ -59,3 +129,5 @@ module tester;
 	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
 
 endmodule
+
+*/
