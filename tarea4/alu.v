@@ -8,6 +8,11 @@ module alu(
  output zero,
  output reg BCA,
  output reg BCB,
+ output reg BAZ,
+ output reg BBZ,
+ output reg BAN,
+ output reg BBN,
+ 
  output reg [7:0] oAluData
 
 );
@@ -112,12 +117,12 @@ module alu(
 
  		`BAMI,`BAPL:begin
  		// Si se cumple que es igual a cero levante la bandera.
-	 	BNA<=iAluOper1[7];
+	 	BAN<=iAluOper1[7];
 		end
 
  		`BBMI,`BBPL:begin
  		// Si se cumple que es igual a cero levante la bandera.
-	 	BNB<=iAluOper2[7];
+	 	BBN<=iAluOper2[7];
 		end
 
 		default: oAluData<=0;

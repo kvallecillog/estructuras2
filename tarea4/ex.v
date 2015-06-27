@@ -3,9 +3,9 @@
 
 module ex(
 
- input wire iAcumA,	
- input wire iAcumB,
- input wire iConst,
+ input wire [7:0] iAcumA,	
+ input wire [7:0] iAcumB,
+ input wire [7:0] iConst,
  input wire [5:0] iAluInstSel,
  output [7:0] oAluData
 
