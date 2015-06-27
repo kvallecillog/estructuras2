@@ -82,46 +82,46 @@ module alu(
 		// se envian el resgistro correspondiente por el iAluOper1.	
 		//CREO QUE ESTO DEBERIA DE REALIZARSE EN OTRA ETAPA, DEFINIENDO LA BANDERA BZ!
 		
- 		`BAEQ,`BBEQ:begin
+ 		`BAEQ,`BBEQ,`BANE,`BBNE:begin
  		// Si se cumple que es igual a cero levante la bandera.
  		//xor bit a bit del iAluOper1 = acumulador.
-	 	oAluData<=~|iAluOper1;
+	 	BAZ<=~|iAluOper1;
+	 	BBZ<=~|iAluOper2;
 		end
 	
-		`BANE,`BBNE:begin
-		// Si se cumple que es diferente de cero levante la bandera.
-	 	 //or bit a bit del iAluOper1 = acumulador.
-	 	oAluData<=|iAluOper1;
-		end		
 
  		`BACS:begin
  		// Si se cumple que es igual a cero levante la bandera.
-	 	oAluData<=BCA;
+	 	BCA<=BCA;
 		end
 	
 		`BACC:begin
 		// Si se cumple que es diferente de cero levante la bandera.
-	 	oAluData<=~BCA;
+	 	BCA<=~BCA;
 		end	
 
  		`BBCS:begin
  		// Si se cumple que es igual a cero levante la bandera.
-	 	oAluData<=BCB;
+	 	BCB<=BCB;
 		end
 	
 		`BBCC:begin
 		// Si se cumple que es diferente de cero levante la bandera.
-	 	oAluData<=~BCB;
+	 	BCB<=~BCB;
 		end	
 
-
- 		`BAMI,`BBMI,`BAPL,`BBPL:begin
+ 		`BAMI,`BAPL:begin
  		// Si se cumple que es igual a cero levante la bandera.
-	 	oAluData<=iAluOper1[7];
+	 	BNA<=iAluOper1[7];
+		end
+
+ 		`BBMI,`BBPL:begin
+ 		// Si se cumple que es igual a cero levante la bandera.
+	 	BNB<=iAluOper2[7];
 		end
 
 		default: oAluData<=0;
-		
+
 	endcase
 
 	end

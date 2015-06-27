@@ -41,11 +41,11 @@ case(iAluInstSel)
 	iAluOper1<=iAcumA;
 	end
 
-	`BAEQ,`BANE:begin
+	`BAEQ,`BANE,`BAMI,`BAPL:begin
 	iAluOper1<=iAcumA;	
 	end
-	`BBEQ,`BBNE:begin
-	iAluOper1<=iAcumB;	
+	`BBEQ,`BBNE,`BBMI,`BBPL:begin
+	iAluOper2<=iAcumB;	
 	end
 
 	default:begin
