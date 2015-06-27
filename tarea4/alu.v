@@ -121,6 +121,7 @@ module alu(
 		end
 
 		default: oAluData<=0;
+		
 	endcase
 
 	end

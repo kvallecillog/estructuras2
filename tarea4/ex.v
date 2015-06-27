@@ -18,6 +18,8 @@ wire zero,BCA,BCB;
 
 always @(iAluInstSel,iAluOper1,iAluOper2) begin
 
+// Este case asigna los operandos de entrada para la alu dependiendo de la instruccion a ejecutar.
+
 case(iAluInstSel)
 
 	`ADDA,`ADDB,`SUBA,`ANDA,`ANDB,`ORA,`ORB: begin
@@ -37,6 +39,18 @@ case(iAluInstSel)
 
 	`ASLA,`ASRA:begin
 	iAluOper1<=iAcumA;
+	end
+
+	`BAEQ,`BANE:begin
+	iAluOper1<=iAcumA;	
+	end
+	`BBEQ,`BBNE:begin
+	iAluOper1<=iAcumB;	
+	end
+
+	default:begin
+	iAluOper1<=iAcumA;
+	iAluOper2<=iAcumB;	
 	end
 
 endcase
