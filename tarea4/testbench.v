@@ -5,96 +5,6 @@
 
 
 
-
-
-
-//PROBADOR DEL EXE.
-module probador(iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
-
-
-	// Entradas.
-	output reg [7:0] data;
-	output reg [15:0] instr;
-	output reg [9:0] newPC;
-	
-	
-	// Salidas.
-	output wire [7:0] iAcumA,iAcumB;
-	output wire [9:0] branchDir;
-	output wire branchTaken;
-	output wire [1:0] outSelMux;
-	output wire [5:0] operation;
-
-	// Internas
-	reg [9:0] clear = 0;
-
-	initial begin
-	
-		$dumpfile("pruebaEXE.vcd");
-		$dumpvars;
-
-		outSelMux = 0;
-		operation = `NOP;
-		branchTaken = 0;
-
-		#20 operation = `ADDA;
-			salidaAcumA = 5;
-			salidaAcumB = 7;
-
-
-		// HAZARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GOOOOOOOOOL!!!
-		// SI EL VALOR DEL BRANCH + EL NEWPC ES MAYOR
-		// A LAS 1024 POSICIONES DE MEMORIA ENTONCES
-		// EMPIEZA EN 0 DE NUEVO POR EJEMPLO NEWPC=1000
-		// BRANCH=30 => 1030 Y ESTO SERÍA UN 6
-
-		#20 branchTaken = 1;
-			operation = `BACS;
-		
-		#20 branchTaken = 1;
-			operation = `JMP;
-			
-		#20 $finish;
-		
-	end
-
-endmodule
-
-
-module tester;
-
- wire [7:0] iAcumA;	
- wire [7:0] iAcumB;
- wire [7:0] iConst;
- wire [1:0] outSelMuxExe;
- wire [5:0] iAluInstSel;
- reg [7:0] oAluData;
-	
-	probador test (iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
-	exe pegado (iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
-
-endmodule
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
 // PROBADOR DEL PIPELINE IF_ID LISTOS.
 module probador (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
   wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
@@ -164,21 +74,88 @@ module tester;
 
 endmodule
 
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+//PROBADOR DEL EXE.
+module probador(iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
+
+
+	// Entradas.
+	output reg [7:0] data;
+	output reg [15:0] instr;
+	output reg [9:0] newPC;
+	
+	
+	// Salidas.
+	output wire [7:0] iAcumA,iAcumB;
+	output wire [9:0] branchDir;
+	output wire branchTaken;
+	output wire [1:0] outSelMux;
+	output wire [5:0] operation;
+
+	// Internas
+	reg [9:0] clear = 0;
+
+	initial begin
+	
+		$dumpfile("pruebaEXE.vcd");
+		$dumpvars;
+
+		outSelMux = 0;
+		operation = `NOP;
+		branchTaken = 0;
+
+		#20 operation = `ADDA;
+			salidaAcumA = 5;
+			salidaAcumB = 7;
+
+
+		// HAZARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GOOOOOOOOOL!!!
+		// SI EL VALOR DEL BRANCH + EL NEWPC ES MAYOR
+		// A LAS 1024 POSICIONES DE MEMORIA ENTONCES
+		// EMPIEZA EN 0 DE NUEVO POR EJEMPLO NEWPC=1000
+		// BRANCH=30 => 1030 Y ESTO SERÍA UN 6
+
+		#20 branchTaken = 1;
+			operation = `BACS;
+		
+		#20 branchTaken = 1;
+			operation = `JMP;
+			
+		#20 $finish;
+		
+	end
+
+endmodule
+
+
+module tester;
+
+ wire [7:0] iAcumA;	
+ wire [7:0] iAcumB;
+ wire [7:0] iConst;
+ wire [1:0] outSelMuxExe;
+ wire [5:0] iAluInstSel;
+ reg [7:0] oAluData;
+	
+	probador test (iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
+	exe pegado (iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
+
+endmodule
+
+
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -260,7 +237,7 @@ endmodule
 
 /*
 //PROBADOR DEL ID.
-module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
+module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation, constant, controlAcum, memEnable);
 
 
 	// Entradas.
@@ -275,6 +252,9 @@ module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,o
 	input wire branchTaken;
 	input wire [1:0] outSelMux;
 	input wire [5:0] operation;
+	input wire [2:0] controlAcum;
+	input wire memEnable;
+	input wire [7:0] constant;
 
 	// Internas
 	reg [9:0] clear = 0;
@@ -286,7 +266,7 @@ module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,o
 		data = 10;
 		newPC = 1000;
 		valor = 35;
-		instr = {`LDCA, valor};
+		instr = {`LDA, newPC};
 		#20 instr = {`LDCB,clear};
 		// HAZARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GOOOOOOOOOL!!!
 		// SI EL VALOR DEL BRANCH + EL NEWPC ES MAYOR
@@ -314,9 +294,12 @@ module tester;
 	wire branchTaken;
 	wire [1:0] outSelMux;
 	wire [5:0] operation;
+	wire [2:0] controlAcum;
+	wire [7:0] constant;
+	wire memEnable;
 	
-	probador test(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
-	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
+	probador test(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation, constant, controlAcum, memEnable);
+	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation, constant, controlAcum, memEnable);
 
 endmodule
 */

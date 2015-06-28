@@ -57,9 +57,32 @@ module pipeline (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
   output wire wBrTaken_ID;  
   output wire [1:0] wOutSelMux_ID;
   output wire [`OPERATION_SIZE-1:0] wOperation_ID; 
+  output wire [`WIDTH_DATA_MEM-1:0] wConstant_ID;
+  output wire [2:0] wControlAcum_ID;
+  output wire wMemEnable_ID;
+
   id etapa2 (.data(wData_WB),.instr(outReg_IF_ID_FetchedInstr),.newPC(outReg_IF_ID_NewPC),.salidaAcumA(wAcumA_ID),
-    .salidaAcumB(wAcumB_ID),.branchDir(wBrDir_ID),.branchTaken(wBrTaken_ID),.outSelMux(wOutSelMux_ID),.operation(wOperation_ID));
- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    .salidaAcumB(wAcumB_ID),.branchDir(wBrDir_ID),.branchTaken(wBrTaken_ID),.outSelMux(wOutSelMux_ID),
+    .operation(wOperation_ID),.constant(wConstant_ID),.controlAcum(wControlAcum_ID),.memEnable(wMemEnable_ID));
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+ 
+ ex etapa3 (.iAcumA(), .iAcumB(),.iConst(),.outSelMuxExe(),
+ 	.iAluInstSel(),.branchDir_ID(),.branchTaken(),.branchDir_EX(),.oAluData());
+
+
+
+
+
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 endmodule
 

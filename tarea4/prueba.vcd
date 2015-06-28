@@ -1,187 +1,358 @@
 $date
-	Sat Jun 27 02:03:46 2015
+	Sat Jun 27 23:44:52 2015
 $end
 $version
 	Icarus Verilog
 $end
 $timescale
-	1s
+	1ps
 $end
-$scope module tester $end
-$var wire 10 ! branchDir [9:0] $end
-$var wire 1 " branchTaken $end
-$var wire 8 # data [7:0] $end
-$var wire 16 $ instr [15:0] $end
-$var wire 10 % newPC [9:0] $end
-$var wire 6 & operation [5:0] $end
-$var wire 2 ' outSelMux [1:0] $end
-$var wire 8 ( salidaAcumA [7:0] $end
-$var wire 8 ) salidaAcumB [7:0] $end
-$scope module test $end
-$var wire 10 * branchDir [9:0] $end
-$var wire 1 " branchTaken $end
-$var wire 6 + operation [5:0] $end
-$var wire 2 , outSelMux [1:0] $end
-$var wire 8 - salidaAcumA [7:0] $end
-$var wire 8 . salidaAcumB [7:0] $end
-$var reg 10 / clear [9:0] $end
-$var reg 8 0 data [7:0] $end
-$var reg 16 1 instr [15:0] $end
-$var reg 10 2 newPC [9:0] $end
-$var reg 10 3 valor [9:0] $end
+$scope module pipeline $end
+$var wire 1 ! clk $end
+$var wire 26 " inputReg_IF_ID [25:0] $end
+$var wire 26 # outReg_IF_ID [25:0] $end
+$var wire 16 $ outReg_IF_ID_FetchedInstr [15:0] $end
+$var wire 10 % outReg_IF_ID_NewPC [9:0] $end
+$var wire 26 & outReg_IF_ID_bar [25:0] $end
+$var wire 1 ' reset $end
+$var wire 8 ( wAcumA_ID [7:0] $end
+$var wire 8 ) wAcumB_ID [7:0] $end
+$var wire 10 * wBrDir_ID [9:0] $end
+$var wire 10 + wBrDir_IF [9:0] $end
+$var wire 1 , wBrTaken_ID $end
+$var wire 1 - wBrTaken_IF $end
+$var wire 8 . wData_WB [7:0] $end
+$var wire 16 / wFetchedInst_IF [15:0] $end
+$var wire 10 0 wNewPC_IF [9:0] $end
+$var wire 6 1 wOperation_ID [5:0] $end
+$var wire 2 2 wOutSelMux_ID [1:0] $end
+$scope module etapa1 $end
+$var wire 1 ! clk $end
+$var wire 10 3 iBr_dir [9:0] $end
+$var wire 1 - iBr_taken $end
+$var wire 16 4 oFetchedInst [15:0] $end
+$var wire 10 5 oNew_pc [9:0] $end
+$var wire 1 ' reset $end
+$var wire 10 6 wPc_pointer [9:0] $end
+$scope module pcIF $end
+$var wire 1 ! clk $end
+$var wire 10 7 iBr_dir [9:0] $end
+$var wire 1 - iBr_taken $end
+$var wire 1 ' reset $end
+$var reg 10 8 oNew_pc [9:0] $end
+$var reg 10 9 oPc_pointer [9:0] $end
 $upscope $end
-$scope module pegado $end
-$var wire 10 4 branchDir [9:0] $end
-$var wire 1 " branchTaken $end
-$var wire 8 5 constant [7:0] $end
-$var wire 3 6 controlAcum [2:0] $end
-$var wire 8 7 data [7:0] $end
-$var wire 16 8 instr [15:0] $end
-$var wire 10 9 newPC [9:0] $end
-$var wire 6 : operation [5:0] $end
-$var wire 2 ; outSelMux [1:0] $end
-$var wire 8 < salidaAcumA [7:0] $end
-$var wire 8 = salidaAcumB [7:0] $end
-$scope module acumuladores $end
-$var wire 8 > constant [7:0] $end
-$var wire 3 ? control [2:0] $end
-$var wire 8 @ data [7:0] $end
-$var reg 8 A salidaAcumA [7:0] $end
-$var reg 8 B salidaAcumB [7:0] $end
+$scope module instructMem $end
+$var wire 10 : iDir [9:0] $end
+$var reg 16 ; oInstruc [15:0] $end
+$var reg 10 < rClear [9:0] $end
 $upscope $end
-$scope module decodificador $end
-$var wire 8 C constant [7:0] $end
-$var wire 16 D instr [15:0] $end
-$var wire 6 E instrDecod [5:0] $end
-$var wire 10 F instrInfo [9:0] $end
+$upscope $end
+$scope module registro_IF_ID $end
+$var wire 1 ! clk $end
+$var wire 1 ' clr $end
+$var wire 1 = enable $end
+$var wire 26 > in [25:0] $end
+$var reg 26 ? out [25:0] $end
+$var reg 26 @ out_bar [25:0] $end
+$upscope $end
+$scope module etapa2 $end
+$var wire 10 A branchDir [9:0] $end
+$var wire 1 , branchTaken $end
+$var wire 8 B constant [7:0] $end
+$var wire 3 C controlAcum [2:0] $end
+$var wire 8 D data [7:0] $end
+$var wire 16 E instr [15:0] $end
+$var wire 1 F memEnable $end
 $var wire 10 G newPC [9:0] $end
 $var wire 6 H operation [5:0] $end
-$var wire 6 I saltoRel [5:0] $end
-$var reg 10 J branchDir [9:0] $end
-$var reg 1 K branchTaken $end
-$var reg 3 L controlAcum [2:0] $end
-$var reg 2 M outSelMux [1:0] $end
+$var wire 2 I outSelMux [1:0] $end
+$var wire 8 J salidaAcumA [7:0] $end
+$var wire 8 K salidaAcumB [7:0] $end
+$scope module acumuladores $end
+$var wire 8 L constant [7:0] $end
+$var wire 3 M control [2:0] $end
+$var wire 8 N data [7:0] $end
+$var reg 8 O salidaAcumA [7:0] $end
+$var reg 8 P salidaAcumB [7:0] $end
+$upscope $end
+$scope module decodificador $end
+$var wire 8 Q constant [7:0] $end
+$var wire 16 R instr [15:0] $end
+$var wire 6 S instrDecod [5:0] $end
+$var wire 10 T instrInfo [9:0] $end
+$var wire 10 U newPC [9:0] $end
+$var wire 6 V operation [5:0] $end
+$var wire 6 W saltoRel [5:0] $end
+$var reg 10 X branchDir [9:0] $end
+$var reg 1 Y branchTaken $end
+$var reg 3 Z controlAcum [2:0] $end
+$var reg 1 [ memEnable $end
+$var reg 2 \ outSelMux [1:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module tester $end
+$var wire 10 ] branchDir [9:0] $end
+$var wire 1 ^ branchTaken $end
+$var wire 8 _ constant [7:0] $end
+$var wire 3 ` controlAcum [2:0] $end
+$var wire 8 a data [7:0] $end
+$var wire 16 b instr [15:0] $end
+$var wire 1 c memEnable $end
+$var wire 10 d newPC [9:0] $end
+$var wire 6 e operation [5:0] $end
+$var wire 2 f outSelMux [1:0] $end
+$var wire 8 g salidaAcumA [7:0] $end
+$var wire 8 h salidaAcumB [7:0] $end
+$scope module test $end
+$var wire 10 i branchDir [9:0] $end
+$var wire 1 ^ branchTaken $end
+$var wire 8 j constant [7:0] $end
+$var wire 3 k controlAcum [2:0] $end
+$var wire 1 c memEnable $end
+$var wire 6 l operation [5:0] $end
+$var wire 2 m outSelMux [1:0] $end
+$var wire 8 n salidaAcumA [7:0] $end
+$var wire 8 o salidaAcumB [7:0] $end
+$var reg 10 p clear [9:0] $end
+$var reg 8 q data [7:0] $end
+$var reg 16 r instr [15:0] $end
+$var reg 10 s newPC [9:0] $end
+$var reg 10 t valor [9:0] $end
+$upscope $end
+$scope module pegado $end
+$var wire 10 u branchDir [9:0] $end
+$var wire 1 ^ branchTaken $end
+$var wire 8 v constant [7:0] $end
+$var wire 3 w controlAcum [2:0] $end
+$var wire 8 x data [7:0] $end
+$var wire 16 y instr [15:0] $end
+$var wire 1 c memEnable $end
+$var wire 10 z newPC [9:0] $end
+$var wire 6 { operation [5:0] $end
+$var wire 2 | outSelMux [1:0] $end
+$var wire 8 } salidaAcumA [7:0] $end
+$var wire 8 ~ salidaAcumB [7:0] $end
+$scope module acumuladores $end
+$var wire 8 !" constant [7:0] $end
+$var wire 3 "" control [2:0] $end
+$var wire 8 #" data [7:0] $end
+$var reg 8 $" salidaAcumA [7:0] $end
+$var reg 8 %" salidaAcumB [7:0] $end
+$upscope $end
+$scope module decodificador $end
+$var wire 8 &" constant [7:0] $end
+$var wire 16 '" instr [15:0] $end
+$var wire 6 (" instrDecod [5:0] $end
+$var wire 10 )" instrInfo [9:0] $end
+$var wire 10 *" newPC [9:0] $end
+$var wire 6 +" operation [5:0] $end
+$var wire 6 ," saltoRel [5:0] $end
+$var reg 10 -" branchDir [9:0] $end
+$var reg 1 ." branchTaken $end
+$var reg 3 /" controlAcum [2:0] $end
+$var reg 1 0" memEnable $end
+$var reg 2 1" outSelMux [1:0] $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
-b0 M
-b1 L
-0K
-b1011 J
-b100011 I
-b10 H
-b1111101000 G
-b100011 F
-b10 E
-b100000100011 D
-b100011 C
+b0 1"
+10"
+b10 /"
+0."
+b10000 -"
+b101000 ,"
+b0 +"
+b1111101000 *"
+b1111101000 )"
+b0 ("
+b1111101000 '"
+b11101000 &"
+bx %"
+b1010 $"
+b1010 #"
+b10 ""
+b11101000 !"
+bx ~
+b1010 }
+b0 |
+b0 {
+b1111101000 z
+b1111101000 y
+b1010 x
+b10 w
+b11101000 v
+b10000 u
+b100011 t
+b1111101000 s
+b1111101000 r
+b1010 q
+b0 p
+bx o
+b1010 n
+b0 m
+b0 l
+b10 k
+b11101000 j
+b10000 i
+bx h
+b1010 g
+b0 f
+b0 e
+b1111101000 d
+1c
+b1111101000 b
+b1010 a
+b10 `
+b11101000 _
+0^
+b10000 ]
+bx \
+x[
+bx Z
+xY
+bx X
+bx W
+bx V
+bx U
+bx T
+bx S
+bx R
+bx Q
+bx P
+bx O
+bz N
+bx M
+bx L
+bx K
+bx J
+bx I
+bx H
+bx G
+xF
+bx E
+bz D
+bx C
 bx B
-b100011 A
-b1010 @
-b1 ?
-b100011 >
-bx =
-b100011 <
-b0 ;
-b10 :
-b1111101000 9
-b100000100011 8
-b1010 7
-b1 6
-b100011 5
-b1011 4
-b100011 3
-b1111101000 2
-b100000100011 1
-b1010 0
-b0 /
-bx .
-b100011 -
-b0 ,
-b10 +
-b1011 *
+bx A
+bx @
+bx ?
+b1001010000000000xxxxxxxxxx >
+1=
+b0 <
+b1001010000000000 ;
+bx :
+bx 9
+bx 8
+bx 7
+bx 6
+bx 5
+b1001010000000000 4
+bx 3
+bx 2
+bx 1
+bx 0
+b1001010000000000 /
+bz .
+x-
+x,
+bx +
+bx *
 bx )
-b100011 (
-b0 '
-b10 &
-b1111101000 %
-b100000100011 $
-b1010 #
-0"
-b1011 !
+bx (
+z'
+bx &
+bx %
+bx $
+bx #
+b1001010000000000xxxxxxxxxx "
+z!
 $end
-#20
-b1111101000 J
-b1111101000 !
-b1111101000 *
-b1111101000 4
-b0 B
-b0 )
-b0 .
-b0 =
-b0 5
-b0 >
-b0 C
-b0 I
-b11 L
-b11 6
-b11 ?
-b11 E
-b11 &
-b11 +
-b11 :
-b11 H
-b0 F
-b110000000000 1
-b110000000000 $
-b110000000000 8
-b110000000000 D
-#40
-b110 J
-b110 !
-b110 *
-b110 4
-b11110 5
-b11110 >
-b11110 C
-b11110 I
-b0 L
-b0 6
-b0 ?
-1K
-1"
-b11011 E
-b11011 &
-b11011 +
-b11011 :
-b11011 H
-b11110 F
-b110110000011110 1
-b110110000011110 $
-b110110000011110 8
-b110110000011110 D
-b11110 3
-#60
-b1100 5
-b1100 >
-b1100 C
-b1100 I
-b1000001100 J
-b1000001100 !
-b1000001100 *
-b1000001100 4
-b11000 E
-b11000 &
-b11000 +
-b11000 :
-b11000 H
-b1000001100 F
-b110001000001100 1
-b110001000001100 $
-b110001000001100 8
-b110001000001100 D
-b1000001100 3
-#80
+#20000
+b1111101000 -"
+b1111101000 ]
+b1111101000 i
+b1111101000 u
+b0 %"
+b0 h
+b0 o
+b0 ~
+b0 _
+b0 j
+b0 v
+b0 !"
+b0 &"
+b0 ,"
+00"
+0c
+b11 /"
+b11 `
+b11 k
+b11 w
+b11 ""
+b11 ("
+b11 e
+b11 l
+b11 {
+b11 +"
+b0 )"
+b110000000000 r
+b110000000000 b
+b110000000000 y
+b110000000000 '"
+#40000
+b110 -"
+b110 ]
+b110 i
+b110 u
+b11110 _
+b11110 j
+b11110 v
+b11110 !"
+b11110 &"
+b11110 ,"
+b0 /"
+b0 `
+b0 k
+b0 w
+b0 ""
+1."
+1^
+b11011 ("
+b11011 e
+b11011 l
+b11011 {
+b11011 +"
+b11110 )"
+b110110000011110 r
+b110110000011110 b
+b110110000011110 y
+b110110000011110 '"
+b11110 t
+#60000
+b1100 _
+b1100 j
+b1100 v
+b1100 !"
+b1100 &"
+b1100 ,"
+b1000001100 -"
+b1000001100 ]
+b1000001100 i
+b1000001100 u
+b11000 ("
+b11000 e
+b11000 l
+b11000 {
+b11000 +"
+b1000001100 )"
+b110001000001100 r
+b110001000001100 b
+b110001000001100 y
+b110001000001100 '"
+b1000001100 t
+#80000
