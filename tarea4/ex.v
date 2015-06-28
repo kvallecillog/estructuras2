@@ -20,10 +20,10 @@ module ex(
 wire [7:0] iAluOper1;
 wire [7:0] iAluOper2;
 
-assign branchDir_ID=branchDir_EX;
+assign branchDir_EX = branchDir_ID;
 
-assign  iAluOper1= (outSelMuxExe[0])? iAcumA:iConst;
-assign  iAluOper2= (outSelMuxExe[1])? iAcumB:iConst;
+assign  iAluOper1= (outSelMuxExe[0]) ? iAcumA:iConst;
+assign  iAluOper2= (outSelMuxExe[1]) ? iAcumB:iConst;
 
 
 alu aluEx 
