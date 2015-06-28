@@ -1,0 +1,58 @@
+[*]
+[*] GTKWave Analyzer v3.3.60 (w)1999-2014 BSI
+[*] Sun Jun 28 04:11:55 2015
+[*]
+[dumpfile] "/Users/mora260/Documents/Repos/estructuras2/tarea4/pruebaEXE.vcd"
+[dumpfile_mtime] "Sun Jun 28 03:59:27 2015"
+[dumpfile_size] 3327
+[savefile] "/Users/mora260/Documents/Repos/estructuras2/tarea4/WAVEalu.gtkw"
+[timestart] 0
+[size] 1393 724
+[pos] -1 -1
+*-16.006760 107600 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tester.
+[treeopen] tester.etapaEXE.
+[sst_width] 203
+[signals_width] 166
+[sst_expanded] 1
+[sst_vpaned_height] 200
+@c00024
+tester.branchDir_EX[9:0]
+@28
+(0)tester.branchDir_EX[9:0]
+(1)tester.branchDir_EX[9:0]
+(2)tester.branchDir_EX[9:0]
+(3)tester.branchDir_EX[9:0]
+(4)tester.branchDir_EX[9:0]
+(5)tester.branchDir_EX[9:0]
+(6)tester.branchDir_EX[9:0]
+(7)tester.branchDir_EX[9:0]
+(8)tester.branchDir_EX[9:0]
+(9)tester.branchDir_EX[9:0]
+@1401200
+-group_end
+@24
+tester.branchDir_ID[9:0]
+tester.branchTaken
+tester.iAcumA[7:0]
+@200
+-
+@24
+tester.iAcumB[7:0]
+@200
+-
+@24
+tester.iConst[7:0]
+@200
+-
+@24
+tester.oAluData[7:0]
+@200
+-
+@24
+tester.iAluInstSel[5:0]
+tester.outSelMuxExe[1:0]
+@29
+tester.etapaEXE.aluEx.sReg
+[pattern_trace] 1
+[pattern_trace] 0
