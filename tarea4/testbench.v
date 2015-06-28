@@ -6,8 +6,8 @@
 
 
 // PROBADOR DEL PIPELINE IF_ID LISTOS.
-module probador (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
-  wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
+module probador (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
+				wControlAcum_EX,wMemEnable_EX);
 
 	// Salidas
 	output reg clk;
@@ -17,14 +17,11 @@ module probador (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
 	output reg [7:0] wData_WB;
 	
 	// Entradas.
-	input wire [7:0] wAcumA_ID;
-	input wire [7:0] wAcumB_ID;
-	input wire [9:0] wBrDir_ID;
-	input wire wBrTaken_ID;
-	input wire [1:0] wOutSelMux_ID;
-	input wire [5:0] wOperation_ID;
-	
-	//assign wBrTaken_ID = wBrTaken_IF;
+	input wire wBrTaken_EX;
+	input wire [9:0] wBrDir_EX;
+	input wire [7:0]wAluResult_EX;
+	input wire [2:0] wControlAcum_EX;
+	input wire wMemEnable_EX;
 	
 
 	initial begin
@@ -55,22 +52,18 @@ module tester;
 	wire clk;
 	wire reset;
 	wire [7:0] wData_WB;
-	//wire [9:0] wBrDir_IF;
-	wire [7:0] wAcumA_ID;
-	wire [7:0] wAcumB_ID;
-	wire [9:0] wBrDir_ID;
-	wire wBrTaken_ID;
-	wire [1:0] wOutSelMux_ID;
-	//wire wBrTaken_IF;
-	wire [5:0] wOperation_ID;
+	wire wBrTaken_EX;
+	wire [9:0] wBrDir_EX;
+	wire [7:0]wAluResult_EX;
+	wire [2:0] wControlAcum_EX;
+	wire wMemEnable_EX;
+	
+	probador test(clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
+				wControlAcum_EX,wMemEnable_EX);
 	
 	
-	probador test(clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
-  wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
-	
-	
-	pipeline pegado (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
-  wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
+	pipeline pegado (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
+					wControlAcum_EX,wMemEnable_EX);
 
 endmodule
 
@@ -233,11 +226,11 @@ endmodule
 
 
 
-
-
 /*
+
+
 //PROBADOR DEL ID.
-module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation, constant, controlAcum, memEnable);
+module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum, memEnable);
 
 
 	// Entradas.
@@ -249,7 +242,6 @@ module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,o
 	// Salidas.
 	input wire [7:0] salidaAcumA,salidaAcumB;
 	input wire [9:0] branchDir;
-	input wire branchTaken;
 	input wire [1:0] outSelMux;
 	input wire [5:0] operation;
 	input wire [2:0] controlAcum;
@@ -291,15 +283,14 @@ module tester;
 	wire [7:0] data,salidaAcumA,salidaAcumB;
 	wire [9:0] branchDir,newPC;
 	wire [15:0] instr;
-	wire branchTaken;
 	wire [1:0] outSelMux;
 	wire [5:0] operation;
 	wire [2:0] controlAcum;
 	wire [7:0] constant;
 	wire memEnable;
 	
-	probador test(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation, constant, controlAcum, memEnable);
-	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation, constant, controlAcum, memEnable);
+	probador test(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum, memEnable);
+	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum, memEnable);
 
 endmodule
 */

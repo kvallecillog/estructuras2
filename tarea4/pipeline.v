@@ -2,13 +2,14 @@
 
 `include "iFetch.v"
 `include "id.v"
+`include "ex.v"
 
 `define SIZE_REG(X,Y) X+Y  
 
 
 
-module pipeline (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
-  wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
+module pipeline (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
+					wControlAcum_EX,wMemEnable_EX);
 
   // Entradas 
   input clk,reset;
@@ -22,8 +23,8 @@ module pipeline (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
   wire [`LENGTH_INSTR_MEM-1:0] wBrDir_IF;
   wire wBrTaken_IF;
   
-  assign wBrTaken_IF = wBrTaken_ID;
-  assign wBrDir_IF = wBrDir_ID;
+  assign wBrTaken_IF = wBrTaken_EXE;
+  assign wBrDir_IF = wBrDir_EXE;
   
   iFetch etapa1 (.clk(clk),.reset(reset),.iBr_dir(wBrDir_IF),
     .iBr_taken(wBrTaken_IF),.oFetchedInst(wFetchedInst_IF),.oNew_pc(wNewPC_IF));
@@ -51,39 +52,67 @@ module pipeline (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
  
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // Salidas temporales!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  output wire [`WIDTH_DATA_MEM-1:0] wAcumA_ID,wAcumB_ID;
-  output wire [`LENGTH_INSTR_MEM-1:0] wBrDir_ID;
-  output wire wBrTaken_ID;  
-  output wire [1:0] wOutSelMux_ID;
-  output wire [`OPERATION_SIZE-1:0] wOperation_ID; 
-  output wire [`WIDTH_DATA_MEM-1:0] wConstant_ID;
-  output wire [2:0] wControlAcum_ID;
-  output wire wMemEnable_ID;
+  // 
+  wire [`WIDTH_DATA_MEM-1:0] wAcumA_ID,wAcumB_ID;
+  wire [`LENGTH_INSTR_MEM-1:0] wBrDir_ID;
+  wire [1:0] wOutSelMux_ID;
+  wire [`OPERATION_SIZE-1:0] wOperation_ID; 
+  wire [`WIDTH_DATA_MEM-1:0] wConstant_ID;
+  wire [2:0] wControlAcum_ID;
+  wire wMemEnable_ID;
 
   id etapa2 (.data(wData_WB),.instr(outReg_IF_ID_FetchedInstr),.newPC(outReg_IF_ID_NewPC),.salidaAcumA(wAcumA_ID),
-    .salidaAcumB(wAcumB_ID),.branchDir(wBrDir_ID),.branchTaken(wBrTaken_ID),.outSelMux(wOutSelMux_ID),
+    .salidaAcumB(wAcumB_ID),.branchDir(wBrDir_ID),.outSelMux(wOutSelMux_ID),
     .operation(wOperation_ID),.constant(wConstant_ID),.controlAcum(wControlAcum_ID),.memEnable(wMemEnable_ID));
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+ 	// Tamaño del registro es  3*width + operation size + length + 1 + 3 + 2 
+	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 6 )-1:0] inputReg_ID_EX; 
+	assign inputReg_ID_EX = {wAcumA_ID,wAcumB_ID,wBrDir_ID,wOutSelMux_ID,wOperation_ID
+							,wConstant_ID,wControlAcum_ID, wMemEnable_ID};
  
- ex etapa3 (.iAcumA(), .iAcumB(),.iConst(),.outSelMuxExe(),
- 	.iAluInstSel(),.branchDir_ID(),.branchTaken(),.branchDir_EX(),.oAluData());
+   
+	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 6 )-1:0] outReg_ID_EX;
+	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 6 )-1:0] outReg_ID_EX_bar;
+	regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 6 ))) registro_ID_EX (clk,reset,
+    1,inputReg_ID_EX,outReg_ID_EX,outReg_ID_EX_bar);
+   
 
+	wire [`WIDTH_DATA_MEM-1:0] outReg_ID_EX_AcumA_ID,outReg_ID_EX_AcumB_ID;
+	wire [`LENGTH_INSTR_MEM-1:0] outReg_ID_EX_BrDir_ID;
+	wire [1:0] outReg_ID_EX_OutSelMux_ID;
+	wire [`OPERATION_SIZE-1:0] outReg_ID_EX_Operation_ID; 
+	wire [`WIDTH_DATA_MEM-1:0] outReg_ID_EX_Constant_ID;
+	wire [2:0] outReg_ID_EX_ControlAcum_ID;
+	wire outReg_ID_EX_MemEnable_ID;
 
-
-
-
+   
+   assign {outReg_ID_EX_AcumA_ID,outReg_ID_EX_AcumB_ID,outReg_ID_EX_BrDir_ID,
+			outReg_ID_EX_OutSelMux_ID,outReg_ID_EX_Operation_ID,outReg_ID_EX_Constant_ID,
+			outReg_ID_EX_ControlAcum_ID, outReg_ID_EX_MemEnable_ID} = outReg_ID_EX;
+   
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+	output wire wBrTaken_EX;
+	output wire [`LENGTH_INSTR_MEM-1:0] wBrDir_EX;
+	output wire [`WIDTH_DATA_MEM-1:0] wAluResult_EX;
+	output wire [2:0] wControlAcum_EX;
+	output wire wMemEnable_EX;
+
+	ex etapa3 (.iAcumA(outReg_ID_EX_AcumA_ID), .iAcumB(outReg_ID_EX_AcumB_ID),.iConst(outReg_ID_EX_Constant_ID),
+ 		.outSelMuxExe(outReg_ID_EX_OutSelMux_ID),.iAluInstSel(outReg_ID_EX_Operation_ID),.branchDir_ID(outReg_ID_EX_BrDir_ID),
+ 		.branchTaken(wBrTaken_EX),.branchDir_EX(wBrDir_EX),
+ 		.oAluData(wAluResult_EX),.oControlAcum_EX(wControlAcum_EX),.oMemEnable_EX(wMemEnable_EX));
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 endmodule
 
 

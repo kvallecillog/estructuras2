@@ -24,13 +24,13 @@ module ex(
 wire [7:0] iAluOper1;
 wire [7:0] iAluOper2;
 
-wire [2:0] oControlAcum_ID;
-wire oMemEnable_ID;
+wire [2:0] oControlAcum_EX;
+wire oMemEnable_EX;
 
 assign branchDir_EX = branchDir_ID;
 
-assign  iAluOper1= (outSelMuxExe[0]) ? iAcumA:iConst;
-assign  iAluOper2= (outSelMuxExe[1]) ? iAcumB:iConst;
+assign  iAluOper1 = (outSelMuxExe[0]) ? iAcumA:iConst;
+assign  iAluOper2 = (outSelMuxExe[1]) ? iAcumB:iConst;
 
 assign oControlAcum_EX = iControlAcum_ID;
 assign oMemEnable_EX = iMemEnable_ID;

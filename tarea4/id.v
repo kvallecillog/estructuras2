@@ -16,7 +16,7 @@
 `define selAcumAB 2'b11 
 
 // ---------------------------------------------------------------------------------------------
-module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,operation,memEnable);
+module decoder(instr,newPC,constant,branchDir,outSelMux,controlAcum,operation,memEnable);
 
 	// Se define las entradas del modulo:
 	// instr: Corresponde a la instruccion a decodificar.
@@ -28,7 +28,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 	// 
 	// - constant: Corresponde a la constante que va hacia los registros A y B.
 	// - branchDir: Corresponde a la direccion a la que se debe dirigir el branch.
-	// - branchTaken: Corresponde a la selección de un mux si tomar o no el branch.
 	// - controlAcum: Corresponde a la señal de control del acumulador, la cual según la instruccion
 	// 	tiene como salidas los siguientes valores:
 	//	- noLoad (000) : Implica que no se tiene que cargar ningún valor al acumulador.
@@ -43,7 +42,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 	// - memEnable: habilitador para cargar el resultado de la ALU a memoria.
 	output wire [7:0] constant;
 	output reg [9:0] branchDir;
-	output reg branchTaken;
 	output reg [1:0] outSelMux;
 	output reg [2:0] controlAcum;
 	output wire [5:0] operation; 
@@ -95,7 +93,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 		
 			`LDA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selConstants;
 				memEnable = 1;
@@ -105,7 +102,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`LDB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryB;
 				outSelMux = `selConstants;
 				memEnable = 1;
@@ -114,7 +110,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`LDCA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadConstantA;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -123,7 +118,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`LDCB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadConstantB;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -132,7 +126,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`STA: begin
 			
-				branchTaken = 0;
 				controlAcum = `noLoad;
 				outSelMux = `selAcumAB;
 				memEnable = 1;
@@ -141,7 +134,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 				
 			`STB: begin
 			
-				branchTaken = 0;
 				controlAcum = `noLoad;
 				outSelMux = `selAcumAB;
 				memEnable = 1;
@@ -151,7 +143,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <- (A)+(B)
 			`ADDA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAB;
 				memEnable = 0;
@@ -161,7 +152,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// B <- (A)+(B)
 			`ADDB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryB;
 				outSelMux = `selAcumAB;
 				memEnable = 0;
@@ -171,7 +161,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <- (A) + CONST
 			`ADDCA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAConstB;
 				memEnable = 0;
@@ -181,7 +170,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// B <- (B) + CONST	
 			`ADDCB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryB;
 				outSelMux = `selConstAAcumB;
 				memEnable = 0;
@@ -191,7 +179,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <- (A) - (B)
 			`SUBA: begin
 			
-				branchTaken = 0;		
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAB;		//11
 				memEnable = 0;
@@ -201,7 +188,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// B <- (B) - (A)
 			`SUBB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryB;
 				outSelMux = `selAcumAB;
 				memEnable = 0;
@@ -211,7 +197,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <- (A) - CONST
 			`SUBCA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAConstB;
 				memEnable = 0;
@@ -221,7 +206,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// B <- (B) - CONST
 			`SUBCB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryB;
 				outSelMux = `selConstAAcumB;
 				memEnable = 0;
@@ -231,7 +215,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <- (A) AND (B)
 			`ANDA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAB;
 				memEnable = 0;
@@ -241,7 +224,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// B <- (A) AND (B)
 			`ANDB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryB;
 				outSelMux = `selAcumAB;
 				memEnable = 0;
@@ -251,7 +233,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <- (A) AND CONST	
 			`ANDCA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAConstB;
 				memEnable = 0;
@@ -261,7 +242,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// B <- (B) AND CONST
 			`ANDCB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryB;
 				outSelMux = `selConstAAcumB;
 				memEnable = 0;
@@ -271,7 +251,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <- (A) OR (B)
 			`ORA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAB;
 				memEnable = 0;
@@ -281,7 +260,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// B <- (A) OR (B)
 			`ORB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryB;
 				outSelMux = `selAcumAB;
 				memEnable = 0;
@@ -291,7 +269,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <- (A) OR CONST
 			`ORCA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAConstB;
 				memEnable = 0;
@@ -301,7 +278,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// B <- (B) OR CONST
 			`ORCB: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryB;
 				outSelMux = `selConstAAcumB;
 				memEnable = 0;
@@ -311,7 +287,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <-  (C <- (A) <- 0)
 			`ASLA: begin 
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAB;
 				memEnable = 0;
@@ -321,7 +296,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			// A <-  (0 <- (A) <- C)
 			`ASRA: begin
 			
-				branchTaken = 0;
 				controlAcum = `loadMemoryA;
 				outSelMux = `selAcumAB;
 				memEnable = 0;
@@ -331,7 +305,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`JMP: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -340,7 +313,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BAEQ: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -349,7 +321,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BANE: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -358,7 +329,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BACS: begin 
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -367,7 +337,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BACC:	begin 
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -376,7 +345,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BAMI: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -385,7 +353,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BAPL: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -394,7 +361,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BBEQ: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -403,7 +369,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BBNE: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -412,7 +377,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BBCS: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -421,7 +385,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BBCC: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -430,7 +393,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BBMI: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -439,7 +401,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`BBPL: begin
 			
-				branchTaken = 1;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -448,7 +409,6 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 			`NOP: begin
 			
-				branchTaken = 0;
 				controlAcum = `noLoad;
 				outSelMux = `selConstants;
 				memEnable = 0;
@@ -534,7 +494,7 @@ endmodule
 
 // ----------------------------------------------------------------------------------------------------
 // Se pegan los modulos de acumuladores y decodificador.
-module id(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation, constant, controlAcum, memEnable);
+module id(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum, memEnable);
 
 	// Entradas.
 	input [7:0] data;
@@ -545,7 +505,6 @@ module id(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelM
 	// Salidas.
 	output wire [7:0] salidaAcumA,salidaAcumB;
 	output wire [9:0] branchDir;
-	output wire branchTaken;
 	output wire [1:0] outSelMux;
 	output wire [5:0] operation;
 	output wire [7:0] constant;
@@ -554,6 +513,6 @@ module id(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelM
 	
 	acumAB acumuladores (constant,data,controlAcum, salidaAcumA, salidaAcumB);
 	
-	decoder decodificador(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,operation,memEnable);
+	decoder decodificador(instr,newPC,constant,branchDir,outSelMux,controlAcum,operation,memEnable);
 
 endmodule
