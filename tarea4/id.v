@@ -15,6 +15,9 @@
 `define selAcumAConstB 2'b10
 `define selAcumAB 2'b11 
 
+assign iAliOper1 = (outSelMux[0]) ? salidaAcumA:constant;
+
+
 
 
 // ---------------------------------------------------------------------------------------------
@@ -182,11 +185,11 @@ module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,
 			
 				branchTaken = 0;		
 				controlAcum = `loadMemoryA;
-				outSelMux = `selAcumAB;
+				outSelMux = `selAcumAB;		//11
 				
 			end	
 			
-			// B <- (A) - (B)
+			// B <- (B) - (A)
 			`SUBB: begin
 			
 				branchTaken = 0;
@@ -496,7 +499,7 @@ endmodule
 
 // ----------------------------------------------------------------------------------------------------
 // Se pegan los modulos de acumuladores y decodificador.
-module id(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux,operation);
+module id(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation, constant, controlAcum);
 
 	// Entradas.
 	input [7:0] data;
@@ -510,10 +513,8 @@ module id(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelM
 	output wire branchTaken;
 	output wire [1:0] outSelMux;
 	output wire [5:0] operation;
-	
-	// Internas.
-	wire [7:0] constant;
-	wire [2:0] controlAcum;	
+	output wire [7:0] constant;
+	output wire [2:0] controlAcum;	
 	
 	
 	acumAB acumuladores (constant,data,controlAcum, salidaAcumA, salidaAcumB);
