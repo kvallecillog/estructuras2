@@ -1,6 +1,9 @@
 `include "instrDefine.v"
 
 
+//Revisar la salida de la ALU en los BRANCHES y en JUMP
+
+
 module alu(
  input wire [7:0] iAluOper1,
  input wire [7:0] iAluOper2,
@@ -17,7 +20,10 @@ module alu(
 	reg BBZ; // Bandera de ZERO para el acumulador B.
  	reg BAN; // Bandera de NEGATIVE para el acumulador B.
  	reg BBN; // Bandera de NEGATIVE para el acumulador B.
- 	assign sReg = {BCA,BCB,BAZ,BBZ,BAN,BB};
+ 	
+ 	wire [5:0] sReg;
+
+ 	assign sReg = {BCA,BCB,BAZ,BBZ,BAN,BBN};
 
 
 	always @(iAluInstSel,iAluOper1,iAluOper2) begin
@@ -158,6 +164,19 @@ module alu(
 			BAN<=oAluData[7];	
 			BBN<=BBN;
 			branchTaken<=0;		
+
+		end
+
+		`JMP:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+		 	branchTaken<=1;
+		 	oAluData<=0;        //Revisar si la salida de la ALU en branch o JMP va a cero o no
 
 		end
 
