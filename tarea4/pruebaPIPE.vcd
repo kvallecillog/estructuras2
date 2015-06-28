@@ -1,5 +1,5 @@
 $date
-	Sun Jun 28 02:15:08 2015
+	Sun Jun 28 02:22:54 2015
 $end
 $version
 	Icarus Verilog
@@ -171,7 +171,7 @@ $enddefinitions $end
 #0
 $dumpvars
 b0 4"
-x3"
+03"
 x2"
 x1"
 x0"
@@ -247,7 +247,7 @@ bx I
 bx H
 bx G
 bx F
-xE
+0E
 bx D
 bx C
 bx B
@@ -279,7 +279,7 @@ b0 )
 x(
 bx '
 bx &
-x%
+0%
 bx $
 b0 #
 1"
@@ -609,9 +609,6 @@ b100 V
 0,
 0!
 #65000
-03"
-0E
-0%
 0-"
 1."
 01"
