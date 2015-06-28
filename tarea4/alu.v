@@ -2,17 +2,11 @@
 
 
 module alu(
-
  input wire [7:0] iAluOper1,
  input wire [7:0] iAluOper2,
  input wire [5:0] iAluInstSel,
- //input wire [9:0] branchDir_ID,
- output [5:0] sReg,
- //output zero,
  output reg branchTaken,
- //output reg [9:0] branchDir_EX,
  output reg [7:0] oAluData // Resultado
-
 );
 
 
@@ -37,12 +31,12 @@ module alu(
 		`ADDA,`ADDCA: begin
 
 			{BCA,oAluData}<=iAluOper1+iAluOper2;
-			BCB<=BCB;
-			BAZ<=~|oAluData;		
-			BBZ<=BBZ;
-			BAN<=oAluData[7];
-			BBN<=BBN;
-			branchTaken<=0;			
+			BCB<=BCB;		 // Se mantiene la bandera C de B.
+			BAZ<=~|oAluData; // La suma afecta la bandera Z de A.	
+			BBZ<=BBZ;		// Se mantiene la bandera C de A.
+			BAN<=oAluData[7]; // La suma afecta la bandera N de A.	
+			BBN<=BBN;		// Se mantiene la bandera N de B.
+			branchTaken<=0;	 // No se toma el branch.		
 
 		end
 

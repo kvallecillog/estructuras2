@@ -20,8 +20,6 @@ module ex(
 wire [7:0] iAluOper1;
 wire [7:0] iAluOper2;
 
-wire zero,BCA,BCB;
-
 assign branchDir_ID=branchDir_EX;
 
 assign  iAluOper1= (outSelMuxExe[0])? iAcumA:iConst;
