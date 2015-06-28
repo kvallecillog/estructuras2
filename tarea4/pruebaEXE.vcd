@@ -1,0 +1,210 @@
+$date
+	Sat Jun 27 22:45:26 2015
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tester $end
+$var wire 10 ! branchDir_EX [9:0] $end
+$var wire 10 " branchDir_ID [9:0] $end
+$var wire 1 # branchTaken $end
+$var wire 8 $ iAcumA [7:0] $end
+$var wire 8 % iAcumB [7:0] $end
+$var wire 6 & iAluInstSel [5:0] $end
+$var wire 8 ' iConst [7:0] $end
+$var wire 8 ( oAluData [7:0] $end
+$var wire 2 ) outSelMuxExe [1:0] $end
+$scope module test $end
+$var wire 10 * branchDir_EX [9:0] $end
+$var wire 1 # branchTaken $end
+$var wire 8 + oAluData [7:0] $end
+$var reg 10 , branchDir_ID [9:0] $end
+$var reg 10 - clear [9:0] $end
+$var reg 8 . iAcumA [7:0] $end
+$var reg 8 / iAcumB [7:0] $end
+$var reg 6 0 iAluInstSel [5:0] $end
+$var reg 8 1 iConst [7:0] $end
+$var reg 2 2 outSelMuxExe [1:0] $end
+$upscope $end
+$scope module etapaEXE $end
+$var wire 10 3 branchDir_EX [9:0] $end
+$var wire 10 4 branchDir_ID [9:0] $end
+$var wire 1 # branchTaken $end
+$var wire 8 5 iAcumA [7:0] $end
+$var wire 8 6 iAcumB [7:0] $end
+$var wire 6 7 iAluInstSel [5:0] $end
+$var wire 8 8 iAluOper1 [7:0] $end
+$var wire 8 9 iAluOper2 [7:0] $end
+$var wire 8 : iConst [7:0] $end
+$var wire 8 ; oAluData [7:0] $end
+$var wire 2 < outSelMuxExe [1:0] $end
+$scope module aluEx $end
+$var wire 6 = iAluInstSel [5:0] $end
+$var wire 8 > iAluOper1 [7:0] $end
+$var wire 8 ? iAluOper2 [7:0] $end
+$var wire 6 @ sReg [5:0] $end
+$var reg 1 A BAN $end
+$var reg 1 B BAZ $end
+$var reg 1 C BBN $end
+$var reg 1 D BBZ $end
+$var reg 1 E BCA $end
+$var reg 1 F BCB $end
+$var reg 1 G branchTaken $end
+$var reg 8 H oAluData [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b111 H
+0G
+0F
+0E
+0D
+0C
+xB
+xA
+b0x0x0 @
+b111 ?
+b1111 >
+b10110 =
+b11 <
+b111 ;
+b1010 :
+b111 9
+b1111 8
+b10110 7
+b111 6
+b1111 5
+b0 4
+b0 3
+b11 2
+b1010 1
+b10110 0
+b111 /
+b1111 .
+b0 -
+b0 ,
+b111 +
+b0 *
+b11 )
+b111 (
+b1010 '
+b10110 &
+b111 %
+b1111 $
+0#
+b0 "
+b0 !
+$end
+#20000
+0A
+0B
+b0 @
+b11110 H
+b11110 (
+b11110 +
+b11110 ;
+b10111 0
+b10111 &
+b10111 7
+b10111 =
+#40000
+b0 H
+b0 (
+b0 +
+b0 ;
+1G
+1#
+b1010 9
+b1010 ?
+b11000 0
+b11000 &
+b11000 7
+b11000 =
+b1 2
+b1 )
+b1 <
+#60000
+0G
+0#
+1D
+b100 @
+b10110 H
+b10110 (
+b10110 +
+b10110 ;
+b111 9
+b111 ?
+b111 0
+b111 &
+b111 7
+b111 =
+b11 2
+b11 )
+b11 <
+#80000
+b0 H
+b0 (
+b0 +
+b0 ;
+1G
+1#
+b1010 9
+b1010 ?
+b100010 0
+b100010 &
+b100010 7
+b100010 =
+b1 2
+b1 )
+b1 <
+#100000
+0G
+0#
+b100001 0
+b100001 &
+b100001 7
+b100001 =
+#120000
+1F
+b10100 @
+b11111000 H
+b11111000 (
+b11111000 +
+b11111000 ;
+b111 9
+b111 ?
+b1011 0
+b1011 &
+b1011 7
+b1011 =
+b11 2
+b11 )
+b11 <
+#140000
+b0 H
+b0 (
+b0 +
+b0 ;
+b1010 9
+b1010 ?
+b100010 0
+b100010 &
+b100010 7
+b100010 =
+b1 2
+b1 )
+b1 <
+#160000
+1G
+1#
+b100001 0
+b100001 &
+b100001 7
+b100001 =
+#180000
