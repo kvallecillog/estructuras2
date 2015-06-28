@@ -23,8 +23,8 @@ module pipeline (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
   wire [`LENGTH_INSTR_MEM-1:0] wBrDir_IF;
   wire wBrTaken_IF;
   
-  assign wBrTaken_IF = wBrTaken_EXE;
-  assign wBrDir_IF = wBrDir_EXE;
+  assign wBrTaken_IF = wBrTaken_EX;
+  assign wBrDir_IF = wBrDir_EX;
   
   iFetch etapa1 (.clk(clk),.reset(reset),.iBr_dir(wBrDir_IF),
     .iBr_taken(wBrTaken_IF),.oFetchedInst(wFetchedInst_IF),.oNew_pc(wNewPC_IF));
