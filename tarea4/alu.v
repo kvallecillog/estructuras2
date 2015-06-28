@@ -344,6 +344,7 @@ module alu(
  	 		BBZ<=BBZ;
 			BAN<=BAN;
 			BBN<=BBN;
+			branchTaken<=0;
 			oAluData<=0;
 
 		end
