@@ -110,8 +110,8 @@ module pipeline (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
 
 	ex etapa3 (.iAcumA(outReg_ID_EX_AcumA_ID), .iAcumB(outReg_ID_EX_AcumB_ID),.iConst(outReg_ID_EX_Constant_ID),
  		.outSelMuxExe(outReg_ID_EX_OutSelMux_ID),.iAluInstSel(outReg_ID_EX_Operation_ID),.branchDir_ID(outReg_ID_EX_BrDir_ID),
- 		.branchTaken(wBrTaken_EX),.branchDir_EX(wBrDir_EX),
- 		.oAluData(wAluResult_EX),.oControlAcum_EX(wControlAcum_EX),.oMemEnable_EX(wMemEnable_EX));
+ 		.branchTaken(wBrTaken_EX),.branchDir_EX(wBrDir_EX),.iMemEnable_ID(outReg_ID_EX_MemEnable_ID),
+ 		.iControlAcum_ID(outReg_ID_EX_ControlAcum_ID),.oAluData(wAluResult_EX),.oControlAcum_EX(wControlAcum_EX),.oMemEnable_EX(wMemEnable_EX));
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 endmodule
 

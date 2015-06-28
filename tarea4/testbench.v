@@ -12,8 +12,6 @@ module probador (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
 	// Salidas
 	output reg clk;
 	output reg reset;
-	//output reg wBrTaken_IF;
-	//output reg [9:0] wBrDir_IF;
 	output reg [7:0] wData_WB;
 	
 	// Entradas.

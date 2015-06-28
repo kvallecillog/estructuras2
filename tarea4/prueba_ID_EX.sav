@@ -1,0 +1,96 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Sun Jun 28 08:08:42 2015
+[*]
+[dumpfile] "/home/aglt93/Escritorio/repositorios/estructuras2/tarea4/pruebaPIPE.vcd"
+[dumpfile_mtime] "Sun Jun 28 08:07:54 2015"
+[dumpfile_size] 11574
+[savefile] "/home/aglt93/Escritorio/repositorios/estructuras2/tarea4/prueba_ID_EX.sav"
+[timestart] 0
+[size] 1301 744
+[pos] -1 -1
+*-14.493046 65000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tester.
+[treeopen] tester.pegado.
+[sst_width] 223
+[signals_width] 190
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@28
+tester.clk
+tester.reset
+@22
+tester.wAluResult_EX[7:0]
+tester.wBrDir_EX[9:0]
+@28
+tester.wBrTaken_EX
+tester.wControlAcum_EX[2:0]
+@22
+tester.wData_WB[7:0]
+@28
+tester.wMemEnable_EX
+@200
+-
+-etapa1
+@28
+tester.pegado.etapa1.clk
+@22
+tester.pegado.etapa1.iBr_dir[9:0]
+@28
+tester.pegado.etapa1.iBr_taken
+@22
+tester.pegado.etapa1.oFetchedInst[15:0]
+tester.pegado.etapa1.oNew_pc[9:0]
+@28
+tester.pegado.etapa1.reset
+@22
+tester.pegado.etapa1.wPc_pointer[9:0]
+@200
+-
+-etapa2
+@22
+tester.pegado.etapa2.branchDir[9:0]
+tester.pegado.etapa2.constant[7:0]
+@28
+tester.pegado.etapa2.controlAcum[2:0]
+@22
+tester.pegado.etapa2.data[7:0]
+tester.pegado.etapa2.instr[15:0]
+@28
+tester.pegado.etapa2.memEnable
+@22
+tester.pegado.etapa2.newPC[9:0]
+tester.pegado.etapa2.operation[5:0]
+@28
+tester.pegado.etapa2.outSelMux[1:0]
+@22
+tester.pegado.etapa2.salidaAcumA[7:0]
+tester.pegado.etapa2.salidaAcumB[7:0]
+@200
+-
+-etapa3
+@22
+tester.pegado.etapa3.branchDir_EX[9:0]
+tester.pegado.etapa3.branchDir_ID[9:0]
+@28
+tester.pegado.etapa3.branchTaken
+@22
+tester.pegado.etapa3.iAcumA[7:0]
+tester.pegado.etapa3.iAcumB[7:0]
+tester.pegado.etapa3.iAluInstSel[5:0]
+tester.pegado.etapa3.iAluOper1[7:0]
+tester.pegado.etapa3.iAluOper2[7:0]
+tester.pegado.etapa3.iConst[7:0]
+@28
+tester.pegado.etapa3.iControlAcum_ID[2:0]
+tester.pegado.etapa3.iMemEnable_ID
+@22
+tester.pegado.etapa3.oAluData[7:0]
+@28
+tester.pegado.etapa3.oControlAcum_EX[2:0]
+tester.pegado.etapa3.oMemEnable_EX
+@200
+-
+-
+[pattern_trace] 1
+[pattern_trace] 0
