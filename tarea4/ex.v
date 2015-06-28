@@ -14,8 +14,8 @@ module ex(
  output branchTaken,
  output [9:0] branchDir_EX,
  output [7:0] oAluData,
- output [2:0] oControlAcum_ID,
- output oMemEnable_ID
+ output [2:0] oControlAcum_EX,
+ output oMemEnable_EX
 
 );
 
@@ -32,8 +32,8 @@ assign branchDir_EX = branchDir_ID;
 assign  iAluOper1= (outSelMuxExe[0]) ? iAcumA:iConst;
 assign  iAluOper2= (outSelMuxExe[1]) ? iAcumB:iConst;
 
-assign oControlAcum_ID = iControlAcum_ID;
-assign oMemEnable_ID = iMemEnable_ID;
+assign oControlAcum_EX = iControlAcum_ID;
+assign oMemEnable_EX = iMemEnable_ID;
 
 
 alu aluEx 
