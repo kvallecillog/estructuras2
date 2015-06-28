@@ -9,9 +9,13 @@ module ex(
  input wire [1:0] outSelMuxExe,
  input wire [5:0] iAluInstSel,
  input wire [9:0] branchDir_ID,
+ input wire [2:0] iControlAcum_ID,
+ input wire	iMemEnable_ID,
  output branchTaken,
  output [9:0] branchDir_EX,
- output [7:0] oAluData
+ output [7:0] oAluData,
+ output [2:0] oControlAcum_ID,
+ output oMemEnable_ID
 
 );
 
@@ -20,10 +24,16 @@ module ex(
 wire [7:0] iAluOper1;
 wire [7:0] iAluOper2;
 
+wire [2:0] oControlAcum_ID;
+wire oMemEnable_ID;
+
 assign branchDir_EX = branchDir_ID;
 
 assign  iAluOper1= (outSelMuxExe[0]) ? iAcumA:iConst;
 assign  iAluOper2= (outSelMuxExe[1]) ? iAcumB:iConst;
+
+assign oControlAcum_ID = iControlAcum_ID;
+assign oMemEnable_ID = iMemEnable_ID;
 
 
 alu aluEx 
