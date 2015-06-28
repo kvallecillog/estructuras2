@@ -1,0 +1,53 @@
+#! /usr/local/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7-28-g2f4b460)";
+:vpi_time_precision - 12;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x2601030 .scope module, "mem" "mem" 2 4;
+ .timescale -9 -12;
+v0x2613160_0 .net "Clock", 0 0, C4<z>; 0 drivers
+v0x2613200_0 .net "iAluDataEX", 7 0, C4<zzzzzzzz>; 0 drivers
+v0x2613280_0 .net "rWriteDataEnable", 0 0, C4<z>; 0 drivers
+v0x2613330_0 .net "wDataRamRead", 7 0, v0x26130c0_0; 1 drivers
+v0x2613410_0 .net "wDataRamReadDes", 9 0, C4<zzzzzzzzzz>; 0 drivers
+v0x26134c0_0 .net "wDataRamWrite", 7 0, C4<zzzzzzzz>; 0 drivers
+v0x2613580_0 .net "wDataRamWriteDes", 9 0, C4<zzzzzzzzzz>; 0 drivers
+S_0x2603280 .scope module, "DATA_MEM" "RAM_SINGLE_READ_PORT" 2 17, 3 8, S_0x2601030;
+ .timescale -9 -12;
+P_0x2601358 .param/l "ADDR_WIDTH" 3 8, +C4<01010>;
+P_0x2601380 .param/l "DATA_WIDTH" 3 8, +C4<01000>;
+P_0x26013a8 .param/l "MEM_SIZE" 3 8, +C4<010000000000>;
+v0x26044c0_0 .alias "Clock", 0 0, v0x2613160_0;
+v0x2612d70 .array "Ram", 0 1024, 7 0;
+v0x2612df0_0 .alias "iDataMemIn", 7 0, v0x26134c0_0;
+v0x2612e90_0 .alias "iReadDataAddress", 9 0, v0x2613410_0;
+v0x2612f40_0 .alias "iWriteDataAddress", 9 0, v0x2613580_0;
+v0x2612fe0_0 .alias "iWriteDataEnable", 0 0, v0x2613280_0;
+v0x26130c0_0 .var "oDataMemOut", 7 0;
+E_0x2600f60 .event posedge, v0x26044c0_0;
+    .scope S_0x2603280;
+T_0 ;
+    %wait E_0x2600f60;
+    %load/v 8, v0x2612fe0_0, 1;
+    %jmp/0xz  T_0.0, 8;
+    %load/v 8, v0x2612df0_0, 8;
+    %ix/getv 3, v0x2612f40_0;
+    %jmp/1 t_0, 4;
+    %ix/load 0, 8, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0x2612d70, 0, 8;
+t_0 ;
+T_0.0 ;
+    %ix/getv 3, v0x2612e90_0;
+    %load/av 8, v0x2612d70, 8;
+    %ix/load 0, 8, 0;
+    %assign/v0 v0x26130c0_0, 0, 8;
+    %jmp T_0;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "mem.v";
+    "./ramDatos.v";

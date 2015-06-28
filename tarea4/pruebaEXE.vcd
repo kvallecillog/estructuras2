@@ -1,5 +1,9 @@
 $date
+<<<<<<< HEAD
 	Sat Jun 27 22:45:26 2015
+=======
+	Sat Jun 27 22:08:06 2015
+>>>>>>> 37cda0a25c1cc8e502608d21e94a925a03d7d6cd
 $end
 $version
 	Icarus Verilog
@@ -42,6 +46,7 @@ $var wire 8 : iConst [7:0] $end
 $var wire 8 ; oAluData [7:0] $end
 $var wire 2 < outSelMuxExe [1:0] $end
 $scope module aluEx $end
+<<<<<<< HEAD
 $var wire 6 = iAluInstSel [5:0] $end
 $var wire 8 > iAluOper1 [7:0] $end
 $var wire 8 ? iAluOper2 [7:0] $end
@@ -54,12 +59,28 @@ $var reg 1 E BCA $end
 $var reg 1 F BCB $end
 $var reg 1 G branchTaken $end
 $var reg 8 H oAluData [7:0] $end
+=======
+$var wire 1 = BB $end
+$var wire 6 > iAluInstSel [5:0] $end
+$var wire 8 ? iAluOper1 [7:0] $end
+$var wire 8 @ iAluOper2 [7:0] $end
+$var wire 1 A sReg $end
+$var reg 1 B BAN $end
+$var reg 1 C BAZ $end
+$var reg 1 D BBN $end
+$var reg 1 E BBZ $end
+$var reg 1 F BCA $end
+$var reg 1 G BCB $end
+$var reg 1 H branchTaken $end
+$var reg 8 I oAluData [7:0] $end
+>>>>>>> 37cda0a25c1cc8e502608d21e94a925a03d7d6cd
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
+<<<<<<< HEAD
 b111 H
 0G
 0F
@@ -78,23 +99,57 @@ b1010 :
 b111 9
 b1111 8
 b10110 7
+=======
+b10110 I
+0H
+xG
+0F
+xE
+xD
+xC
+xB
+zA
+b111 @
+b1111 ?
+b110 >
+z=
+b11 <
+b10110 ;
+b1010 :
+b111 9
+b1111 8
+b110 7
+>>>>>>> 37cda0a25c1cc8e502608d21e94a925a03d7d6cd
 b111 6
 b1111 5
 b0 4
 b0 3
 b11 2
 b1010 1
+<<<<<<< HEAD
 b10110 0
+=======
+b110 0
+>>>>>>> 37cda0a25c1cc8e502608d21e94a925a03d7d6cd
 b111 /
 b1111 .
 b0 -
 b0 ,
+<<<<<<< HEAD
 b111 +
 b0 *
 b11 )
 b111 (
 b1010 '
 b10110 &
+=======
+b10110 +
+b0 *
+b11 )
+b10110 (
+b1010 '
+b110 &
+>>>>>>> 37cda0a25c1cc8e502608d21e94a925a03d7d6cd
 b111 %
 b1111 $
 0#
@@ -102,6 +157,7 @@ b0 "
 b0 !
 $end
 #20000
+<<<<<<< HEAD
 0A
 0B
 b0 @
@@ -126,10 +182,33 @@ b11000 0
 b11000 &
 b11000 7
 b11000 =
+=======
+0D
+0E
+0G
+b111 0
+b111 &
+b111 7
+b111 >
+#40000
+b11001 I
+b11001 (
+b11001 +
+b11001 ;
+0B
+0C
+b1010 9
+b1010 @
+b1000 0
+b1000 &
+b1000 7
+b1000 >
+>>>>>>> 37cda0a25c1cc8e502608d21e94a925a03d7d6cd
 b1 2
 b1 )
 b1 <
 #60000
+<<<<<<< HEAD
 0G
 0#
 1D
@@ -208,3 +287,167 @@ b100001 &
 b100001 7
 b100001 =
 #180000
+=======
+b10001 I
+b10001 (
+b10001 +
+b10001 ;
+b1010 8
+b1010 ?
+b111 9
+b111 @
+b1001 0
+b1001 &
+b1001 7
+b1001 >
+b10 2
+b10 )
+b10 <
+#80000
+b1000 I
+b1000 (
+b1000 +
+b1000 ;
+b1111 8
+b1111 ?
+b1010 0
+b1010 &
+b1010 7
+b1010 >
+b11 2
+b11 )
+b11 <
+#100000
+1G
+b11111000 I
+b11111000 (
+b11111000 +
+b11111000 ;
+b1011 0
+b1011 &
+b1011 7
+b1011 >
+#120000
+1B
+b101 I
+b101 (
+b101 +
+b101 ;
+b1010 9
+b1010 @
+b1100 0
+b1100 &
+b1100 7
+b1100 >
+b1 2
+b1 )
+b1 <
+#140000
+b11111101 I
+b11111101 (
+b11111101 +
+b11111101 ;
+b1010 8
+b1010 ?
+b111 9
+b111 @
+b1101 0
+b1101 &
+b1101 7
+b1101 >
+b10 2
+b10 )
+b10 <
+#160000
+b111 I
+b111 (
+b111 +
+b111 ;
+b1111 8
+b1111 ?
+b1110 0
+b1110 &
+b1110 7
+b1110 >
+b11 2
+b11 )
+b11 <
+#180000
+b1111 0
+b1111 &
+b1111 7
+b1111 >
+#200000
+b1010 I
+b1010 (
+b1010 +
+b1010 ;
+0B
+b1010 9
+b1010 @
+b10000 0
+b10000 &
+b10000 7
+b10000 >
+b1 2
+b1 )
+b1 <
+#220000
+b10 I
+b10 (
+b10 +
+b10 ;
+b1010 8
+b1010 ?
+b111 9
+b111 @
+b10001 0
+b10001 &
+b10001 7
+b10001 >
+b10 2
+b10 )
+b10 <
+#240000
+b1111 I
+b1111 (
+b1111 +
+b1111 ;
+b1111 8
+b1111 ?
+b10010 0
+b10010 &
+b10010 7
+b10010 >
+b11 2
+b11 )
+b11 <
+#260000
+b10011 0
+b10011 &
+b10011 7
+b10011 >
+#280000
+b1010 9
+b1010 @
+b10100 0
+b10100 &
+b10100 7
+b10100 >
+b1 2
+b1 )
+b1 <
+#300000
+b1010 8
+b1010 ?
+b111 9
+b111 @
+b10101 0
+b10101 &
+b10101 7
+b10101 >
+b10 2
+b10 )
+b10 <
+#320000
+>>>>>>> 37cda0a25c1cc8e502608d21e94a925a03d7d6cd

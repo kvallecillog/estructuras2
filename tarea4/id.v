@@ -18,8 +18,6 @@
 assign iAliOper1 = (outSelMux[0]) ? salidaAcumA:constant;
 
 
-
-
 // ---------------------------------------------------------------------------------------------
 module decoder(instr,newPC,constant,branchDir,branchTaken,outSelMux,controlAcum,operation);
 
