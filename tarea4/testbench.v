@@ -8,8 +8,8 @@
 
 
 
-//PROBADOR DEL ID.
-module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
+//PROBADOR DEL EXE.
+module probador(iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
 
 
 	// Entradas.
@@ -19,7 +19,7 @@ module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,o
 	
 	
 	// Salidas.
-	output wire [7:0] salidaAcumA,salidaAcumB;
+	output wire [7:0] iAcumA,iAcumB;
 	output wire [9:0] branchDir;
 	output wire branchTaken;
 	output wire [1:0] outSelMux;
@@ -63,15 +63,15 @@ endmodule
 
 module tester;
 
-	wire [7:0] data,salidaAcumA,salidaAcumB;
-	wire [9:0] branchDir,newPC;
-	wire [15:0] instr;
-	wire branchTaken;
-	wire [1:0] outSelMux;
-	wire [5:0] operation;
+ wire [7:0] iAcumA;	
+ wire [7:0] iAcumB;
+ wire [7:0] iConst;
+ wire [1:0] outSelMuxExe;
+ wire [5:0] iAluInstSel;
+ reg [7:0] oAluData;
 	
-	probador test(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
-	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
+	probador test (iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
+	exe pegado (iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
 
 endmodule
 
