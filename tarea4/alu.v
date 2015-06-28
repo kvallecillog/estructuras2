@@ -6,24 +6,25 @@ module alu(
  input wire [7:0] iAluOper1,
  input wire [7:0] iAluOper2,
  input wire [5:0] iAluInstSel,
- output zero,
- output reg BCA,
- output reg BCB,
- output reg BAZ,
- output reg BBZ,
- output reg BAN,
- output reg BBN,
- output reg [7:0] oAluData
+ //input wire [9:0] branchDir_ID,
+ output [5:0] sReg,
+ //output zero,
+ output reg branchTaken,
+ //output reg [9:0] branchDir_EX,
+ output reg [7:0] oAluData // Resultado
 
 );
 
-	// 
-//	assign  zero = (oAluData==0); // zero se levanta si la salida de la alu es 0. 
-	
-	// Registro que contiene la bandera de carry del acumulador A.
-	//reg BCA;
-	// Registro que contiene la bandera de carry del acumulador A.
-	//reg BCB;
+
+	// Registros de estatus para los acumuladores A y B.
+ 	reg BCA; // Bandera de CARRY para el acumulador A.
+ 	reg BCB; // Bandera de CARRY para el acumulador B.
+ 	reg BAZ; // Bandera de ZERO para el acumulador B.
+	reg BBZ; // Bandera de ZERO para el acumulador B.
+ 	reg BAN; // Bandera de NEGATIVE para el acumulador B.
+ 	reg BBN; // Bandera de NEGATIVE para el acumulador B.
+ 	assign sReg = {BCA,BCB,BAZ,BBZ,BAN,BB};
+
 
 	always @(iAluInstSel,iAluOper1,iAluOper2) begin
 
@@ -34,119 +35,304 @@ module alu(
 		// por este motivo se separa para los casos A y B.
 
 		`ADDA,`ADDCA: begin
+
 			{BCA,oAluData}<=iAluOper1+iAluOper2;
+			BCB<=BCB;
 			BAZ<=~|oAluData;		
-			BAN<=oAluData[7];			
+			BBZ<=BBZ;
+			BAN<=oAluData[7];
+			BBN<=BBN;
+			branchTaken<=0;			
+
 		end
 
 		`ADDB,`ADDCB: begin
+
+			BCA<=BCA;
 			{BCB,oAluData}<=iAluOper1+iAluOper2;
+			BAZ<=BAZ;
 			BBZ<=~|oAluData;
+			BAN<=BAN;
 			BBN<=oAluData[7];
+ 			branchTaken<=0;	
+
 		end
+
 
 		// La resta no es conmutativa. Se debe de separar por operandos y casos.
 		// Se asume que el iAluOper1 contiene el acumulador A y el iAluOper2 contiene el acumulador B o la constante.
 		`SUBA,`SUBCA: begin
+
 	 		{BCA,oAluData}<=iAluOper1-iAluOper2;
+			BCB<=BCB;
 			BAZ<=~|oAluData;		
-			BAN<=oAluData[7];
+			BBZ<=BBZ;
+			BAN<=oAluData[7];			
+			BBN<=BBN;
+			branchTaken<=0;	
+
 		end
 
 		// Se asume que el iAluOper1 contiene el acumulador A y el iAluOper2 contiene el acumulador B o la constante.
 		`SUBB,`SUBCB: begin
+		
+			BCA<=BCA;
 			{BCB,oAluData}<=iAluOper2-iAluOper1;
+			BAZ<=BAZ;
 			BBZ<=~|oAluData;
+			BAN<=BAN;
 			BBN<=oAluData[7];
+			branchTaken<=0;	
+
 		end
 
 		
 		`ANDA,`ANDCA: begin
+
 			oAluData<=iAluOper1&iAluOper2;
+			BCA<=BCA;
+			BCB<=BCB;
 			BAZ<=~|oAluData;
+			BBZ<=BBZ;
 			BAN<=oAluData[7];
+			BBN<=BBN;
+			branchTaken<=0;	
+
 		end
 
 		`ANDB,`ANDCB: begin
+
 			oAluData<=iAluOper1&iAluOper2;
+			BCA<=BCA;
+			BCB<=BCB;
+			BAZ<=BAZ;
 			BBZ<=~|oAluData;
+			BAN<=BAN;
 			BBN<=oAluData[7];
+ 	 		branchTaken<=0;	
+		
 		end
 
 		`ORA,`ORCA: begin
+
 			oAluData<=iAluOper1|iAluOper2;
+			BCA<=BCA;
+			BCB<=BCB;
 			BAZ<=~|oAluData;
-			BAN<=oAluData[7];			
+ 	 		BBZ<=BBZ;
+			BAN<=oAluData[7];
+			BBN<=BBN;
+			branchTaken<=0;	
+
 		end
 
 		`ORB,`ORCB: begin
+
 			oAluData<=iAluOper1|iAluOper2;
+			BCA<=BCA;
+			BCB<=BCB;
+			BAZ<=BAZ;
 			BBZ<=~|oAluData;
-			BBN<=oAluData[7];			
+			BAN<=BAN;
+			BBN<=oAluData[7];
+     		branchTaken<=0;			
+	
 		end
 
 		//Se asume que iAluOper1 contiene el acumulador A.
 
 		`ASLA: begin
+			
 			oAluData<=iAluOper1>>1;	
+		    BCA<=BCA;
+			BCB<=BCB;
 			BAZ<=~|oAluData;
+			BBZ<=BBZ;
 			BAN<=oAluData[7];
+			BBN<=BBN;
+			branchTaken<=0;	
+		
 		end
 
 		`ASRA: begin
+
 			oAluData<=iAluOper1<<1;
+			BCA<=BCA;
+			BCB<=BCB;
 			BAZ<=~|oAluData;
-			BAN<=oAluData[7];		
+			BBZ<=BBZ;
+			BAN<=oAluData[7];	
+			BBN<=BBN;
+			branchTaken<=0;		
+
 		end
 
-		// // En ID se debe de definir que para el caso de los branches
-		// // se envian el resgistro correspondiente por el iAluOper1.	
-		// //CREO QUE ESTO DEBERIA DE REALIZARSE EN OTRA ETAPA, DEFINIENDO LA BANDERA BZ!
-		
- 	// 	`BAEQ,`BBEQ,`BANE,`BBNE:begin
- 	// 	// Si se cumple que es igual a cero levante la bandera.
- 	// 	//xor bit a bit del iAluOper1 = acumulador.
-	 // 	BAZ<=~|iAluOper1;
-	 // 	BBZ<=~|iAluOper2;
-		// end
-	
+		`BAEQ:begin
 
- 	// 	`BACS:begin
- 	// 	// Si se cumple que es igual a cero levante la bandera.
-	 // 	BCA<=BCA;
-		// end
-	
-		// `BACC:begin
-		// // Si se cumple que es diferente de cero levante la bandera.
-	 // 	BCA<=~BCA;
-		// end	
-
- 	// 	`BBCS:begin
- 	// 	// Si se cumple que es igual a cero levante la bandera.
-	 // 	BCB<=BCB;
-		// end
-	
-		// `BBCC:begin
-		// // Si se cumple que es diferente de cero levante la bandera.
-	 // 	BCB<=~BCB;
-		// end	
-
- 	// 	`BAMI,`BAPL:begin
- 	// 	// Si se cumple que es igual a cero levante la bandera.
-	 // 	BAN<=iAluOper1[7];
-		// end
-
- 	// 	`BBMI,`BBPL:begin
- 	// 	// Si se cumple que es igual a cero levante la bandera.
-	 // 	BBN<=iAluOper2[7];
-		// end
-
-		default:begin
-			oAluData<=0;
-			BAZ<=BAZ;
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
 			BAN<=BAN;
-			BBZ<=BBZ;
 			BBN<=BBN;
+		 	branchTaken<=BAZ;
+		 	oAluData<=0;
+
+		end
+
+		`BANE:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+		 	branchTaken<=~BAZ;
+		 	oAluData<=0;
+
+		end
+
+ 	 	`BBEQ:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+		 	branchTaken<=BBZ;
+		 	oAluData<=0;
+
+		end
+	
+ 	 	`BBNE:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+		 	branchTaken<=~BBZ;
+		 	oAluData<=0;
+
+		end
+	
+ 	 	`BACS:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+ 	 		branchTaken<=BCA;
+ 	 		oAluData<=0;
+
+		end
+
+		`BACC:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+ 	 		branchTaken<=~BCA;
+ 	 		oAluData<=0;
+
+		end
+
+ 	 	`BBCS:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+ 	 		branchTaken<=BCB;
+ 	 		oAluData<=0;
+
+		end
+
+		`BBCC:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+ 	 		branchTaken<=~BCB;
+ 	 		oAluData<=0;
+
+		end
+
+		 `BAMI:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+ 	 		branchTaken<=BAN;
+ 	 		oAluData<=0;
+
+		end
+
+		`BAPL:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+ 	 		branchTaken<=~BAN;
+ 	 		oAluData<=0;
+
+		end
+
+		`BBMI:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+ 	 		branchTaken<=BBN;
+ 	 		oAluData<=0;
+
+		end
+
+		`BBPL:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+ 	 		branchTaken<=~BBN;
+ 	 		oAluData<=0;
+
+		end
+	
+		default:begin
+
+			BCA<=BCA;
+			BCB<=BCB;
+ 	 		BAZ<=BAZ;
+ 	 		BBZ<=BBZ;
+			BAN<=BAN;
+			BBN<=BBN;
+			oAluData<=0;
+
 		end
 
 	endcase
@@ -154,41 +340,3 @@ module alu(
 	end
 
 endmodule
-/*
-`define LDA 	6'h00
-`define LDB 	6'h01
-`define LDCA 	6'h02
-`define LDCB 	6'h03
-`define STA  	6'h04
-`define STB  	6'h05
-`define ADDA 	6'h06
-`define ADDB 	6'h07
-`define ADDCA	6'h08
-`define ADDCB	6'h09
-`define SUBA  	6'h0A
-`define SUBB  	6'h0B
-`define SUBCA 	6'h0C
-`define SUBCB 	6'h0D
-`define ANDA	6'h0E
-`define ANDB 	6'h0F
-`define ANDCA 	6'h10
-`define ANDCB	6'h11
-`define ORA		6'h12
-`define ORB		6'h13
-`define ORCA	6'h14
-`define ORCB	6'h15
-`define ASLA	6'h16
-`define ASRA	6'h17
-`define JMP		6'h18
-`define BAEQ	6'h19
-`define BANE	6'h1A
-`define BACS	6'h1B
-`define BACC	6'h1C
-`define BAMI	6'h1D
-`define BAPL	6'h1E
-`define BBEQ	6'h1F
-`define BBNE	6'h20
-`define BBCS	6'h21
-`define BBCC	6'h22
-`define BBMI	6'h23
-`define BBPL	6'h24*/

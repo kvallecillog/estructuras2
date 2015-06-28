@@ -8,18 +8,36 @@ module ex(
  input wire [7:0] iConst,
  input wire [1:0] outSelMuxExe,
  input wire [5:0] iAluInstSel,
+ input wire [9:0] branchDir_ID,
+ output branchTaken,
+ output [9:0] branchDir_EX,
  output [7:0] oAluData
 
 );
+
+
 
 wire [7:0] iAluOper1;
 wire [7:0] iAluOper2;
 
 wire zero,BCA,BCB;
 
+assign branchDir_ID=branchDir_EX;
 
 assign  iAluOper1= (outSelMuxExe[0])? iAcumA:iConst;
 assign  iAluOper2= (outSelMuxExe[1])? iAcumB:iConst;
+
+
+alu aluEx 
+(
+	.iAluOper1(iAluOper1),
+	.iAluOper2(iAluOper2),
+	.iAluInstSel(iAluInstSel),
+	.branchTaken(branchTaken),
+	.oAluData(oAluData)
+);
+
+endmodule
 
 /*always @(iAluInstSel,iAluOper1,iAluOper2) begin
 
@@ -72,18 +90,6 @@ case(iAluInstSel)
 
 //end
 
-alu aluEx 
-(
-	.iAluOper1(iAluOper1),
-	.iAluOper2(iAluOper2),
-	.iAluInstSel(iAluInstSel),
-	.zero(zero),
-	.BCA(BCA),
-	.BCB(BCB),
-	.oAluData(oAluData)
-);
-
-endmodule
 
 
 // `timescale 1ns/1ps
