@@ -2,6 +2,7 @@
 
 
 module alu(
+
  input wire [7:0] iAluOper1,
  input wire [7:0] iAluOper2,
  input wire [5:0] iAluInstSel,
@@ -12,7 +13,6 @@ module alu(
  output reg BBZ,
  output reg BAN,
  output reg BBN,
- 
  output reg [7:0] oAluData
 
 );
@@ -34,98 +34,120 @@ module alu(
 		// por este motivo se separa para los casos A y B.
 
 		`ADDA,`ADDCA: begin
-
-		{BCA,oAluData}<=iAluOper1+iAluOper2;
-			
+			{BCA,oAluData}<=iAluOper1+iAluOper2;
+			BAZ<=~|oAluData;		
+			BAN<=oAluData[7];			
 		end
 
 		`ADDB,`ADDCB: begin
-
-		{BCB,oAluData}<=iAluOper1+iAluOper2;
-			
+			{BCB,oAluData}<=iAluOper1+iAluOper2;
+			BBZ<=~|oAluData;
+			BBN<=oAluData[7];
 		end
 
 		// La resta no es conmutativa. Se debe de separar por operandos y casos.
-
 		// Se asume que el iAluOper1 contiene el acumulador A y el iAluOper2 contiene el acumulador B o la constante.
 		`SUBA,`SUBCA: begin
-		
-		{BCA,oAluData}<=iAluOper1-iAluOper2;
-
+	 		{BCA,oAluData}<=iAluOper1-iAluOper2;
+			BAZ<=~|oAluData;		
+			BAN<=oAluData[7];
 		end
 
 		// Se asume que el iAluOper1 contiene el acumulador A y el iAluOper2 contiene el acumulador B o la constante.
 		`SUBB,`SUBCB: begin
-		
-		{BCB,oAluData}<=iAluOper2-iAluOper1;
-
+			{BCB,oAluData}<=iAluOper2-iAluOper1;
+			BBZ<=~|oAluData;
+			BBN<=oAluData[7];
 		end
 
-
-		//La operacion OR es conmutativa no tiene problema con el orden de las entradas		
 		
-		`ANDA,`ANDB,`ANDCA,`ANDCB: begin
-		oAluData<=iAluOper1&iAluOper2;
+		`ANDA,`ANDCA: begin
+			oAluData<=iAluOper1&iAluOper2;
+			BAZ<=~|oAluData;
+			BAN<=oAluData[7];
 		end
 
-		//La operacion OR es conmutativa no tiene problema con el orden de las entradas
-		`ORA,`ORB,`ORCA,`ORCB: begin
-		oAluData<=iAluOper1|iAluOper2;			
+		`ANDB,`ANDCB: begin
+			oAluData<=iAluOper1&iAluOper2;
+			BBZ<=~|oAluData;
+			BBN<=oAluData[7];
+		end
+
+		`ORA,`ORCA: begin
+			oAluData<=iAluOper1|iAluOper2;
+			BAZ<=~|oAluData;
+			BAN<=oAluData[7];			
+		end
+
+		`ORB,`ORCB: begin
+			oAluData<=iAluOper1|iAluOper2;
+			BBZ<=~|oAluData;
+			BBN<=oAluData[7];			
 		end
 
 		//Se asume que iAluOper1 contiene el acumulador A.
 
 		`ASLA: begin
-		oAluData<=iAluOper1>>1;	
+			oAluData<=iAluOper1>>1;	
+			BAZ<=~|oAluData;
+			BAN<=oAluData[7];
 		end
 
 		`ASRA: begin
-		oAluData<=iAluOper1<<1;		
+			oAluData<=iAluOper1<<1;
+			BAZ<=~|oAluData;
+			BAN<=oAluData[7];		
 		end
 
-		// En ID se debe de definir que para el caso de los branches
-		// se envian el resgistro correspondiente por el iAluOper1.	
-		//CREO QUE ESTO DEBERIA DE REALIZARSE EN OTRA ETAPA, DEFINIENDO LA BANDERA BZ!
+		// // En ID se debe de definir que para el caso de los branches
+		// // se envian el resgistro correspondiente por el iAluOper1.	
+		// //CREO QUE ESTO DEBERIA DE REALIZARSE EN OTRA ETAPA, DEFINIENDO LA BANDERA BZ!
 		
- 		`BAEQ,`BBEQ,`BANE,`BBNE:begin
- 		// Si se cumple que es igual a cero levante la bandera.
- 		//xor bit a bit del iAluOper1 = acumulador.
-	 	BAZ<=~|iAluOper1;
-	 	BBZ<=~|iAluOper2;
-		end
+ 	// 	`BAEQ,`BBEQ,`BANE,`BBNE:begin
+ 	// 	// Si se cumple que es igual a cero levante la bandera.
+ 	// 	//xor bit a bit del iAluOper1 = acumulador.
+	 // 	BAZ<=~|iAluOper1;
+	 // 	BBZ<=~|iAluOper2;
+		// end
 	
 
- 		`BACS:begin
- 		// Si se cumple que es igual a cero levante la bandera.
-	 	BCA<=BCA;
-		end
+ 	// 	`BACS:begin
+ 	// 	// Si se cumple que es igual a cero levante la bandera.
+	 // 	BCA<=BCA;
+		// end
 	
-		`BACC:begin
-		// Si se cumple que es diferente de cero levante la bandera.
-	 	BCA<=~BCA;
-		end	
+		// `BACC:begin
+		// // Si se cumple que es diferente de cero levante la bandera.
+	 // 	BCA<=~BCA;
+		// end	
 
- 		`BBCS:begin
- 		// Si se cumple que es igual a cero levante la bandera.
-	 	BCB<=BCB;
-		end
+ 	// 	`BBCS:begin
+ 	// 	// Si se cumple que es igual a cero levante la bandera.
+	 // 	BCB<=BCB;
+		// end
 	
-		`BBCC:begin
-		// Si se cumple que es diferente de cero levante la bandera.
-	 	BCB<=~BCB;
-		end	
+		// `BBCC:begin
+		// // Si se cumple que es diferente de cero levante la bandera.
+	 // 	BCB<=~BCB;
+		// end	
 
- 		`BAMI,`BAPL:begin
- 		// Si se cumple que es igual a cero levante la bandera.
-	 	BAN<=iAluOper1[7];
+ 	// 	`BAMI,`BAPL:begin
+ 	// 	// Si se cumple que es igual a cero levante la bandera.
+	 // 	BAN<=iAluOper1[7];
+		// end
+
+ 	// 	`BBMI,`BBPL:begin
+ 	// 	// Si se cumple que es igual a cero levante la bandera.
+	 // 	BBN<=iAluOper2[7];
+		// end
+
+		default:begin
+			oAluData<=0;
+			BAZ<=BAZ;
+			BAN<=BAN;
+			BBZ<=BBZ;
+			BBN<=BBN;
 		end
-
- 		`BBMI,`BBPL:begin
- 		// Si se cumple que es igual a cero levante la bandera.
-	 	BBN<=iAluOper2[7];
-		end
-
-		default: oAluData<=0;
 
 	endcase
 

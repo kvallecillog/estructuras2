@@ -3,6 +3,98 @@
 `include "pipeline.v"
 
 
+
+
+
+
+
+//PROBADOR DEL ID.
+module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
+
+
+	// Entradas.
+	output reg [7:0] data;
+	output reg [15:0] instr;
+	output reg [9:0] newPC;
+	
+	
+	// Salidas.
+	output wire [7:0] salidaAcumA,salidaAcumB;
+	output wire [9:0] branchDir;
+	output wire branchTaken;
+	output wire [1:0] outSelMux;
+	output wire [5:0] operation;
+
+	// Internas
+	reg [9:0] clear = 0;
+
+	initial begin
+	
+		$dumpfile("pruebaEXE.vcd");
+		$dumpvars;
+
+		outSelMux = 0;
+		operation = `NOP;
+		branchTaken = 0;
+
+		#20 operation = `ADDA;
+			salidaAcumA = 5;
+			salidaAcumB = 7;
+
+
+		// HAZARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GOOOOOOOOOL!!!
+		// SI EL VALOR DEL BRANCH + EL NEWPC ES MAYOR
+		// A LAS 1024 POSICIONES DE MEMORIA ENTONCES
+		// EMPIEZA EN 0 DE NUEVO POR EJEMPLO NEWPC=1000
+		// BRANCH=30 => 1030 Y ESTO SERÍA UN 6
+
+		#20 branchTaken = 1;
+			operation = `BACS;
+		
+		#20 branchTaken = 1;
+			operation = `JMP;
+			
+		#20 $finish;
+		
+	end
+
+endmodule
+
+
+module tester;
+
+	wire [7:0] data,salidaAcumA,salidaAcumB;
+	wire [9:0] branchDir,newPC;
+	wire [15:0] instr;
+	wire branchTaken;
+	wire [1:0] outSelMux;
+	wire [5:0] operation;
+	
+	probador test(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
+	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,branchTaken,outSelMux, operation);
+
+endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 // PROBADOR DEL PIPELINE IF_ID LISTOS.
 module probador (clk,reset,wData_WB,/*wBrDir_IF,wBrTaken_IF,*/
   wAcumA_ID,wAcumB_ID,wBrDir_ID,wBrTaken_ID,wOutSelMux_ID,wOperation_ID);
@@ -72,8 +164,7 @@ module tester;
 
 endmodule
 
-
-
+*/
 
 
 
