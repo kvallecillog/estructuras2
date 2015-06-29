@@ -1,5 +1,5 @@
 $date
-	Sun Jun 28 23:46:53 2015
+	Mon Jun 29 00:42:02 2015
 $end
 $version
 	Icarus Verilog
@@ -47,7 +47,7 @@ $enddefinitions $end
 #0
 $dumpvars
 bx <
-z;
+1;
 1:
 b1 9
 b1 8
@@ -55,12 +55,12 @@ b111 7
 bx 6
 bx 5
 bx 4
-b10 3
+b11 3
 b111 2
 bx 1
 b1111 0
 b1 /
-b10 .
+b11 .
 b111 -
 bx ,
 b1111 +
@@ -69,7 +69,7 @@ bx )
 bx (
 bx '
 bx &
-b10 %
+b11 %
 b111 $
 bx #
 b1111 "
@@ -86,9 +86,9 @@ b0 -
 b0 $
 b0 2
 b0 7
-b0 .
-b0 %
-b0 3
+b1 .
+b1 %
+b1 3
 b10100 +
 b10100 "
 b10100 0

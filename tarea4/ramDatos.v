@@ -23,8 +23,10 @@ begin
 	if(memEnable)
 	begin
 
-		if (iWriteDataEnable)
+		if (iWriteDataEnable) begin
 		Ram[iWriteDataAddress] <= iDataMemIn;
+		oDataMemOut <= oDataMemOut;
+		end
 		else 
 		oDataMemOut <= Ram[iReadDataAddress]; 	
 	end

@@ -22,7 +22,7 @@ module probador(
 
 	initial begin
 	
-		$dumpfile("pruebaMEM.vcd");
+			$dumpfile("pruebaMEM.vcd");
 		$dumpvars;
 
 
@@ -30,7 +30,7 @@ module probador(
 
 		// Se esta escribiendo en la memoria el valor 7.
 		iAluDataEX = 15;
-		iOutMemSelect = 2'b10; // Salida de memoria
+		iOutMemSelect = 3; // Salida de memoria
 		iAddresReadNWrite=16'b1; // Posicion de memoria escrita
 		iDataWriteValue = 7; // Valor escrito
 
@@ -38,7 +38,7 @@ module probador(
 		#20 
 		// Se esta escribiendo en la memoria el valor 7.
 		iAluDataEX = 20;
-		iOutMemSelect = 2'b00; // Salida de memoria
+		iOutMemSelect = 1; // Salida de memoria
 		iAddresReadNWrite=16'b1; // Posicion de memoria escrita
 		iDataWriteValue = 0; // Valor escrito
 		#20 $finish;
