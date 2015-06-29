@@ -25,7 +25,7 @@ wire [7:0] iAluOper1;
 wire [7:0] iAluOper2;
 
 wire [2:0] oControlAcum_EX;
-wire oMemControl_EX;
+wire [1:0] oMemControl_EX;
 
 assign branchDir_EX = branchDir_ID;
 
