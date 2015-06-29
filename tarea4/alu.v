@@ -76,7 +76,7 @@ module alu(
 				
 		`LDCB: begin
 
-			oAluData<=15;
+			oAluData<=iAluOper2;
 			BCA<=BCA;
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
 			BBZ<=~|iAluOper1; // sE afecta la bandera Z de A.	
