@@ -31,6 +31,91 @@ module alu(
 	case(iAluInstSel) 
 		
 		
+		`LDA: begin
+
+			oAluData<=iAluOper1;
+			BCA<=BCA 
+			BCB<=BCB;		 // Se mantiene la bandera C de B.
+			BAZ<=~|;iAluOper1 // sE afecta la bandera Z de A.	
+			BBZ<=BBZ;		// Se mantiene la bandera C de A.
+			BAN<=iAluOper1[7]; // sE afecta la bandera N de A.	
+			BBN<=BBN;		// Se mantiene la bandera N de B.
+			branchTaken<=0;	 // No se toma el branch.		
+
+		end
+
+		
+		`LDB: begin
+
+			oAluData<=iAluOper2;
+			BCA<=BCA 
+			BCB<=BCB;		 // Se mantiene la bandera C de B.
+			BBZ<=~|;iAluOper1 // sE afecta la bandera Z de A.	
+			BAZ<=BAZ;		// Se mantiene la bandera C de A.
+			BBN<=iAluOper1[7]; // sE afecta la bandera N de A.	
+			BAN<=BAN;		// Se mantiene la bandera N de B.
+			branchTaken<=0;	 // No se toma el branch.		
+
+		end
+
+
+		`LDCA: begin
+
+			oAluData<=iAluOper1;
+			BCA<=BCA 
+			BCB<=BCB;		 // Se mantiene la bandera C de B.
+			BAZ<=~|;iAluOper1 // sE afecta la bandera Z de A.	
+			BBZ<=BBZ;		// Se mantiene la bandera C de A.
+			BAN<=iAluOper1[7]; // sE afecta la bandera N de A.	
+			BBN<=BBN;		// Se mantiene la bandera N de B.
+			branchTaken<=0;	 // No se toma el branch.		
+
+		end
+
+
+				
+		`LDCB: begin
+
+			oAluData<=iAluOper2;
+			BCA<=BCA 
+			BCB<=BCB;		 // Se mantiene la bandera C de B.
+			BBZ<=~|;iAluOper1 // sE afecta la bandera Z de A.	
+			BAZ<=BBZ;		// Se mantiene la bandera C de A.
+			BBN<=iAluOper1[7]; // sE afecta la bandera N de A.	
+			BAN<=BBN;		// Se mantiene la bandera N de B.
+			branchTaken<=0;	 // No se toma el branch.		
+
+		end
+
+
+		`STA: begin
+
+			oAluData<=0;
+			BCA<=BCA 
+			BCB<=BCB;		 // Se mantiene la bandera C de B.
+			BAZ<=BAZ	
+			BBZ<=BBZ;		// Se mantiene la bandera C de A.
+			BAN<=BAN; 
+			BBN<=BBN;		// Se mantiene la bandera N de B.
+			branchTaken<=0;	 // No se toma el branch.		
+
+		end
+
+		
+		`STB: begin
+
+			oAluData<=0;
+			BCA<=BCA 
+			BCB<=BCB;		 // Se mantiene la bandera C de B.
+			BAZ<=BAZ	
+			BBZ<=BBZ;		// Se mantiene la bandera C de A.
+			BAN<=BAN; 
+			BBN<=BBN;		// Se mantiene la bandera N de B.
+			branchTaken<=0;	 // No se toma el branch.		
+
+		end
+
+
 		//La operacion ADD es conmutativa sin embargo la afectacion de la bandera del carry es diferente para cada acumulador
 		// por este motivo se separa para los casos A y B.
 
