@@ -34,9 +34,9 @@ module alu(
 		`LDA: begin
 
 			oAluData<=iAluOper1;
-			BCA<=BCA 
+			BCA<=BCA ;
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
-			BAZ<=~|;iAluOper1 // sE afecta la bandera Z de A.	
+			BAZ<=~|iAluOper1; // sE afecta la bandera Z de A.	
 			BBZ<=BBZ;		// Se mantiene la bandera C de A.
 			BAN<=iAluOper1[7]; // sE afecta la bandera N de A.	
 			BBN<=BBN;		// Se mantiene la bandera N de B.
@@ -48,9 +48,9 @@ module alu(
 		`LDB: begin
 
 			oAluData<=iAluOper2;
-			BCA<=BCA 
+			BCA<=BCA;
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
-			BBZ<=~|;iAluOper1 // sE afecta la bandera Z de A.	
+			BBZ<=~|iAluOper1; // sE afecta la bandera Z de A.	
 			BAZ<=BAZ;		// Se mantiene la bandera C de A.
 			BBN<=iAluOper1[7]; // sE afecta la bandera N de A.	
 			BAN<=BAN;		// Se mantiene la bandera N de B.
@@ -62,9 +62,9 @@ module alu(
 		`LDCA: begin
 
 			oAluData<=iAluOper1;
-			BCA<=BCA 
+			BCA<=BCA; 
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
-			BAZ<=~|;iAluOper1 // sE afecta la bandera Z de A.	
+			BAZ<=~|iAluOper1; // sE afecta la bandera Z de A.	
 			BBZ<=BBZ;		// Se mantiene la bandera C de A.
 			BAN<=iAluOper1[7]; // sE afecta la bandera N de A.	
 			BBN<=BBN;		// Se mantiene la bandera N de B.
@@ -79,7 +79,7 @@ module alu(
 			oAluData<=iAluOper2;
 			BCA<=BCA 
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
-			BBZ<=~|;iAluOper1 // sE afecta la bandera Z de A.	
+			BBZ<=~|iAluOper1; // sE afecta la bandera Z de A.	
 			BAZ<=BBZ;		// Se mantiene la bandera C de A.
 			BBN<=iAluOper1[7]; // sE afecta la bandera N de A.	
 			BAN<=BBN;		// Se mantiene la bandera N de B.
@@ -89,8 +89,8 @@ module alu(
 
 
 		`STA: begin
-
-			oAluData<=0;
+			
+			oAluData<=iAluOper1;
 			BCA<=BCA 
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
 			BAZ<=BAZ	
@@ -104,7 +104,7 @@ module alu(
 		
 		`STB: begin
 
-			oAluData<=0;
+			oAluData<=iAluOper2;
 			BCA<=BCA 
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
 			BAZ<=BAZ	
