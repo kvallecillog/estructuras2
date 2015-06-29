@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Mon Jun 29 00:35:38 2015
+[*]
+[dumpfile] "/home/kenneth/Documents/UCR/estructuras2/CODIGO/tarea4/pruebaMEM.vcd"
+[dumpfile_mtime] "Mon Jun 29 00:33:25 2015"
+[dumpfile_size] 1329
+[savefile] "/home/kenneth/Documents/UCR/estructuras2/CODIGO/tarea4/WAVEmem.gtkw"
+[timestart] 0
+[size] 1315 744
+[pos] -316 -1
+*-13.203684 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tester.
+[treeopen] tester.etapaMem.
+[sst_width] 223
+[signals_width] 206
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@29
+tester.etapaMem.DATA_MEM.iWriteDataEnable
+@22
+tester.test.iAluDataEX[7:0]
+@28
+tester.test.iOutMemSelect[1:0]
+@22
+tester.test.iDataWriteValue[7:0]
+tester.test.iAddresReadNWrite[9:0]
+tester.etapaMem.DATA_MEM.oDataMemOut[7:0]
+tester.test.oDataToWB[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

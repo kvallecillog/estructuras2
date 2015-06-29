@@ -1,0 +1,97 @@
+#! /usr/local/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7-28-g2f4b460)";
+:vpi_time_precision - 12;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0xf11ec0 .scope module, "tester" "tester" 2 53;
+ .timescale -9 -12;
+v0xf39d10_0 .net "iAddresReadNWrite", 9 0, v0xf399b0_0; 1 drivers
+v0xf39e20_0 .net "iAluDataEX", 7 0, v0xf39a30_0; 1 drivers
+v0xf39ea0_0 .net "iDataWriteValue", 7 0, v0xf39ae0_0; 1 drivers
+v0xf39f20_0 .net "iOutMemSelect", 1 0, v0xf39bb0_0; 1 drivers
+v0xf39ff0_0 .net "oDataToWB", 7 0, L_0xf3a290; 1 drivers
+S_0xf398c0 .scope module, "test" "probador" 2 63, 2 8, S_0xf11ec0;
+ .timescale -9 -12;
+v0xf399b0_0 .var "iAddresReadNWrite", 9 0;
+v0xf39a30_0 .var "iAluDataEX", 7 0;
+v0xf39ae0_0 .var "iDataWriteValue", 7 0;
+v0xf39bb0_0 .var "iOutMemSelect", 1 0;
+v0xf39c60_0 .alias "oDataToWB", 7 0, v0xf39ff0_0;
+S_0xf21f70 .scope module, "etapaMem" "mem" 2 65, 3 4, S_0xf11ec0;
+ .timescale -9 -12;
+v0xf39450_0 .net *"_s3", 0 0, L_0xf3a160; 1 drivers
+v0xf39510_0 .alias "iAddresReadNWrite", 9 0, v0xf39d10_0;
+v0xf395e0_0 .alias "iAluDataEX", 7 0, v0xf39e20_0;
+v0xf39680_0 .alias "iDataWriteValue", 7 0, v0xf39ea0_0;
+v0xf39700_0 .alias "iOutMemSelect", 1 0, v0xf39f20_0;
+v0xf39780_0 .net "oDataRamRead", 7 0, v0xf39390_0; 1 drivers
+v0xf39840_0 .alias "oDataToWB", 7 0, v0xf39ff0_0;
+L_0xf3a0c0 .part v0xf39bb0_0, 0, 1;
+L_0xf3a160 .part v0xf39bb0_0, 1, 1;
+L_0xf3a290 .functor MUXZ 8, v0xf39a30_0, v0xf39390_0, L_0xf3a160, C4<>;
+S_0xf22060 .scope module, "DATA_MEM" "RAM_SINGLE_READ_PORT" 3 20, 4 8, S_0xf21f70;
+ .timescale -9 -12;
+P_0xf22398 .param/l "ADDR_WIDTH" 4 8, +C4<01010>;
+P_0xf223c0 .param/l "DATA_WIDTH" 4 8, +C4<01000>;
+P_0xf223e8 .param/l "MEM_SIZE" 4 8, +C4<010000000000>;
+v0xf12410 .array "Ram", 0 1024, 7 0;
+v0xf22150_0 .alias "iDataMemIn", 7 0, v0xf39ea0_0;
+v0xf39190_0 .alias "iReadDataAddress", 9 0, v0xf39d10_0;
+v0xf39230_0 .alias "iWriteDataAddress", 9 0, v0xf39d10_0;
+v0xf39310_0 .net "iWriteDataEnable", 0 0, L_0xf3a0c0; 1 drivers
+v0xf39390_0 .var "oDataMemOut", 7 0;
+E_0xf120f0 .event edge, v0xf39310_0;
+    .scope S_0xf398c0;
+T_0 ;
+    %vpi_call 2 24 "$dumpfile", "pruebaMEM.vcd";
+    %vpi_call 2 25 "$dumpvars";
+    %movi 8, 15, 8;
+    %set/v v0xf39a30_0, 8, 8;
+    %movi 8, 1, 2;
+    %set/v v0xf39bb0_0, 8, 2;
+    %movi 8, 1, 10;
+    %set/v v0xf399b0_0, 8, 10;
+    %movi 8, 7, 8;
+    %set/v v0xf39ae0_0, 8, 8;
+    %delay 20000, 0;
+    %movi 8, 20, 8;
+    %set/v v0xf39a30_0, 8, 8;
+    %movi 8, 2, 2;
+    %set/v v0xf39bb0_0, 8, 2;
+    %movi 8, 1, 10;
+    %set/v v0xf399b0_0, 8, 10;
+    %movi 8, 7, 8;
+    %set/v v0xf39ae0_0, 8, 8;
+    %delay 20000, 0;
+    %vpi_call 2 44 "$finish";
+    %end;
+    .thread T_0;
+    .scope S_0xf22060;
+T_1 ;
+    %wait E_0xf120f0;
+    %load/v 8, v0xf39310_0, 1;
+    %jmp/0xz  T_1.0, 8;
+    %load/v 8, v0xf22150_0, 8;
+    %ix/getv 3, v0xf39230_0;
+    %jmp/1 t_0, 4;
+    %ix/load 0, 8, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0xf12410, 0, 8;
+t_0 ;
+    %jmp T_1.1;
+T_1.0 ;
+    %ix/getv 3, v0xf39190_0;
+    %load/av 8, v0xf12410, 8;
+    %ix/load 0, 8, 0;
+    %assign/v0 v0xf39390_0, 0, 8;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1, $push;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "prueba_Mem.v";
+    "./mem.v";
+    "./ramDatos.v";
