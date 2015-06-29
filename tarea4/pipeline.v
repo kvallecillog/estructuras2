@@ -9,7 +9,7 @@
 
 
 module pipeline (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
-					wControlAcum_EX,wMemEnable_EX);
+					wControlAcum_EX,wMemControl_EX);
 
   // Entradas 
   input clk,reset;
@@ -59,11 +59,11 @@ module pipeline (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
   wire [`OPERATION_SIZE-1:0] wOperation_ID; 
   wire [`WIDTH_DATA_MEM-1:0] wConstant_ID;
   wire [2:0] wControlAcum_ID;
-  wire wMemEnable_ID;
+  wire [1:0] wMemControl_ID;
 
   id etapa2 (.data(wData_WB),.instr(outReg_IF_ID_FetchedInstr),.newPC(outReg_IF_ID_NewPC),.salidaAcumA(wAcumA_ID),
     .salidaAcumB(wAcumB_ID),.branchDir(wBrDir_ID),.outSelMux(wOutSelMux_ID),
-    .operation(wOperation_ID),.constant(wConstant_ID),.controlAcum(wControlAcum_ID),.memEnable(wMemEnable_ID));
+    .operation(wOperation_ID),.constant(wConstant_ID),.controlAcum(wControlAcum_ID),.memControl(wMemControl_ID));
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -73,14 +73,14 @@ module pipeline (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  	// Tamaño del registro es  3*width + operation size + length + 1 + 3 + 2 
-	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 6 )-1:0] inputReg_ID_EX; 
+	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 )-1:0] inputReg_ID_EX; 
 	assign inputReg_ID_EX = {wAcumA_ID,wAcumB_ID,wBrDir_ID,wOutSelMux_ID,wOperation_ID
-							,wConstant_ID,wControlAcum_ID, wMemEnable_ID};
+							,wConstant_ID,wControlAcum_ID, wMemControl_ID};
  
    
-	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 6 )-1:0] outReg_ID_EX;
-	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 6 )-1:0] outReg_ID_EX_bar;
-	regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 6 ))) registro_ID_EX (clk,reset,
+	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 )-1:0] outReg_ID_EX;
+	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 )-1:0] outReg_ID_EX_bar;
+	regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 ))) registro_ID_EX (clk,reset,
     1,inputReg_ID_EX,outReg_ID_EX,outReg_ID_EX_bar);
    
 
@@ -90,12 +90,12 @@ module pipeline (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
 	wire [`OPERATION_SIZE-1:0] outReg_ID_EX_Operation_ID; 
 	wire [`WIDTH_DATA_MEM-1:0] outReg_ID_EX_Constant_ID;
 	wire [2:0] outReg_ID_EX_ControlAcum_ID;
-	wire outReg_ID_EX_MemEnable_ID;
+	wire [1:0] outReg_ID_EX_MemControl_ID;
 
    
    assign {outReg_ID_EX_AcumA_ID,outReg_ID_EX_AcumB_ID,outReg_ID_EX_BrDir_ID,
 			outReg_ID_EX_OutSelMux_ID,outReg_ID_EX_Operation_ID,outReg_ID_EX_Constant_ID,
-			outReg_ID_EX_ControlAcum_ID, outReg_ID_EX_MemEnable_ID} = outReg_ID_EX;
+			outReg_ID_EX_ControlAcum_ID, outReg_ID_EX_MemControl_ID} = outReg_ID_EX;
    
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -106,12 +106,12 @@ module pipeline (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
 	output wire [`LENGTH_INSTR_MEM-1:0] wBrDir_EX;
 	output wire [`WIDTH_DATA_MEM-1:0] wAluResult_EX;
 	output wire [2:0] wControlAcum_EX;
-	output wire wMemEnable_EX;
+	output wire [1:0] wMemControl_EX;
 
 	ex etapa3 (.iAcumA(outReg_ID_EX_AcumA_ID), .iAcumB(outReg_ID_EX_AcumB_ID),.iConst(outReg_ID_EX_Constant_ID),
  		.outSelMuxExe(outReg_ID_EX_OutSelMux_ID),.iAluInstSel(outReg_ID_EX_Operation_ID),.branchDir_ID(outReg_ID_EX_BrDir_ID),
- 		.branchTaken(wBrTaken_EX),.branchDir_EX(wBrDir_EX),.iMemEnable_ID(outReg_ID_EX_MemEnable_ID),
- 		.iControlAcum_ID(outReg_ID_EX_ControlAcum_ID),.oAluData(wAluResult_EX),.oControlAcum_EX(wControlAcum_EX),.oMemEnable_EX(wMemEnable_EX));
+ 		.branchTaken(wBrTaken_EX),.branchDir_EX(wBrDir_EX),.iMemControl_ID(outReg_ID_EX_MemControl_ID),
+ 		.iControlAcum_ID(outReg_ID_EX_ControlAcum_ID),.oAluData(wAluResult_EX),.oControlAcum_EX(wControlAcum_EX),.oMemControl_EX(wMemControl_EX));
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 endmodule
 
