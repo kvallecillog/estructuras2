@@ -1,9 +1,11 @@
 `include "ramDatos.v"
 
+// Etapa de memoria del pipeline.
+// Se utiliza con las instrucciones STXs,LDXs.
+
 
 module mem(
 
-	//input wire Clock,
 	input wire [7:0] iAluDataEX,
 	input wire [1:0] iOutMemSelect,
 	input wire [7:0] iDataWriteValue,
@@ -16,31 +18,23 @@ module mem(
 
 wire [7:0] oDataRamRead;
 
+
+// iOutMemSelect[1]: Si es 1 se escribe en memoria.
+// iOutMemSelect[1]: Si es 0 se lee de memoria.
+// iOutMemSelect[0]: Si es 1 se selecciona la memoria. 
+// iOutMemSelect[0]: Si es 0 se selecciona la salida de la alu.
+
 assign oControlAcum_MEM = iControlAcum_EX;
 
 RAM_SINGLE_READ_PORT # (8,10,1024) DATA_MEM
 (
-//.Clock( Clock ),
-.iWriteDataEnable( iOutMemSelect[0] ),
+.iWriteDataEnable( iOutMemSelect[1] ),
 .iReadDataAddress( iAddresReadNWrite ),
 .iWriteDataAddress(iAddresReadNWrite ),
 .iDataMemIn( iDataWriteValue),
 .oDataMemOut( oDataRamRead )
 );
 
-// always @(Clock ) begin
-// 	if (iOutMemSelect[1]==1) begin
-
-// 		oDataToWB<=oDataRamRead;
-
-// 	end
-// 	else if (iOutMemSelect[1]==0) begin
-
-// 		oDataToWB<=iAluDataEX;
-		
-// 	end
-// end
-
-assign oDataToWB = (iOutMemSelect[1])? oDataRamRead:iAluDataEX;
+assign oDataToWB = (iOutMemSelect[0])? iAluDataEX : oDataRamRead;
 
 endmodule

@@ -12,8 +12,9 @@ module probador(
 	output reg [1:0] iOutMemSelect,
 	output reg [7:0] iDataWriteValue,
 	output reg [9:0] iAddresReadNWrite,
-	input [7:0] oDataToWB
-
+	output reg [2:0] iControlAcum_EX,
+	input [7:0] oDataToWB,
+	input [2:0] oControlAcum_MEM
 );
 
 	// Internas
@@ -29,7 +30,7 @@ module probador(
 
 		// Se esta escribiendo en la memoria el valor 7.
 		iAluDataEX = 15;
-		iOutMemSelect = 2'b01; // Salida de memoria
+		iOutMemSelect = 2'b10; // Salida de memoria
 		iAddresReadNWrite=16'b1; // Posicion de memoria escrita
 		iDataWriteValue = 7; // Valor escrito
 
@@ -37,10 +38,9 @@ module probador(
 		#20 
 		// Se esta escribiendo en la memoria el valor 7.
 		iAluDataEX = 20;
-		iOutMemSelect = 2'b10; // Salida de memoria
+		iOutMemSelect = 2'b00; // Salida de memoria
 		iAddresReadNWrite=16'b1; // Posicion de memoria escrita
-		iDataWriteValue = 7; // Valor escrito
-
+		iDataWriteValue = 0; // Valor escrito
 		#20 $finish;
 		
 	end
@@ -57,11 +57,13 @@ module tester;
 	wire [1:0] iOutMemSelect;
 	wire [7:0] iDataWriteValue;
 	wire [9:0] iAddresReadNWrite;
+	wire [2:0] iControlAcum_EX;
 	wire [7:0] oDataToWB;
+	wire [2:0] oControlAcum_MEM;
 
 	
-	probador test(/*Clock,*/iAluDataEX,iOutMemSelect,iDataWriteValue,iAddresReadNWrite,oDataToWB);
+	probador test(/*Clock,*/iAluDataEX,iOutMemSelect,iDataWriteValue,iAddresReadNWrite,iControlAcum_EX,oDataToWB,oControlAcum_MEM);
 
-	mem etapaMem(/*Clock,*/iAluDataEX,iOutMemSelect,iDataWriteValue,iAddresReadNWrite,oDataToWB);
+	mem etapaMem(/*Clock,*/iAluDataEX,iOutMemSelect,iDataWriteValue,iAddresReadNWrite,iControlAcum_EX,oDataToWB,oControlAcum_MEM);
 
 endmodule

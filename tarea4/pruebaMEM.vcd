@@ -1,5 +1,5 @@
 $date
-	Sun Jun 28 18:33:25 2015
+	Sun Jun 28 23:46:53 2015
 $end
 $version
 	Icarus Verilog
@@ -10,68 +10,86 @@ $end
 $scope module tester $end
 $var wire 10 ! iAddresReadNWrite [9:0] $end
 $var wire 8 " iAluDataEX [7:0] $end
-$var wire 8 # iDataWriteValue [7:0] $end
-$var wire 2 $ iOutMemSelect [1:0] $end
-$var wire 8 % oDataToWB [7:0] $end
+$var wire 3 # iControlAcum_EX [2:0] $end
+$var wire 8 $ iDataWriteValue [7:0] $end
+$var wire 2 % iOutMemSelect [1:0] $end
+$var wire 3 & oControlAcum_MEM [2:0] $end
+$var wire 8 ' oDataToWB [7:0] $end
 $scope module test $end
-$var wire 8 & oDataToWB [7:0] $end
-$var reg 10 ' iAddresReadNWrite [9:0] $end
-$var reg 8 ( iAluDataEX [7:0] $end
-$var reg 8 ) iDataWriteValue [7:0] $end
-$var reg 2 * iOutMemSelect [1:0] $end
+$var wire 3 ( oControlAcum_MEM [2:0] $end
+$var wire 8 ) oDataToWB [7:0] $end
+$var reg 10 * iAddresReadNWrite [9:0] $end
+$var reg 8 + iAluDataEX [7:0] $end
+$var reg 3 , iControlAcum_EX [2:0] $end
+$var reg 8 - iDataWriteValue [7:0] $end
+$var reg 2 . iOutMemSelect [1:0] $end
 $upscope $end
 $scope module etapaMem $end
-$var wire 10 + iAddresReadNWrite [9:0] $end
-$var wire 8 , iAluDataEX [7:0] $end
-$var wire 8 - iDataWriteValue [7:0] $end
-$var wire 2 . iOutMemSelect [1:0] $end
-$var wire 8 / oDataRamRead [7:0] $end
-$var wire 8 0 oDataToWB [7:0] $end
+$var wire 10 / iAddresReadNWrite [9:0] $end
+$var wire 8 0 iAluDataEX [7:0] $end
+$var wire 3 1 iControlAcum_EX [2:0] $end
+$var wire 8 2 iDataWriteValue [7:0] $end
+$var wire 2 3 iOutMemSelect [1:0] $end
+$var wire 3 4 oControlAcum_MEM [2:0] $end
+$var wire 8 5 oDataRamRead [7:0] $end
+$var wire 8 6 oDataToWB [7:0] $end
 $scope module DATA_MEM $end
-$var wire 8 1 iDataMemIn [7:0] $end
-$var wire 10 2 iReadDataAddress [9:0] $end
-$var wire 10 3 iWriteDataAddress [9:0] $end
-$var wire 1 4 iWriteDataEnable $end
-$var reg 8 5 oDataMemOut [7:0] $end
+$var wire 8 7 iDataMemIn [7:0] $end
+$var wire 10 8 iReadDataAddress [9:0] $end
+$var wire 10 9 iWriteDataAddress [9:0] $end
+$var wire 1 : iWriteDataEnable $end
+$var wire 1 ; memEnable $end
+$var reg 8 < oDataMemOut [7:0] $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
+bx <
+z;
+1:
+b1 9
+b1 8
+b111 7
+bx 6
 bx 5
-14
-b1 3
-b1 2
-b111 1
+bx 4
+b10 3
+b111 2
+bx 1
 b1111 0
-bx /
-b1 .
+b1 /
+b10 .
 b111 -
-b1111 ,
-b1 +
+bx ,
+b1111 +
 b1 *
-b111 )
-b1111 (
-b1 '
-b1111 &
-b1111 %
-b1 $
-b111 #
+bx )
+bx (
+bx '
+bx &
+b10 %
+b111 $
+bx #
 b1111 "
 b1 !
 $end
 #20000
+b111 '
+b111 )
+b111 6
+b111 <
 b111 5
-b111 /
-04
-b111 %
-b111 &
-b111 0
-b10 *
-b10 $
-b10 .
-b10100 (
+0:
+b0 -
+b0 $
+b0 2
+b0 7
+b0 .
+b0 %
+b0 3
+b10100 +
 b10100 "
-b10100 ,
+b10100 0
 #40000
