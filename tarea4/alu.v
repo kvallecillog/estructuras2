@@ -33,7 +33,7 @@ module alu(
 		
 		`LDA: begin
 
-			oAluData<=iAluOper1;
+			oAluData<=oAluData;
 			BCA<=BCA ;
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
 			BAZ<=~|iAluOper1; // sE afecta la bandera Z de A.	
@@ -47,7 +47,7 @@ module alu(
 		
 		`LDB: begin
 
-			oAluData<=iAluOper2;
+			oAluData<=oAluData;
 			BCA<=BCA;
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
 			BBZ<=~|iAluOper1; // sE afecta la bandera Z de A.	

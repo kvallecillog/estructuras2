@@ -27,9 +27,24 @@ module probador(
 
 	//	Clock = 0;
 
+		// Se esta escribiendo en la memoria el valor 15.
+		iAluDataEX = 8;
+		iOutMemSelect = 3; // Salida de memoria
+		iAddresReadNWrite=16'b1; // Posicion de memoria escrita
+		//iDataWriteValue = 12; // Valor escrito
+
+		// Se esta leyendo de memoria la direccion escrita anteriormente
+		#20 
 		// Se esta escribiendo en la memoria el valor 7.
 		iAluDataEX = 15;
 		iOutMemSelect = 3; // Salida de memoria
+		iAddresReadNWrite=16'b10; // Posicion de memoria escrita
+		//iDataWriteValue = 0; // Valor escrito
+		#20 
+
+		// Se esta escribiendo en la memoria el valor 15.
+		iAluDataEX = 15;
+		iOutMemSelect = 1; // Salida de memoria
 		iAddresReadNWrite=16'b1; // Posicion de memoria escrita
 		//iDataWriteValue = 12; // Valor escrito
 
@@ -38,7 +53,7 @@ module probador(
 		// Se esta escribiendo en la memoria el valor 7.
 		iAluDataEX = 7;
 		iOutMemSelect = 1; // Salida de memoria
-		iAddresReadNWrite=16'b1; // Posicion de memoria escrita
+		iAddresReadNWrite=16'b10; // Posicion de memoria escrita
 		//iDataWriteValue = 0; // Valor escrito
 		#20 $finish;
 		

@@ -1,102 +1,115 @@
-#! /usr/local/bin/vvp
-:ivl_version "0.9.7 " "(v0_9_7-28-g2f4b460)";
+#! /usr/local/Cellar/icarus-verilog/0.9.7/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
 :vpi_time_precision - 12;
 :vpi_module "system";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x107ab10 .scope module, "tester" "tester" 2 52;
+S_0x7fde595001d0 .scope module, "tester" "tester" 2 67;
  .timescale -9 -12;
-v0x10a39c0_0 .net "iAddresReadNWrite", 9 0, v0x10a35c0_0; 1 drivers
-v0x10a3ad0_0 .net "iAluDataEX", 7 0, v0x10a3660_0; 1 drivers
-v0x10a3b50_0 .net "iControlAcum_EX", 2 0, v0x10a3730_0; 1 drivers
-v0x10a3bd0_0 .net "iOutMemSelect", 1 0, v0x10a37b0_0; 1 drivers
-v0x10a3ca0_0 .net "oControlAcum_MEM", 2 0, L_0x10a3e80; 1 drivers
-v0x10a3d70_0 .net "oDataToWB", 7 0, L_0x10a4150; 1 drivers
-S_0x10a34d0 .scope module, "test" "probador" 2 63, 2 8, S_0x107ab10;
+v0x7fde595113a0_0 .net "iAddresReadNWrite", 9 0, v0x7fde59511000_0; 1 drivers
+v0x7fde595114a0_0 .net "iAluDataEX", 7 0, v0x7fde59511080_0; 1 drivers
+v0x7fde59511520_0 .net "iControlAcum_EX", 2 0, v0x7fde59511140_0; 1 drivers
+v0x7fde595115a0_0 .net "iOutMemSelect", 1 0, v0x7fde595111c0_0; 1 drivers
+v0x7fde59511660_0 .net "oControlAcum_MEM", 2 0, L_0x7fde595117e0; 1 drivers
+v0x7fde59511720_0 .net "oDataToWB", 7 0, L_0x7fde59511a70; 1 drivers
+S_0x7fde59510f20 .scope module, "test" "probador" 2 78, 2 8, S_0x7fde595001d0;
  .timescale -9 -12;
-v0x10a35c0_0 .var "iAddresReadNWrite", 9 0;
-v0x10a3660_0 .var "iAluDataEX", 7 0;
-v0x10a3730_0 .var "iControlAcum_EX", 2 0;
-v0x10a37b0_0 .var "iOutMemSelect", 1 0;
-v0x10a3890_0 .alias "oControlAcum_MEM", 2 0, v0x10a3ca0_0;
-v0x10a3940_0 .alias "oDataToWB", 7 0, v0x10a3d70_0;
-S_0x107a840 .scope module, "etapaMem" "mem" 2 65, 3 7, S_0x107ab10;
+v0x7fde59511000_0 .var "iAddresReadNWrite", 9 0;
+v0x7fde59511080_0 .var "iAluDataEX", 7 0;
+v0x7fde59511140_0 .var "iControlAcum_EX", 2 0;
+v0x7fde595111c0_0 .var "iOutMemSelect", 1 0;
+v0x7fde59511260_0 .alias "oControlAcum_MEM", 2 0, v0x7fde59511660_0;
+v0x7fde59511300_0 .alias "oDataToWB", 7 0, v0x7fde59511720_0;
+S_0x7fde595002c0 .scope module, "etapaMem" "mem" 2 80, 3 7, S_0x7fde595001d0;
  .timescale -9 -12;
-L_0x10a3e80 .functor BUFZ 3, v0x10a3730_0, C4<000>, C4<000>, C4<000>;
-v0x10a2f90_0 .net *"_s7", 0 0, L_0x10a40b0; 1 drivers
-v0x10a3050_0 .alias "iAddresReadNWrite", 9 0, v0x10a39c0_0;
-v0x10a3120_0 .alias "iAluDataEX", 7 0, v0x10a3ad0_0;
-v0x10a31a0_0 .alias "iControlAcum_EX", 2 0, v0x10a3b50_0;
-v0x10a3220_0 .alias "iOutMemSelect", 1 0, v0x10a3bd0_0;
-v0x10a32a0_0 .alias "oControlAcum_MEM", 2 0, v0x10a3ca0_0;
-v0x10a3380_0 .net "oDataRamRead", 7 0, v0x10a2ef0_0; 1 drivers
-v0x10a3400_0 .alias "oDataToWB", 7 0, v0x10a3d70_0;
-L_0x10a3ee0 .part v0x10a37b0_0, 0, 1;
-L_0x10a3f80 .part v0x10a37b0_0, 1, 1;
-L_0x10a40b0 .part v0x10a37b0_0, 0, 1;
-L_0x10a4150 .functor MUXZ 8, v0x10a3660_0, v0x10a2ef0_0, L_0x10a40b0, C4<>;
-S_0x1069d00 .scope module, "DATA_MEM" "RAM_SINGLE_READ_PORT" 3 28, 4 8, S_0x107a840;
+L_0x7fde595117e0 .functor BUFZ 3, v0x7fde59511140_0, C4<000>, C4<000>, C4<000>;
+v0x7fde59510a60_0 .net *"_s7", 0 0, L_0x7fde595119e0; 1 drivers
+v0x7fde59510af0_0 .alias "iAddresReadNWrite", 9 0, v0x7fde595113a0_0;
+v0x7fde59510bb0_0 .alias "iAluDataEX", 7 0, v0x7fde595114a0_0;
+v0x7fde59510c30_0 .alias "iControlAcum_EX", 2 0, v0x7fde59511520_0;
+v0x7fde59510cb0_0 .alias "iOutMemSelect", 1 0, v0x7fde595115a0_0;
+v0x7fde59510d60_0 .alias "oControlAcum_MEM", 2 0, v0x7fde59511660_0;
+v0x7fde59510de0_0 .net "oDataRamRead", 7 0, v0x7fde595109a0_0; 1 drivers
+v0x7fde59510ea0_0 .alias "oDataToWB", 7 0, v0x7fde59511720_0;
+L_0x7fde59511840 .part v0x7fde595111c0_0, 0, 1;
+L_0x7fde595118d0 .part v0x7fde595111c0_0, 1, 1;
+L_0x7fde595119e0 .part v0x7fde595111c0_0, 0, 1;
+L_0x7fde59511a70 .functor MUXZ 8, v0x7fde59511080_0, v0x7fde595109a0_0, L_0x7fde595119e0, C4<>;
+S_0x7fde595003a0 .scope module, "DATA_MEM" "RAM_SINGLE_READ_PORT" 3 28, 4 8, S_0x7fde595002c0;
  .timescale -9 -12;
-P_0x10698e8 .param/l "ADDR_WIDTH" 4 8, +C4<01010>;
-P_0x1069910 .param/l "DATA_WIDTH" 4 8, +C4<01000>;
-P_0x1069938 .param/l "MEM_SIZE" 4 8, +C4<010000000000>;
-v0x108fea0 .array "Ram", 0 1024, 7 0;
-v0x108dc50_0 .alias "iDataMemIn", 7 0, v0x10a3ad0_0;
-v0x10a2c30_0 .alias "iReadDataAddress", 9 0, v0x10a39c0_0;
-v0x10a2cd0_0 .alias "iWriteDataAddress", 9 0, v0x10a39c0_0;
-v0x10a2db0_0 .net "iWriteDataEnable", 0 0, L_0x10a3f80; 1 drivers
-v0x10a2e30_0 .net "memEnable", 0 0, L_0x10a3ee0; 1 drivers
-v0x10a2ef0_0 .var "oDataMemOut", 7 0;
-E_0x107a960 .event edge, v0x10a2db0_0;
-    .scope S_0x10a34d0;
+P_0x7fde59500488 .param/l "ADDR_WIDTH" 4 8, +C4<01010>;
+P_0x7fde595004b0 .param/l "DATA_WIDTH" 4 8, +C4<01000>;
+P_0x7fde595004d8 .param/l "MEM_SIZE" 4 8, +C4<010000000000>;
+v0x7fde59500600 .array "Ram", 0 1024, 7 0;
+v0x7fde59500690_0 .alias "iDataMemIn", 7 0, v0x7fde595114a0_0;
+v0x7fde59510720_0 .alias "iReadDataAddress", 9 0, v0x7fde595113a0_0;
+v0x7fde595107c0_0 .alias "iWriteDataAddress", 9 0, v0x7fde595113a0_0;
+v0x7fde59510860_0 .net "iWriteDataEnable", 0 0, L_0x7fde595118d0; 1 drivers
+v0x7fde59510910_0 .net "memEnable", 0 0, L_0x7fde59511840; 1 drivers
+v0x7fde595109a0_0 .var "oDataMemOut", 7 0;
+E_0x7fde595005c0 .event edge, v0x7fde59510860_0;
+    .scope S_0x7fde59510f20;
 T_0 ;
     %vpi_call 2 24 "$dumpfile", "prueba2mem.vcd";
     %vpi_call 2 25 "$dumpvars";
-    %movi 8, 15, 8;
-    %set/v v0x10a3660_0, 8, 8;
-    %set/v v0x10a37b0_0, 1, 2;
+    %movi 8, 8, 8;
+    %set/v v0x7fde59511080_0, 8, 8;
+    %set/v v0x7fde595111c0_0, 1, 2;
     %movi 8, 1, 10;
-    %set/v v0x10a35c0_0, 8, 10;
+    %set/v v0x7fde59511000_0, 8, 10;
+    %delay 20000, 0;
+    %movi 8, 15, 8;
+    %set/v v0x7fde59511080_0, 8, 8;
+    %set/v v0x7fde595111c0_0, 1, 2;
+    %movi 8, 2, 10;
+    %set/v v0x7fde59511000_0, 8, 10;
+    %delay 20000, 0;
+    %movi 8, 15, 8;
+    %set/v v0x7fde59511080_0, 8, 8;
+    %movi 8, 1, 2;
+    %set/v v0x7fde595111c0_0, 8, 2;
+    %movi 8, 1, 10;
+    %set/v v0x7fde59511000_0, 8, 10;
     %delay 20000, 0;
     %movi 8, 7, 8;
-    %set/v v0x10a3660_0, 8, 8;
+    %set/v v0x7fde59511080_0, 8, 8;
     %movi 8, 1, 2;
-    %set/v v0x10a37b0_0, 8, 2;
-    %movi 8, 1, 10;
-    %set/v v0x10a35c0_0, 8, 10;
+    %set/v v0x7fde595111c0_0, 8, 2;
+    %movi 8, 2, 10;
+    %set/v v0x7fde59511000_0, 8, 10;
     %delay 20000, 0;
-    %vpi_call 2 43 "$finish";
+    %vpi_call 2 58 "$finish";
     %end;
     .thread T_0;
-    .scope S_0x1069d00;
+    .scope S_0x7fde595003a0;
 T_1 ;
-    %wait E_0x107a960;
-    %load/v 8, v0x10a2e30_0, 1;
+    %wait E_0x7fde595005c0;
+    %load/v 8, v0x7fde59510910_0, 1;
     %jmp/0xz  T_1.0, 8;
-    %load/v 8, v0x10a2db0_0, 1;
+    %load/v 8, v0x7fde59510860_0, 1;
     %jmp/0xz  T_1.2, 8;
-    %load/v 8, v0x108dc50_0, 8;
-    %ix/getv 3, v0x10a2cd0_0;
+    %load/v 8, v0x7fde59500690_0, 8;
+    %ix/getv 3, v0x7fde595107c0_0;
     %jmp/1 t_0, 4;
     %ix/load 0, 8, 0; word width
     %ix/load 1, 0, 0; part off
-    %assign/av v0x108fea0, 0, 8;
+    %assign/av v0x7fde59500600, 0, 8;
 t_0 ;
-    %load/v 8, v0x10a2ef0_0, 8;
+    %load/v 8, v0x7fde595109a0_0, 8;
     %ix/load 0, 8, 0;
-    %assign/v0 v0x10a2ef0_0, 0, 8;
+    %assign/v0 v0x7fde595109a0_0, 0, 8;
     %jmp T_1.3;
 T_1.2 ;
-    %ix/getv 3, v0x10a2c30_0;
-    %load/av 8, v0x108fea0, 8;
+    %ix/getv 3, v0x7fde59510720_0;
+    %load/av 8, v0x7fde59500600, 8;
     %ix/load 0, 8, 0;
-    %assign/v0 v0x10a2ef0_0, 0, 8;
+    %assign/v0 v0x7fde595109a0_0, 0, 8;
 T_1.3 ;
     %jmp T_1.1;
 T_1.0 ;
-    %load/v 8, v0x10a2ef0_0, 8;
+    %load/v 8, v0x7fde595109a0_0, 8;
     %ix/load 0, 8, 0;
-    %assign/v0 v0x10a2ef0_0, 0, 8;
+    %assign/v0 v0x7fde595109a0_0, 0, 8;
 T_1.1 ;
     %jmp T_1;
     .thread T_1, $push;
