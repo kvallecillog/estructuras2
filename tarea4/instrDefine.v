@@ -1,7 +1,7 @@
 // Archivo para definir el código de las instrucciones del CPU
 
 // Código de las instrucciones del CPU.
-`define LDA 	6'h00
+`define NOP		6'h00
 `define LDB 	6'h01
 `define LDCA 	6'h02
 `define LDCB 	6'h03
@@ -38,7 +38,7 @@
 `define BBCC	6'h22
 `define BBMI	6'h23
 `define BBPL	6'h24
-`define NOP		6'h25
+`define LDA		6'h25
 
 
 // Tamaños para el ROM.

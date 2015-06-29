@@ -24,10 +24,11 @@ module probador (clk,reset);
 		$dumpvars;
 		
 		clk = 0;
-		reset = 1;
+		reset = 0;
+		#5 reset = 1;
 		#23 reset = 0;
 				
-		#70 $finish;
+		#500 $finish;
 		
 	end
 	
