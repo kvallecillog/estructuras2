@@ -36,6 +36,6 @@ RAM_SINGLE_READ_PORT # (8,10,1024) DATA_MEM
 .oDataMemOut( oDataRamRead )
 );
 
-assign oDataToWB = (iOutMemSelect[0])? iAluDataEX : oDataRamRead;
+assign oDataToWB = (iOutMemSelect[0])? oDataRamRead:iAluDataEX;
 
 endmodule
