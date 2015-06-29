@@ -20,10 +20,21 @@ reg [DATA_WIDTH-1:0] Ram [MEM_SIZE:0];
 always @(iWriteDataEnable)
 begin 
 
-	if (iWriteDataEnable)
-	Ram[iWriteDataAddress] <= iDataMemIn;
-	else 
-	oDataMemOut <= Ram[iReadDataAddress]; 
+	if(memEnable)
+	begin
+
+		if (iWriteDataEnable)
+		Ram[iWriteDataAddress] <= iDataMemIn;
+		else 
+		oDataMemOut <= Ram[iReadDataAddress]; 	
+	end
+	else
+	begin
+
+		oDataMemOut <= oDataMemOut;
+		
+	end
+	
 end 
 
 endmodule

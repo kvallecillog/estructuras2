@@ -28,6 +28,7 @@ assign oControlAcum_MEM = iControlAcum_EX;
 
 RAM_SINGLE_READ_PORT # (8,10,1024) DATA_MEM
 (
+.memEnable(iOutMemSelect[0]),
 .iWriteDataEnable( iOutMemSelect[1] ),
 .iReadDataAddress( iAddresReadNWrite ),
 .iWriteDataAddress(iAddresReadNWrite ),
