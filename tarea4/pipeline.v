@@ -206,7 +206,7 @@ module regN(clk,clr,enable,in,out,out_bar);
 	
 	// Se crea un bloque para definir la función que realiza un registro tipo PIPO (Parallel Input Parallel Output).
 	// Si ocurre un flanco positivo del reloj y reset (clr) se encuentra a 0 se pasa el dato de entrada a la salida.
-	always @(posedge clk) begin
+	always @(negedge clk) begin
 
 		if (clr==0 && enable==1) begin 
 		 
