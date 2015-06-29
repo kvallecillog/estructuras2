@@ -8,7 +8,6 @@ module mem(
 
 	input wire [7:0] iAluDataEX,
 	input wire [1:0] iOutMemSelect,
-	input wire [7:0] iDataWriteValue,
 	input wire [9:0] iAddresReadNWrite,
 	input wire [2:0] iControlAcum_EX,
 	output [7:0] oDataToWB,
@@ -32,7 +31,7 @@ RAM_SINGLE_READ_PORT # (8,10,1024) DATA_MEM
 .iWriteDataEnable( iOutMemSelect[1] ),
 .iReadDataAddress( iAddresReadNWrite ),
 .iWriteDataAddress(iAddresReadNWrite ),
-.iDataMemIn( iDataWriteValue),
+.iDataMemIn( iAluDataEX),
 .oDataMemOut( oDataRamRead )
 );
 
