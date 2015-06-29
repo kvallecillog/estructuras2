@@ -8,14 +8,15 @@ module mem(
 	input wire [1:0] iOutMemSelect,
 	input wire [7:0] iDataWriteValue,
 	input wire [9:0] iAddresReadNWrite,
-	output [7:0] oDataToWB
+	input wire [2:0] iControlAcum_EX,
+	output [7:0] oDataToWB,
+	output [2:0] oControlAcum_MEM
 
 );
 
 wire [7:0] oDataRamRead;
 
-
-
+assign oControlAcum_MEM = iControlAcum_EX;
 
 RAM_SINGLE_READ_PORT # (8,10,1024) DATA_MEM
 (

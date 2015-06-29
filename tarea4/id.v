@@ -92,7 +92,8 @@ module decoder(instr,newPC,constant,branchDir,outSelMux,controlAcum,operation,me
 		// cual debe ser de 10 bits para direccionar cualquier posicion de memoria
 		// por tanto este dato se pone en la señal branchDir, es importante destacar
 		// que esto se realiza para maximizar el uso de recursos.
-		if(instrDecod == `JMP || instrDecod == `STA || instrDecod == `STB) branchDir = instrInfo;
+		if(instrDecod == `JMP || instrDecod == `STA || instrDecod == `STB 
+			|| instrDecod == `LDA || instrDecod == `LDB) branchDir = instrInfo;
 		// Para las otras instrucciones es relativo.
 		else branchDir = newPC + {4'b0,saltoRel};
 		
@@ -502,13 +503,13 @@ endmodule
 
 // ----------------------------------------------------------------------------------------------------
 // Se pegan los modulos de acumuladores y decodificador.
-module id(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum, memControl);
+module id(data,instr,newPC,controlAcum_WB,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum_ID, memControl);
 
 	// Entradas.
 	input [7:0] data;
 	input [15:0] instr;
 	input [9:0] newPC;
-	
+	input [2:0] controlAcum_WB;
 	
 	// Salidas.
 	output wire [7:0] salidaAcumA,salidaAcumB;
@@ -516,11 +517,11 @@ module id(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operatio
 	output wire [1:0] outSelMux;
 	output wire [5:0] operation;
 	output wire [7:0] constant;
-	output wire [2:0] controlAcum;	
+	output wire [2:0] controlAcum_ID;	
 	output wire [1:0] memControl;
 	
-	acumAB acumuladores (constant,data,controlAcum, salidaAcumA, salidaAcumB);
+	acumAB acumuladores (constant,data,controlAcum_WB, salidaAcumA, salidaAcumB);
 	
-	decoder decodificador(instr,newPC,constant,branchDir,outSelMux,controlAcum,operation,memControl);
+	decoder decodificador(instr,newPC,constant,branchDir,outSelMux,controlAcum_ID,operation,memControl);
 
 endmodule

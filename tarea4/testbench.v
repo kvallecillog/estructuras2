@@ -9,20 +9,13 @@
 
 
 // PROBADOR DEL PIPELINE IF_ID LISTOS.
-module probador (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
-				wControlAcum_EX,wMemControl_EX);
+module probador (clk,reset);
 
 	// Salidas
 	output reg clk;
 	output reg reset;
-	output reg [7:0] wData_WB;
 	
 	// Entradas.
-	input wire wBrTaken_EX;
-	input wire [9:0] wBrDir_EX;
-	input wire [7:0]wAluResult_EX;
-	input wire [2:0] wControlAcum_EX;
-	input wire [1:0] wMemControl_EX;
 	
 
 	initial begin
@@ -33,11 +26,7 @@ module probador (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
 		clk = 0;
 		reset = 1;
 		#23 reset = 0;
-		
-		wData_WB = 6;
-		#5 wData_WB = 7;
-		
-		
+				
 		#70 $finish;
 		
 	end
@@ -51,20 +40,10 @@ endmodule
 module tester;
 
 	wire clk;
-	wire reset;
-	wire [7:0] wData_WB;
-	wire wBrTaken_EX;
-	wire [9:0] wBrDir_EX;
-	wire [7:0]wAluResult_EX;
-	wire [2:0] wControlAcum_EX;
-	wire [1:0] wMemControl_EX;
+	wire reset;	
 	
-	probador test(clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
-				wControlAcum_EX,wMemControl_EX);
-	
-	
-	pipeline pegado (clk,reset,wData_WB,wBrTaken_EX,wBrDir_EX,wAluResult_EX,
-					wControlAcum_EX,wMemControl_EX);
+	probador test(clk,reset);
+	pipeline pegado (clk,reset);
 
 endmodule
 
