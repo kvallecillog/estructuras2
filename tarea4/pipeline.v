@@ -39,7 +39,7 @@ module pipeline (clk,reset);
    
    wire [`SIZE_REG(`LENGTH_INSTR_MEM,`WIDTH_INSTR_MEM)-1:0] outReg_IF_ID;
    wire [`SIZE_REG(`LENGTH_INSTR_MEM,`WIDTH_INSTR_MEM)-1:0] outReg_IF_ID_bar;
-   regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM,`WIDTH_INSTR_MEM))) registro_IF_ID (clk,reset,
+   regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM,`WIDTH_INSTR_MEM))) registro_IF_ID (clk,reset|wBrTaken_EX,
     1,inputReg_IF_ID,outReg_IF_ID,outReg_IF_ID_bar);
    
    
@@ -81,7 +81,7 @@ module pipeline (clk,reset);
    
 	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 )-1:0] outReg_ID_EX;
 	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 )-1:0] outReg_ID_EX_bar;
-	regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 ))) registro_ID_EX (clk,reset,
+	regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 ))) registro_ID_EX (clk,reset|wBrTaken_EX,
     1,inputReg_ID_EX,outReg_ID_EX,outReg_ID_EX_bar);
    
 
@@ -125,7 +125,7 @@ module pipeline (clk,reset);
    
 	wire [`SIZE_REG(`WIDTH_INSTR_MEM,`LENGTH_INSTR_MEM+5)-1:0] outReg_EX_MEM;
 	wire [`SIZE_REG(`WIDTH_INSTR_MEM,`LENGTH_INSTR_MEM+5)-1:0] outReg_EX_MEM_bar;
-	regN #(.size(`SIZE_REG(`WIDTH_INSTR_MEM,`LENGTH_INSTR_MEM+5))) registro_EX_MEM (clk,reset,
+	regN #(.size(`SIZE_REG(`WIDTH_INSTR_MEM,`LENGTH_INSTR_MEM+5))) registro_EX_MEM (clk,reset|wBrTaken_EX,
 		1,inputReg_EX_MEM,outReg_EX_MEM,outReg_EX_MEM_bar);
    
    
@@ -157,7 +157,7 @@ module pipeline (clk,reset);
    
    wire [`SIZE_REG(3,`WIDTH_DATA_MEM)-1:0] outReg_MEM_WB;
    wire [`SIZE_REG(3,`WIDTH_DATA_MEM)-1:0] outReg_MEM_WB_bar;
-   regN #(.size(`SIZE_REG(3,`WIDTH_DATA_MEM))) registro_MEM_WB (clk,reset,
+   regN #(.size(`SIZE_REG(3,`WIDTH_DATA_MEM))) registro_MEM_WB (clk,reset|wBrTaken_EX,
     1,inputReg_MEM_WB,outReg_MEM_WB,outReg_MEM_WB_bar);
    
    
