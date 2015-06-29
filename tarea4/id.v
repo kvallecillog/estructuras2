@@ -19,7 +19,7 @@
 // Constantes para la señal memControl
 `define notEnableMem	2'b00
 `define enableMemWrite	2'b11
-`define enableMemRead	2'b10
+`define enableMemRead	2'b01
 
 
 // ---------------------------------------------------------------------------------------------
