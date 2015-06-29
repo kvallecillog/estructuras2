@@ -28,6 +28,15 @@ module probador(
 	//	Clock = 0;
 
 		// Se esta escribiendo en la memoria el valor 15.
+		iAluDataEX = 9;
+		iOutMemSelect = 3; // Salida de memoria
+		iAddresReadNWrite=16'b1; // Posicion de memoria escrita
+		//iDataWriteValue = 12; // Valor escrito
+
+		// Se esta leyendo de memoria la direccion escrita anteriormente
+		#20 
+
+		// Se esta escribiendo en la memoria el valor 15.
 		iAluDataEX = 8;
 		iOutMemSelect = 3; // Salida de memoria
 		iAddresReadNWrite=16'b1; // Posicion de memoria escrita

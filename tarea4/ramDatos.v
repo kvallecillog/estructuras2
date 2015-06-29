@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module RAM_SINGLE_READ_PORT # ( parameter DATA_WIDTH= 8, parameter ADDR_WIDTH=10, parameter MEM_SIZE=1024 )
 (
+input wire clk,
 input wire memEnable,
 input wire iWriteDataEnable,
 input wire[ADDR_WIDTH-1:0] iReadDataAddress,
@@ -17,23 +18,23 @@ output reg [DATA_WIDTH-1:0] oDataMemOut
 
 reg [DATA_WIDTH-1:0] Ram [MEM_SIZE:0];
 
-always @(iWriteDataEnable)
+always @(posedge clk)
 begin 
 
 	if(memEnable)
 	begin
 
 		if (iWriteDataEnable) begin
-		Ram[iWriteDataAddress] <= iDataMemIn;
-		oDataMemOut <= oDataMemOut;
+		Ram[iWriteDataAddress] = iDataMemIn;
+		oDataMemOut = oDataMemOut;
 		end
 		else 
-		oDataMemOut <= Ram[iReadDataAddress]; 	
+		oDataMemOut = Ram[iReadDataAddress]; 	
 	end
 	else
 	begin
 
-		oDataMemOut <= oDataMemOut;
+		oDataMemOut = oDataMemOut;
 		
 	end
 	

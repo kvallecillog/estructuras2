@@ -144,7 +144,7 @@ module pipeline (clk,reset);
 	wire [7:0] wDataToWB_MEM;
 	wire [2:0] wControlAcum_MEM;
 
-	mem etapa4 (.iAluDataEX(outReg_EX_MEM_AluResult_EX),.iOutMemSelect(outReg_EX_MEM_MemControl_EX),
+	mem etapa4 (.memClk(clk), .iAluDataEX(outReg_EX_MEM_AluResult_EX),.iOutMemSelect(outReg_EX_MEM_MemControl_EX),
 		.iAddresReadNWrite(outReg_EX_MEM_wBrDir_EX),.iControlAcum_EX (outReg_EX_MEM_ControlAcum_EX),
 		.oDataToWB(wDataToWB_MEM),.oControlAcum_MEM(wControlAcum_MEM));
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

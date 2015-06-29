@@ -6,6 +6,7 @@
 
 module mem(
 
+	input wire memClk,
 	input wire [7:0] iAluDataEX,
 	input wire [1:0] iOutMemSelect,
 	input wire [9:0] iAddresReadNWrite,
@@ -27,6 +28,7 @@ assign oControlAcum_MEM = iControlAcum_EX;
 
 RAM_SINGLE_READ_PORT # (8,10,1024) DATA_MEM
 (
+.clk(memClk),
 .memEnable(iOutMemSelect[0]),
 .iWriteDataEnable( iOutMemSelect[1] ),
 .iReadDataAddress( iAddresReadNWrite ),
