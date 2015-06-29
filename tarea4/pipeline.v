@@ -81,7 +81,7 @@ module pipeline (clk,reset);
    
 	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 )-1:0] outReg_ID_EX;
 	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 )-1:0] outReg_ID_EX_bar;
-	regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 ))) registro_ID_EX (clk,reset|wBrTaken_EX,
+	regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 ))) registro_ID_EX (clk,reset,
     1,inputReg_ID_EX,outReg_ID_EX,outReg_ID_EX_bar);
    
 
