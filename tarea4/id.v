@@ -19,7 +19,7 @@
 // Constantes para la señal memControl
 `define notEnableMem	2'b00
 `define enableMemWrite	2'b11
-`define enableMemRead	2'b01
+`define enableMemRead	2'b10
 
 
 // ---------------------------------------------------------------------------------------------
@@ -46,8 +46,8 @@ module decoder(instr,newPC,constant,branchDir,outSelMux,controlAcum,operation,me
 	// - outMuxSel: Señales de control del mux de la etapa de EX. Permite seleccionar entre el valor de los registros
 	//				o la constante enviada como salida de este modulo como constant.
 	// - operation: operacion que se debe realizar en la ALU.
-	// - memControl: habilitador para cargar el resultado de la ALU a memoria. Y decide si se escribe o no a la memoria.
-	//    La parte baja indica si se debe escribir o no a la memoria y la parte alta indica si 
+	// - memControl: habilitador para cargar el resultado de la ALU a memoria. Y decide si se escribe o se lee a la memoria.
+	//    La parte baja indica si se habilita la memoria y la parte alta indica si se escribe o lee la memoria.
 	output wire [7:0] constant;
 	output reg [9:0] branchDir;
 	output reg [1:0] outSelMux;
