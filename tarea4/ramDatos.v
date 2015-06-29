@@ -18,7 +18,7 @@ output reg [DATA_WIDTH-1:0] oDataMemOut
 
 reg [DATA_WIDTH-1:0] Ram [MEM_SIZE:0];
 
-always @(posedge clk)
+always @(*)
 begin 
 
 	if(memEnable)
