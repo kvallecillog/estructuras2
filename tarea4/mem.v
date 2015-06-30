@@ -7,10 +7,12 @@
 module mem(
 
 	input wire memClk,
+	input wire memReset,
 	input wire [7:0] iAluDataEX,
 	input wire [1:0] iOutMemSelect,
 	input wire [9:0] iAddresReadNWrite,
 	input wire [2:0] iControlAcum_EX,
+	input wire [5:0] iInstr_EX,
 	output [7:0] oDataToWB,
 	output [2:0] oControlAcum_MEM
 
@@ -18,6 +20,21 @@ module mem(
 
 wire [7:0] oDataRamRead;
 
+
+wire [5:0] oldInstr_MEM;
+wire [5:0] oldInstr_MEM_bar;
+
+wire memHazard;
+
+regN #(6) regMemHazard (memClk,memReset,1,iInstr_EX,oldInstr_MEM,oldInstr_MEM_bar);
+
+
+assign memHazard = (((oldInstr_MEM == `LDA || oldInstr_MEM == `LDCA) && iInstr_EX == `STA) ||
+					((oldInstr_MEM == `LDB || oldInstr_MEM == `LDCB ) && iInstr_EX == `STB)) ? 1:0;
+
+
+wire [7:0] wDataMemIn;
+assign wDataMemIn = (memHazard) ? oDataRamRead:iAluDataEX; 
 
 // iOutMemSelect[1]: Si es 1 se escribe en memoria.
 // iOutMemSelect[1]: Si es 0 se lee de memoria.
@@ -33,7 +50,7 @@ RAM_SINGLE_READ_PORT # (8,10,1024) DATA_MEM
 .iWriteDataEnable( iOutMemSelect[1] ),
 .iReadDataAddress( iAddresReadNWrite ),
 .iWriteDataAddress(iAddresReadNWrite ),
-.iDataMemIn( iAluDataEX),
+.iDataMemIn( wDataMemIn),
 .oDataMemOut( oDataRamRead )
 );
 
