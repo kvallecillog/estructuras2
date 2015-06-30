@@ -115,20 +115,26 @@ module ROM(iDir,oInstruc);
       0: oInstruc = {`LDCA,2'b00,8'h5};
       
       1: oInstruc = {`LDCB,2'b00,8'h7};
-
+      
       2: oInstruc = {`STB,10'h50};
 
       3: oInstruc = {`NOP,rClear};
       4: oInstruc = {`NOP,rClear};
       5: oInstruc = {`NOP,rClear};
 
+      6: oInstruc = {`ADDA,rClear};
+
+      7: oInstruc = {`ADDA,rClear};
+
       //6: oInstruc = {`SUBB,rClear};
 
-      6: oInstruc = {`LDA,10'h50};
-     
-      7: oInstruc = {`BBEQ,4'b0,6'd48};
+      8: oInstruc = {`STA,10'h50};
 
-      8: oInstruc = {`LDCA,2'b00,8'h60};
+      9: oInstruc = {`LDCA,2'b00,8'h5};
+    
+      10: oInstruc = {`BBEQ,4'b0,6'd48};
+
+      11: oInstruc = {`LDCA,2'b00,8'h60};
       
       55: oInstruc = {`LDCB,2'b00,8'h25};
 

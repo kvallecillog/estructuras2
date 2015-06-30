@@ -3,6 +3,8 @@
 
 module ex(
 
+ input wire aluClk,
+ input wire aluReset,
  input wire [7:0] iAcumA,	
  input wire [7:0] iAcumB,
  input wire [7:0] iConst,
@@ -20,8 +22,6 @@ module ex(
 
 );
 
-
-
 wire [7:0] iAluOper1;
 wire [7:0] iAluOper2;
 
@@ -30,8 +30,46 @@ wire [1:0] oMemControl_EX;
 
 assign branchDir_EX = branchDir_ID;
 
-assign  iAluOper1 = (outSelMuxExe[0]) ? iAcumA:iConst;
-assign  iAluOper2 = (outSelMuxExe[1]) ? iAcumB:iConst;
+//--------------------------------------------------------------------------------------------------------
+//Añadido para solucionar los hazards adds con el mismo acumulador seguidos. No se requieren NOPs ahora.
+//--------------------------------------------------------------------------------------------------------
+
+wire [5:0] oldInstr_EX;
+wire [5:0] oldInstr_EX_bar;
+wire [7:0] HZDresult;
+wire [7:0] HZDresult_bar;
+
+wire exeHazardA;
+wire exeHazardB;
+
+regN #(6) regEXEHazards (aluClk,aluReset,1,iAluInstSel,oldInstr_EX,oldInstr_EX_bar);
+regN #(8) regRESHazard (aluClk,aluReset,1,iAluOper1,HZDresult,HZDresult_bar);
+
+assign exeHazardA = (((oldInstr_EX == `ADDA || oldInstr_EX == `ADDCA || oldInstr_EX == `SUBA
+						|| oldInstr_EX == `SUBCA || oldInstr_EX == `ANDA || oldInstr_EX == `ANDCA
+						|| oldInstr_EX == `ORA || oldInstr_EX == `ORCA || oldInstr_EX == `ASLA
+						|| oldInstr_EX == `ASRA) && (iAluInstSel == `ADDA || iAluInstSel == `ADDCA
+						|| iAluInstSel == `SUBA	|| iAluInstSel == `SUBCA || iAluInstSel == `ANDA
+						|| iAluInstSel == `ANDCA || iAluInstSel == `ORA || iAluInstSel == `ORCA
+						|| iAluInstSel == `ASLA	|| iAluInstSel == `ASRA))) ? 1:0;
+
+assign exeHazardB = (((oldInstr_EX == `ADDB || oldInstr_EX == `ADDCB || oldInstr_EX == `SUBB
+						|| oldInstr_EX == `SUBCB || oldInstr_EX == `ANDB || oldInstr_EX == `ANDCB
+						|| oldInstr_EX == `ORB || oldInstr_EX == `ORCB) && (iAluInstSel == `ADDB
+						|| iAluInstSel == `ADDCB || iAluInstSel == `SUBB || iAluInstSel == `SUBCB
+						|| iAluInstSel == `ANDB	|| iAluInstSel == `ANDCB || iAluInstSel == `ORB
+						|| iAluInstSel == `ORCB	))) ? 1:0;
+
+wire [7:0] realAluOp1;
+wire [7:0] realAluOp2;
+
+assign realAluOp1 = (exeHazardA) ? HZDresult:iAcumA;
+assign realAluOp2 = (exeHazardB) ? HZDresult:iAcumB;
+
+//--------------------------------------------------------------------------------------------------------
+
+assign  iAluOper1 = (outSelMuxExe[0]) ? realAluOp1:iConst;
+assign  iAluOper2 = (outSelMuxExe[1]) ? realAluOp2:iConst;
 
 assign oControlAcum_EX = iControlAcum_ID;
 assign oMemControl_EX = iMemControl_ID;

@@ -20,13 +20,19 @@ module mem(
 
 wire [7:0] oDataRamRead;
 
+//--------------------------------------------------------------------------------------------------------
+//Añadido para solucionar los hazards de load y store seguidos. Ya no se requieren NOPS entre ellos
+//--------------------------------------------------------------------------------------------------------
 
 wire [5:0] oldInstr_MEM;
 wire [5:0] oldInstr_MEM_bar;
+wire [7:0] oldDataToWB;
+wire [7:0] oldDataToWB_bar;
 
 wire memHazard;
 
 regN #(6) regMemHazard (memClk,memReset,1,iInstr_EX,oldInstr_MEM,oldInstr_MEM_bar);
+regN #(8) regDataToWBHazard (memClk,memReset,1,oDataToWB,oldDataToWB,oldDataToWB_bar);
 
 
 assign memHazard = (((oldInstr_MEM == `LDA || oldInstr_MEM == `LDCA) && iInstr_EX == `STA) ||
@@ -34,7 +40,10 @@ assign memHazard = (((oldInstr_MEM == `LDA || oldInstr_MEM == `LDCA) && iInstr_E
 
 
 wire [7:0] wDataMemIn;
-assign wDataMemIn = (memHazard) ? oDataRamRead:iAluDataEX; 
+
+assign wDataMemIn = (memHazard) ? oldDataToWB:iAluDataEX; 
+
+//--------------------------------------------------------------------------------------------------------
 
 // iOutMemSelect[1]: Si es 1 se escribe en memoria.
 // iOutMemSelect[1]: Si es 0 se lee de memoria.
