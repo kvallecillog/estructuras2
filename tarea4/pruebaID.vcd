@@ -1,0 +1,341 @@
+$date
+	Tue Jun 30 00:09:35 2015
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module iFetch $end
+$var wire 1 ! clk $end
+$var wire 10 " iBr_dir [9:0] $end
+$var wire 1 # iBr_taken $end
+$var wire 16 $ oFetchedInst [15:0] $end
+$var wire 10 % oNew_pc [9:0] $end
+$var wire 1 & reset $end
+$var wire 10 ' wPc_pointer [9:0] $end
+$scope module pcIF $end
+$var wire 1 ! clk $end
+$var wire 10 ( iBr_dir [9:0] $end
+$var wire 1 # iBr_taken $end
+$var wire 1 & reset $end
+$var reg 10 ) oNew_pc [9:0] $end
+$var reg 10 * oPc_pointer [9:0] $end
+$upscope $end
+$scope module instructMem $end
+$var wire 10 + iDir [9:0] $end
+$var reg 16 , oInstruc [15:0] $end
+$var reg 10 - rClear [9:0] $end
+$upscope $end
+$upscope $end
+$scope module tester $end
+$var wire 10 . branchDir [9:0] $end
+$var wire 8 / constant [7:0] $end
+$var wire 3 0 controlAcum_ID [2:0] $end
+$var wire 3 1 controlAcum_WB [2:0] $end
+$var wire 8 2 data [7:0] $end
+$var wire 16 3 instr [15:0] $end
+$var wire 2 4 memControl [1:0] $end
+$var wire 10 5 newPC [9:0] $end
+$var wire 6 6 operation [5:0] $end
+$var wire 2 7 outSelMux [1:0] $end
+$var wire 8 8 salidaAcumA [7:0] $end
+$var wire 8 9 salidaAcumB [7:0] $end
+$scope module test $end
+$var wire 10 : branchDir [9:0] $end
+$var wire 8 ; constant [7:0] $end
+$var wire 3 < controlAcum_ID [2:0] $end
+$var wire 2 = memControl [1:0] $end
+$var wire 6 > operation [5:0] $end
+$var wire 2 ? outSelMux [1:0] $end
+$var wire 8 @ salidaAcumA [7:0] $end
+$var wire 8 A salidaAcumB [7:0] $end
+$var reg 3 B controlAcum_WB [2:0] $end
+$var reg 8 C data [7:0] $end
+$var reg 16 D instr [15:0] $end
+$var reg 10 E newPC [9:0] $end
+$upscope $end
+$scope module pegado $end
+$var wire 10 F branchDir [9:0] $end
+$var wire 8 G constant [7:0] $end
+$var wire 3 H controlAcum_ID [2:0] $end
+$var wire 3 I controlAcum_WB [2:0] $end
+$var wire 8 J data [7:0] $end
+$var wire 16 K instr [15:0] $end
+$var wire 2 L memControl [1:0] $end
+$var wire 10 M newPC [9:0] $end
+$var wire 6 N operation [5:0] $end
+$var wire 2 O outSelMux [1:0] $end
+$var wire 8 P salidaAcumA [7:0] $end
+$var wire 8 Q salidaAcumB [7:0] $end
+$scope module acumuladores $end
+$var wire 3 R control [2:0] $end
+$var wire 8 S data [7:0] $end
+$var reg 8 T salidaAcumA [7:0] $end
+$var reg 8 U salidaAcumB [7:0] $end
+$upscope $end
+$scope module decodificador $end
+$var wire 8 V constant [7:0] $end
+$var wire 16 W instr [15:0] $end
+$var wire 6 X instrDecod [5:0] $end
+$var wire 10 Y instrInfo [9:0] $end
+$var wire 10 Z newPC [9:0] $end
+$var wire 6 [ operation [5:0] $end
+$var wire 6 \ saltoRel [5:0] $end
+$var reg 10 ] branchDir [9:0] $end
+$var reg 3 ^ controlAcum [2:0] $end
+$var reg 2 _ memControl [1:0] $end
+$var reg 2 ` outSelMux [1:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 `
+b0 _
+b1 ^
+b1000 ]
+b111 \
+b10 [
+b1 Z
+b111 Y
+b10 X
+b100000000111 W
+b111 V
+bx U
+b111 T
+b111 S
+b1 R
+bx Q
+b111 P
+b0 O
+b10 N
+b1 M
+b0 L
+b100000000111 K
+b111 J
+b1 I
+b1 H
+b111 G
+b1000 F
+b1 E
+b100000000111 D
+b111 C
+b1 B
+bx A
+b111 @
+b0 ?
+b10 >
+b0 =
+b1 <
+b111 ;
+b1000 :
+bx 9
+b111 8
+b0 7
+b10 6
+b1 5
+b0 4
+b100000000111 3
+b111 2
+b1 1
+b1 0
+b111 /
+b1000 .
+b0 -
+b0 ,
+bx +
+bx *
+bx )
+bz (
+bx '
+z&
+bx %
+b0 $
+z#
+bz "
+z!
+$end
+#8000
+b101 /
+b101 ;
+b101 G
+b101 V
+b101 \
+b101 U
+b101 9
+b101 A
+b101 Q
+b11 ^
+b11 0
+b11 <
+b11 H
+b111 ]
+b111 .
+b111 :
+b111 F
+b11 X
+b11 6
+b11 >
+b11 N
+b11 [
+b101 Y
+b11 B
+b11 1
+b11 I
+b11 R
+b101 C
+b101 2
+b101 J
+b101 S
+b10 E
+b10 5
+b10 M
+b10 Z
+b110000000101 D
+b110000000101 3
+b110000000101 K
+b110000000101 W
+#16000
+b0 /
+b0 ;
+b0 G
+b0 V
+b0 \
+b1100 T
+b1100 8
+b1100 @
+b1100 P
+b11 `
+b11 7
+b11 ?
+b11 O
+b10 ^
+b10 0
+b10 <
+b10 H
+b11 ]
+b11 .
+b11 :
+b11 F
+b110 X
+b110 6
+b110 >
+b110 N
+b110 [
+b0 Y
+b10 B
+b10 1
+b10 I
+b10 R
+b1100 C
+b1100 2
+b1100 J
+b1100 S
+b11 E
+b11 5
+b11 M
+b11 Z
+b1100000000000 D
+b1100000000000 3
+b1100000000000 K
+b1100000000000 W
+#24000
+b110010 /
+b110010 ;
+b110010 G
+b110010 V
+b110010 \
+b11 _
+b11 4
+b11 =
+b11 L
+b0 ^
+b0 0
+b0 <
+b0 H
+b110010 ]
+b110010 .
+b110010 :
+b110010 F
+b101 X
+b101 6
+b101 >
+b101 N
+b101 [
+b110010 Y
+b0 B
+b0 1
+b0 I
+b0 R
+b100 E
+b100 5
+b100 M
+b100 Z
+b1010000110010 D
+b1010000110010 3
+b1010000110010 K
+b1010000110010 W
+#32000
+b10000 /
+b10000 ;
+b10000 G
+b10000 V
+b10000 \
+b0 _
+b0 4
+b0 =
+b0 L
+b0 `
+b0 7
+b0 ?
+b0 O
+b10101 ]
+b10101 .
+b10101 :
+b10101 F
+b100000 X
+b100000 6
+b100000 >
+b100000 N
+b100000 [
+b10000 Y
+b111 C
+b111 2
+b111 J
+b111 S
+b101 E
+b101 5
+b101 M
+b101 Z
+b1000000000010000 D
+b1000000000010000 3
+b1000000000010000 K
+b1000000000010000 W
+#40000
+b11110100 /
+b11110100 ;
+b11110100 G
+b11110100 V
+b110100 \
+b111110100 ]
+b111110100 .
+b111110100 :
+b111110100 F
+b11000 X
+b11000 6
+b11000 >
+b11000 N
+b11000 [
+b111110100 Y
+b1011 E
+b1011 5
+b1011 M
+b1011 Z
+b110000111110100 D
+b110000111110100 3
+b110000111110100 K
+b110000111110100 W
+#48000

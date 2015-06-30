@@ -1,145 +1,7 @@
 `timescale 1ns/1ps
 
-`include "pipeline.v"
-
-// CAMBIAR PARTE DEL ID.V DE ACUMULADORES DONDE SE DEFINE EL CONTROL DEL MODULO ACUMULADORES
-// DIRECTAMENTE CONECTADO A LA SALIDA CONTROLACUM DEL MODULO ID, PORQUE ESTA ENTRADA DE CONTROL
-// EN REALIDAD VIENE DEL WRITEBACK.
-
-
-/*
-// PROBADOR DEL PIPELINE IF_ID LISTOS.
-module probador (clk,reset);
-
-	// Salidas
-	output reg clk;
-	output reg reset;
-	
-	// Entradas.
-	
-
-	initial begin
-	
-		$dumpfile("pruebaPIPE.vcd");
-		$dumpvars;
-		
-		clk = 0;
-		reset = 0;
-		#5 reset = 1;
-		#23 reset = 0;
-				
-		#170 $finish;
-		
-	end
-	
-	always clk = #5 ~clk;
-	
-
-endmodule
-
-
-module tester;
-
-	wire clk;
-	wire reset;	
-	
-	probador test(clk,reset);
-	pipeline pegado (clk,reset);
-
-endmodule
-
-*/
-
-
-
-
-
-
-
-
-
-
-/*
-
-//PROBADOR DEL EXE.
-module probador(iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
-
-
-	// Entradas.
-	output reg [7:0] data;
-	output reg [15:0] instr;
-	output reg [9:0] newPC;
-	
-	
-	// Salidas.
-	output wire [7:0] iAcumA,iAcumB;
-	output wire [9:0] branchDir;
-	output wire branchTaken;
-	output wire [1:0] outSelMux;
-	output wire [5:0] operation;
-
-	// Internas
-	reg [9:0] clear = 0;
-
-	initial begin
-	
-		$dumpfile("pruebaEXE.vcd");
-		$dumpvars;
-
-		outSelMux = 0;
-		operation = `NOP;
-		branchTaken = 0;
-
-		#20 operation = `ADDA;
-			salidaAcumA = 5;
-			salidaAcumB = 7;
-
-
-		// HAZARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GOOOOOOOOOL!!!
-		// SI EL VALOR DEL BRANCH + EL NEWPC ES MAYOR
-		// A LAS 1024 POSICIONES DE MEMORIA ENTONCES
-		// EMPIEZA EN 0 DE NUEVO POR EJEMPLO NEWPC=1000
-		// BRANCH=30 => 1030 Y ESTO SERÍA UN 6
-
-		#20 branchTaken = 1;
-			operation = `BACS;
-		
-		#20 branchTaken = 1;
-			operation = `JMP;
-			
-		#20 $finish;
-		
-	end
-
-endmodule
-
-
-module tester;
-
- wire [7:0] iAcumA;	
- wire [7:0] iAcumB;
- wire [7:0] iConst;
- wire [1:0] outSelMuxExe;
- wire [5:0] iAluInstSel;
- reg [7:0] oAluData;
-	
-	probador test (iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
-	exe pegado (iAcumA,iAcumB,iConst,outSelMuxExe,iAluInstSel,oAluData);
-
-endmodule
-
-
-*/
-
-
-
-
-
-
-
-
-
-
+`include "iFetch.v"
+`include "id.v"
 
 
 /*
@@ -205,60 +67,62 @@ endmodule
 
 
 
-
-
-
-
-
-
-
-
-
 //PROBADOR DEL ID.
-module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum, memControl);
+module probador(data,instr,newPC,controlAcum_WB,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum_ID, memControl);
 
 
-	// Entradas.
+	// Salidas.
 	output reg [7:0] data;
 	output reg [15:0] instr;
 	output reg [9:0] newPC;
+	output reg [2:0] controlAcum_WB;
 	
-	
-	// Salidas.
+	// Entradas.
 	input wire [7:0] salidaAcumA,salidaAcumB;
 	input wire [9:0] branchDir;
 	input wire [1:0] outSelMux;
 	input wire [5:0] operation;
-	input wire [2:0] controlAcum;
+	input wire [2:0] controlAcum_ID;
 	input wire [1:0] memControl;
 	input wire [7:0] constant;
 
-	// Internas
-	reg [9:0] clear = 0;
-	reg [9:0] valor;
+
 	initial begin
 	
-		$dumpfile("prueba.vcd");
+		$dumpfile("pruebaID.vcd");
 		$dumpvars;
-		data = 10;
-		newPC = 1000;
-		const = 35;
-		instr = {`LDA, newPC};
-		#20 instr = {`LDCB,clear};
-		// HAZARD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GOOOOOOOOOL!!!
-		// SI EL VALOR DEL BRANCH + EL NEWPC ES MAYOR
-		// A LAS 1024 POSICIONES DE MEMORIA ENTONCES
-		// EMPIEZA EN 0 DE NUEVO POR EJEMPLO NEWPC=1000
-		// BRANCH=30 => 1030 Y ESTO SERÍA UN 6
-		#20 valor = 30;
-			instr = {`BACS,valor};
 		
-		#20 valor = 524;
-			instr = {`JMP,valor};
+		instr = {`LDCA,2'b00,8'h7};
+		newPC = 10'd1;
+		data = 7;
+		controlAcum_WB = `loadConstantA;
 
-		#20 instr = {`STA,clear};
-			
-		#20 $finish;
+		#8 instr = {`LDCB,2'b00,8'h5};
+		newPC = 10'd2;
+		data = 5;
+		controlAcum_WB = `loadConstantB;
+
+		#8 instr = {`ADDA,10'b00};
+		newPC = 10'd3;
+		data = 12;
+		controlAcum_WB = `loadMemoryA;
+
+		#8 instr = {`STB,10'd50};
+		newPC = 10'd4;
+		data = 12;
+		controlAcum_WB = `noLoad;
+
+		#8 instr = {`BBNE,4'h0,6'h10};
+		newPC = 10'd5;
+		data = 7;
+		controlAcum_WB = `noLoad;
+
+		#8 instr = {`JMP,10'd500};
+		newPC = 10'd11;
+		data = 7;
+		controlAcum_WB = `noLoad;
+
+		#8 $finish;
 		
 		
 	end
@@ -273,12 +137,12 @@ module tester;
 	wire [15:0] instr;
 	wire [1:0] outSelMux;
 	wire [5:0] operation;
-	wire [2:0] controlAcum;
+	wire [2:0] controlAcum_ID;
+	wire [2:0] controlAcum_WB;
 	wire [7:0] constant;
 	wire [1:0] memControl;
 	
-	probador test(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum, memControl);
-	id pegado(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum, memControl);
+	probador test(data,instr,newPC,controlAcum_WB,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum_ID, memControl);
+	id pegado(data,instr,newPC,controlAcum_WB,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum_ID, memControl);
 
 endmodule
-*/

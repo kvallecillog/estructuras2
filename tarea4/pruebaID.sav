@@ -1,0 +1,44 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Tue Jun 30 06:13:37 2015
+[*]
+[dumpfile] "/home/aglt93/Escritorio/repositorios/estructuras2/tarea4/pruebaID.vcd"
+[dumpfile_mtime] "Tue Jun 30 06:09:35 2015"
+[dumpfile_size] 4689
+[savefile] "/home/aglt93/Escritorio/repositorios/estructuras2/tarea4/pruebaID.sav"
+[timestart] 0
+[size] 1301 744
+[pos] -1 -1
+*-13.449800 8000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 223
+[signals_width] 182
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@200
+-Entradas
+@24
+tester.data[7:0]
+@28
+tester.controlAcum_WB[2:0]
+@200
+-Salidas
+@24
+tester.branchDir[9:0]
+tester.constant[7:0]
+@28
+tester.controlAcum_ID[2:0]
+@22
+tester.instr[15:0]
+@28
+tester.memControl[1:0]
+@24
+tester.newPC[9:0]
+@25
+tester.operation[5:0]
+@28
+tester.outSelMux[1:0]
+@24
+tester.salidaAcumA[7:0]
+tester.salidaAcumB[7:0]
+[pattern_trace] 1
+[pattern_trace] 0
