@@ -1,0 +1,29 @@
+
+
+Cada etapa se debe probar por separado para comprobar su correcta funcionalidad
+Posteriormente se debe probar todo el pipeline en conjunto. 
+
+
+Para comprobar cada etapa (exceptuando la etapa de IF y la EXE) se va a realizar la siguiente prueba:
+
+	Se van a ingresar en las entradas de cada modulo el equivalente de que le entre 
+	la siguiente ejecución de instrucciones:
+
+		1	{`LDCA,2'b00,8'h7};
+		2	{`LDCB,2'b00,8'h5};
+		3	{`ADDA,10'b00};
+		4	{`STB,10h50};
+		5	{`BBNE,4'h0,6'h10};
+		10	{`JMP,10h500};
+
+
+Esto se hace de esta forma para probar la instrucciones de cargar a los acumuladores 
+guardar en memoria, operaciones aritmeticas, branches y jump funcionen correctamente, 
+asumiendo que instrucciones similares funcionarán de la misma manera.
+
+En el caso de la etapa EXE se debe realizar una prueba exhaustiva de instruccion
+por instruccion ya que se debe comprobar que los resultados se den correctamente.
+
+
+En el caso de la etapa IF se debe comprobar que el PC y el NewPC cambien correctamente
+ademas de que cuando la señal branchTaken = 1 se pase a la direccion correcta.
