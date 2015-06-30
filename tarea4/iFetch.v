@@ -3,7 +3,7 @@
 `include "instrDefine.v"
 
 // ---------------------------------------------------------------------------------------------
-module iFetch(clk,reset,iBr_dir,iBr_taken,oFetchedInst,oNew_pc);
+module iFetch(clk,reset,enable,iBr_dir,iBr_taken,oFetchedInst,oNew_pc);
 
 	// Se define las entradas del modulo IF:
 	// - br_dir: direccion que se carga al pc cuando cuando un branch es tomado.
@@ -12,6 +12,7 @@ module iFetch(clk,reset,iBr_dir,iBr_taken,oFetchedInst,oNew_pc);
 	input iBr_taken;
 	input reset;
 	input clk;
+	input enable;
 	
 	// Se definen las salidas del modulo IF.
 	// - fetched_inst: direccion de 10 bits con los datos de la siguiente instruccion a decodificar
@@ -22,7 +23,7 @@ module iFetch(clk,reset,iBr_dir,iBr_taken,oFetchedInst,oNew_pc);
 	// Internas
 	wire [`LENGTH_INSTR_MEM-1:0] wPc_pointer;
 	
-	pc pcIF(clk,reset,iBr_dir,iBr_taken,wPc_pointer,oNew_pc);
+	pc pcIF(clk,reset, enable, iBr_dir,iBr_taken,wPc_pointer,oNew_pc);
 	
 	ROM instructMem(wPc_pointer,oFetchedInst);
 	
@@ -35,7 +36,7 @@ endmodule
 
 // ---------------------------------------------------------------------------------------------
 // 
-module pc(clk,reset,iBr_dir,iBr_taken,oPc_pointer,oNew_pc);
+module pc(clk,reset,enable,iBr_dir,iBr_taken,oPc_pointer,oNew_pc);
 
 	// Entradas
 	// - clk: señal que le indica al PC que debe de actualizar su valor
@@ -46,6 +47,7 @@ module pc(clk,reset,iBr_dir,iBr_taken,oPc_pointer,oNew_pc);
 	input reset;
 	input [`LENGTH_INSTR_MEM-1:0] iBr_dir;
 	input iBr_taken;
+	input enable;
 	
 	
 	// Salidas
@@ -58,15 +60,15 @@ module pc(clk,reset,iBr_dir,iBr_taken,oPc_pointer,oNew_pc);
 
 	  if (reset) oPc_pointer = 0;
 	  
-	  else begin
+	  else if (enable) begin
 	    
 	    if (iBr_taken) oPc_pointer = iBr_dir;
 		
 	    else oPc_pointer = oPc_pointer + 1;
 		
+	  	oNew_pc = oPc_pointer + 1;
+
 	  end
-	  
-	  oNew_pc = oPc_pointer + 1;
 	    
 	end
 	
@@ -115,26 +117,34 @@ module ROM(iDir,oInstruc);
       0: oInstruc = {`LDCA,2'b00,8'h5};
       
       1: oInstruc = {`LDCB,2'b00,8'h7};
-      
-      2: oInstruc = {`STB,10'h50};
+
+      2: oInstruc = {`NOP,rClear};
 
       3: oInstruc = {`NOP,rClear};
-      4: oInstruc = {`NOP,rClear};
-      5: oInstruc = {`NOP,rClear};
 
-      6: oInstruc = {`ADDA,rClear};
+      4: oInstruc = {`ADDA,rClear};
+      
+      5: oInstruc = {`STB,10'h50};
 
-      7: oInstruc = {`ADDA,rClear};
+      6: oInstruc = {`NOP,rClear};
+
+      7: oInstruc = {`NOP,rClear};
+      
+      8: oInstruc = {`NOP,rClear};
+
+      9: oInstruc = {`ADDA,rClear};
+
+      10: oInstruc = {`ADDA,rClear};
 
       //6: oInstruc = {`SUBB,rClear};
 
-      8: oInstruc = {`NOP,10'h50};
+      11: oInstruc = {`NOP,10'h50};
 
-      9: oInstruc = {`NOP,2'b00,8'h5};
+      12: oInstruc = {`NOP,2'b00,8'h5};
     
-      10: oInstruc = {`BBEQ,4'b0,6'd48};
+      13: oInstruc = {`BBEQ,4'b0,6'd48};
 
-      11: oInstruc = {`LDCA,2'b00,8'h60};
+      14: oInstruc = {`LDCA,2'b00,8'h60};
       
       55: oInstruc = {`LDCB,2'b00,8'h25};
 

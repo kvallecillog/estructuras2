@@ -26,7 +26,7 @@ module alu(
  	assign sReg = {BCA,BCB,BAZ,BBZ,BAN,BBN};
 
 
-	always @(iAluInstSel,iAluOper1,iAluOper2) begin
+	always @(*) begin
 
 	case(iAluInstSel) 
 		

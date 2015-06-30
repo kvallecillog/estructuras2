@@ -26,7 +26,7 @@ module pipeline (clk,reset);
   assign wBrTaken_IF = wBrTaken_EX;
   assign wBrDir_IF = wBrDir_EX;
   
-  iFetch etapa1 (.clk(clk),.reset(reset),.iBr_dir(wBrDir_IF),
+  iFetch etapa1 (.clk(clk),.reset(reset),.enable(regEnable),.iBr_dir(wBrDir_IF),
     .iBr_taken(wBrTaken_IF),.oFetchedInst(wFetchedInst_IF),.oNew_pc(wNewPC_IF));
   //////////////////////////////////////////////////////////////////////////////
  
@@ -40,7 +40,7 @@ module pipeline (clk,reset);
    wire [`SIZE_REG(`LENGTH_INSTR_MEM,`WIDTH_INSTR_MEM)-1:0] outReg_IF_ID;
    wire [`SIZE_REG(`LENGTH_INSTR_MEM,`WIDTH_INSTR_MEM)-1:0] outReg_IF_ID_bar;
    regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM,`WIDTH_INSTR_MEM))) registro_IF_ID (clk,reset|wBrTaken_EX,
-    1,inputReg_IF_ID,outReg_IF_ID,outReg_IF_ID_bar);
+    regEnable,inputReg_IF_ID,outReg_IF_ID,outReg_IF_ID_bar);
    
    
    wire [`LENGTH_INSTR_MEM-1:0] outReg_IF_ID_NewPC;
@@ -82,7 +82,7 @@ module pipeline (clk,reset);
 	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 )-1:0] outReg_ID_EX;
 	wire [`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 )-1:0] outReg_ID_EX_bar;
 	regN #(.size(`SIZE_REG(`LENGTH_INSTR_MEM + 3 * `WIDTH_DATA_MEM, `OPERATION_SIZE + 7 ))) registro_ID_EX (clk,reset,
-    1,inputReg_ID_EX,outReg_ID_EX,outReg_ID_EX_bar);
+    regEnable,inputReg_ID_EX,outReg_ID_EX,outReg_ID_EX_bar);
    
 
 	wire [`WIDTH_DATA_MEM-1:0] outReg_ID_EX_AcumA_ID,outReg_ID_EX_AcumB_ID;
@@ -113,8 +113,15 @@ module pipeline (clk,reset);
 	ex etapa3 (.aluClk(clk),.aluReset(reset),.iAcumA(outReg_ID_EX_AcumA_ID), .iAcumB(outReg_ID_EX_AcumB_ID),.iConst(outReg_ID_EX_Constant_ID),
  		.outSelMuxExe(outReg_ID_EX_OutSelMux_ID),.iAluInstSel(outReg_ID_EX_Operation_ID),.branchDir_ID(outReg_ID_EX_BrDir_ID),
  		.branchTaken(wBrTaken_EX),.branchDir_EX(wBrDir_EX),.iMemControl_ID(outReg_ID_EX_MemControl_ID),
- 		.iControlAcum_ID(outReg_ID_EX_ControlAcum_ID),.oAluData(wAluResult_EX),
- 		.oControlAcum_EX(wControlAcum_EX),.oMemControl_EX(wMemControl_EX),.oInstr_EX(wInstr_EX));
+ 		.loadMemHzd(wDataToWB_MEM),.iControlAcum_ID(outReg_ID_EX_ControlAcum_ID),.oAluData(wAluResult_EX),
+ 		.oControlAcum_EX(wControlAcum_EX),.oMemControl_EX(wMemControl_EX),.oInstr_EX(wInstr_EX),.stall(wStall));
+
+	wire wStall;
+
+	wire regEnable;
+
+	assign regEnable = (wStall) ? 0:1;
+
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -128,7 +135,7 @@ module pipeline (clk,reset);
 	wire [`SIZE_REG(`OPERATION_SIZE+`WIDTH_INSTR_MEM,`LENGTH_INSTR_MEM+5)-1:0] outReg_EX_MEM;
 	wire [`SIZE_REG(`OPERATION_SIZE+`WIDTH_INSTR_MEM,`LENGTH_INSTR_MEM+5)-1:0] outReg_EX_MEM_bar;
 	regN #(.size(`SIZE_REG(`OPERATION_SIZE+`WIDTH_INSTR_MEM,`LENGTH_INSTR_MEM+5))) registro_EX_MEM (clk,reset|wBrTaken_EX,
-		1,inputReg_EX_MEM,outReg_EX_MEM,outReg_EX_MEM_bar);
+		regEnable,inputReg_EX_MEM,outReg_EX_MEM,outReg_EX_MEM_bar);
    
    
 	wire [`WIDTH_DATA_MEM-1:0] outReg_EX_MEM_AluResult_EX;

@@ -13,12 +13,14 @@ module ex(
  input wire [9:0] branchDir_ID,
  input wire [2:0] iControlAcum_ID,
  input wire	[1:0] iMemControl_ID,
+ input wire [7:0] loadMemHzd,
  output branchTaken,
  output [9:0] branchDir_EX,
  output [7:0] oAluData,
  output [2:0] oControlAcum_EX,
  output [1:0] oMemControl_EX,
- output [5:0] oInstr_EX
+ output [5:0] oInstr_EX,
+ output stall
 
 );
 
@@ -44,6 +46,7 @@ wire exeHazardB;
 
 regN #(6) regEXEHazards (aluClk,aluReset,1,iAluInstSel,oldInstr_EX,oldInstr_EX_bar);
 regN #(8) regRESHazard (aluClk,aluReset,1,oAluData,HZDresult,HZDresult_bar);
+regN #(1) regStall (aluClk,aluReset,1,stall,oldStall,oldStall_bar);
 
 assign exeHazardA = (((oldInstr_EX == `ADDA || oldInstr_EX == `ADDCA || oldInstr_EX == `SUBA
 						|| oldInstr_EX == `SUBCA || oldInstr_EX == `ANDA || oldInstr_EX == `ANDCA
@@ -51,14 +54,17 @@ assign exeHazardA = (((oldInstr_EX == `ADDA || oldInstr_EX == `ADDCA || oldInstr
 						|| oldInstr_EX == `ASRA) && (iAluInstSel == `ADDA || iAluInstSel == `ADDCA
 						|| iAluInstSel == `SUBA	|| iAluInstSel == `SUBCA || iAluInstSel == `ANDA
 						|| iAluInstSel == `ANDCA || iAluInstSel == `ORA || iAluInstSel == `ORCA
-						|| iAluInstSel == `ASLA	|| iAluInstSel == `ASRA))) ? 1:0;
+						|| iAluInstSel == `ASLA	|| iAluInstSel == `ASRA
+						|| iAluInstSel == `ADDB || iAluInstSel == `SUBB || iAluInstSel == `ANDB
+						|| iAluInstSel == `ORB) && !oldStall)) ? 1:0;
 
 assign exeHazardB = (((oldInstr_EX == `ADDB || oldInstr_EX == `ADDCB || oldInstr_EX == `SUBB
 						|| oldInstr_EX == `SUBCB || oldInstr_EX == `ANDB || oldInstr_EX == `ANDCB
 						|| oldInstr_EX == `ORB || oldInstr_EX == `ORCB) && (iAluInstSel == `ADDB
 						|| iAluInstSel == `ADDCB || iAluInstSel == `SUBB || iAluInstSel == `SUBCB
 						|| iAluInstSel == `ANDB	|| iAluInstSel == `ANDCB || iAluInstSel == `ORB
-						|| iAluInstSel == `ORCB	))) ? 1:0;
+						|| iAluInstSel == `ORCB	|| iAluInstSel == `ADDA || iAluInstSel == `SUBA
+						|| iAluInstSel == `ANDA	|| iAluInstSel == `ORA) && !oldStall)) ? 1:0;
 
 wire [7:0] realAluOp1;
 wire [7:0] realAluOp2;
@@ -66,10 +72,51 @@ wire [7:0] realAluOp2;
 assign realAluOp1 = (exeHazardA) ? HZDresult:iAcumA;
 assign realAluOp2 = (exeHazardB) ? HZDresult:iAcumB;
 
+
+wire loadhazardA;
+wire loadhazardB;
+
+
+assign loadhazardA = (((oldInstr_EX == `LDA || oldInstr_EX == `LDCA) && (iAluInstSel == `ADDA || iAluInstSel == `ADDCA
+						|| iAluInstSel == `SUBA	|| iAluInstSel == `SUBCA || iAluInstSel == `ANDA
+						|| iAluInstSel == `ANDCA || iAluInstSel == `ORA || iAluInstSel == `ORCA
+						|| iAluInstSel == `ASLA	|| iAluInstSel == `ASRA || iAluInstSel == `ADDB
+						|| iAluInstSel == `SUBB || iAluInstSel == `ANDB	|| iAluInstSel == `ORB))) ? 1:0;
+
+assign loadhazardB = (((oldInstr_EX == `LDB || oldInstr_EX == `LDCB) && (iAluInstSel == `ADDB
+						|| iAluInstSel == `ADDCB || iAluInstSel == `SUBB || iAluInstSel == `SUBCB
+						|| iAluInstSel == `ANDB	|| iAluInstSel == `ANDCB || iAluInstSel == `ORB
+						|| iAluInstSel == `ORCB || iAluInstSel == `ADDA || iAluInstSel == `SUBA
+						|| iAluInstSel == `ANDA	|| iAluInstSel == `ORA	))) ? 1:0;
+
+//Pone en 1 la señal de stall si se detecta uno de los hazards
+
+reg stall;
+
+always @(*) begin
+	if (loadhazardA || loadhazardB) begin
+		
+		stall = 1;
+		
+	end
+	else
+	begin
+
+		stall = 0;
+		
+	end
+end
+
+wire [7:0] ALU_OP_loadA;
+wire [7:0] ALU_OP_loadB;
+
+assign ALU_OP_loadA = (loadhazardA) ? loadMemHzd:realAluOp1;
+assign ALU_OP_loadB = (loadhazardB) ? loadMemHzd:realAluOp2;
+
 //--------------------------------------------------------------------------------------------------------
 
-assign  iAluOper1 = (outSelMuxExe[0]) ? realAluOp1:iConst;
-assign  iAluOper2 = (outSelMuxExe[1]) ? realAluOp2:iConst;
+assign  iAluOper1 = (outSelMuxExe[0]) ? ALU_OP_loadA:iConst;
+assign  iAluOper2 = (outSelMuxExe[1]) ? ALU_OP_loadB:iConst;
 
 assign oControlAcum_EX = iControlAcum_ID;
 assign oMemControl_EX = iMemControl_ID;

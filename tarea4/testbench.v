@@ -7,7 +7,7 @@
 // EN REALIDAD VIENE DEL WRITEBACK.
 
 
-/*
+
 // PROBADOR DEL PIPELINE IF_ID LISTOS.
 module probador (clk,reset);
 
@@ -48,7 +48,7 @@ module tester;
 
 endmodule
 
-*/
+
 
 
 
@@ -212,7 +212,7 @@ endmodule
 
 
 
-
+/*
 
 //PROBADOR DEL ID.
 module probador(data,instr,newPC,salidaAcumA,salidaAcumB,branchDir,outSelMux, operation, constant, controlAcum, memControl);
