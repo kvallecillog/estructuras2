@@ -128,9 +128,9 @@ module ROM(iDir,oInstruc);
 
       //6: oInstruc = {`SUBB,rClear};
 
-      8: oInstruc = {`STA,10'h50};
+      8: oInstruc = {`NOP,10'h50};
 
-      9: oInstruc = {`LDCA,2'b00,8'h5};
+      9: oInstruc = {`NOP,2'b00,8'h5};
     
       10: oInstruc = {`BBEQ,4'b0,6'd48};
 

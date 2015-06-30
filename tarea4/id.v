@@ -445,7 +445,7 @@ module acumAB(data,control, salidaAcumA, salidaAcumB);
 	
 	// Dependiendo del control se pone a la salida de los acumuladores el dato
 	// que se solicitó según la instrucción.
-	always @(control) begin
+	always @(*) begin
 
 		case(control)
 		

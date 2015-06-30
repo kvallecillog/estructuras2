@@ -43,7 +43,7 @@ wire exeHazardA;
 wire exeHazardB;
 
 regN #(6) regEXEHazards (aluClk,aluReset,1,iAluInstSel,oldInstr_EX,oldInstr_EX_bar);
-regN #(8) regRESHazard (aluClk,aluReset,1,iAluOper1,HZDresult,HZDresult_bar);
+regN #(8) regRESHazard (aluClk,aluReset,1,oAluData,HZDresult,HZDresult_bar);
 
 assign exeHazardA = (((oldInstr_EX == `ADDA || oldInstr_EX == `ADDCA || oldInstr_EX == `SUBA
 						|| oldInstr_EX == `SUBCA || oldInstr_EX == `ANDA || oldInstr_EX == `ANDCA
