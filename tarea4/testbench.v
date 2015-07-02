@@ -28,7 +28,7 @@ module probador (clk,reset);
 		#5 reset = 1;
 		#23 reset = 0;
 				
-		#170 $finish;
+		#300 $finish;
 		
 	end
 	

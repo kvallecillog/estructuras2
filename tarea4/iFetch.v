@@ -92,9 +92,113 @@ module ROM(iDir,oInstruc);
   always @(*) begin
    
    case(iDir)
+
+
+
+// Codigo de prueba de operaciones logicas AND y OR para A y B.
+	// Prueba ANDA y BAEQ Prueba de salto.
+
+	// 0 : oInstruc = {`LDCA,2'b00,8'hFF};  
+ 	// 	1 : oInstruc = {`NOP,rClear};
+ 	// 	2 : oInstruc = {`NOP,rClear};
+ 	// 	3 : oInstruc = {`NOP,rClear};
+		// 4 : oInstruc = {`LDCB,2'b00,8'h00};  
+		// 5 : oInstruc = {`NOP,rClear};
+		// 6 : oInstruc = {`NOP,rClear};
+		// 7 : oInstruc = {`NOP,rClear};
+		// 8 : oInstruc = {`ANDA,rClear};  
+		// 9 : oInstruc = {`NOP,rClear};
+ 	// 	10 : oInstruc = {`NOP,rClear};
+ 	// 	11 : oInstruc = {`NOP,rClear};
+ 	// 	12 : oInstruc = {`BAEQ,4'b0,6'd8};
+ 	// 	13: oInstruc = {`NOP,rClear};
+ 	// 	14: oInstruc = {`NOP,rClear};
+ 	// 	15 : oInstruc = {`NOP,rClear};
+ 	// 	16: oInstruc = {`LDCB,2'b00,8'h1}; 
+ 	// 	17: oInstruc = {`NOP,rClear};
+ 	// 	18: oInstruc = {`NOP,rClear};
+ 	// 	19 : oInstruc = {`NOP,rClear};
+ 	// 	20: oInstruc = {`LDCB,2'b00,8'h7}; 
+
+ 	// Prueba ANDA y BAEQ Prueba de no salto.
+
+ 	// 	0 : oInstruc = {`LDCA,2'b00,8'hFF};  
+ 	// 	1 : oInstruc = {`NOP,rClear};
+ 	// 	2 : oInstruc = {`NOP,rClear};
+ 	// 	3 : oInstruc = {`NOP,rClear};
+		// 4 : oInstruc = {`LDCB,2'b00,8'h00};  
+		// 5 : oInstruc = {`NOP,rClear};
+		// 6 : oInstruc = {`NOP,rClear};
+		// 7 : oInstruc = {`NOP,rClear};
+		// 8 : oInstruc = {`ANDB,rClear};  
+		// 9 : oInstruc = {`NOP,rClear};
+ 	// 	10 : oInstruc = {`NOP,rClear};
+ 	// 	11 : oInstruc = {`NOP,rClear};
+ 	// 	12 : oInstruc = {`BAEQ,4'b0,6'd8};
+ 	// 	13: oInstruc = {`NOP,rClear};
+ 	// 	14: oInstruc = {`NOP,rClear};
+ 	// 	15 : oInstruc = {`NOP,rClear};
+ 	// 	16: oInstruc = {`LDCB,2'b00,8'h1}; 
+ 	// 	17: oInstruc = {`NOP,rClear};
+ 	// 	18: oInstruc = {`NOP,rClear};
+ 	// 	19 : oInstruc = {`NOP,rClear};
+ 	// 	20: oInstruc = {`LDCB,2'b00,8'h7}; 
+
+
+ 	 	0 : oInstruc = {`LDCA,2'b00,8'd53};  
+ 		1 : oInstruc = {`NOP,rClear};
+ 		2 : oInstruc = {`NOP,rClear};
+ 		3 : oInstruc = {`NOP,rClear};
+		4 : oInstruc = {`LDCB,2'b00,8'd83};  
+		5 : oInstruc = {`NOP,rClear};
+		6 : oInstruc = {`NOP,rClear};
+		7 : oInstruc = {`NOP,rClear};
+		8 : oInstruc = {`ANDA,rClear};  
+		9 : oInstruc = {`NOP,rClear};
+ 		10 : oInstruc = {`NOP,rClear};
+ 		11 : oInstruc = {`NOP,rClear};
+ 		12 : oInstruc = {`SUBCA,2'b00,8'd17};
+ 		13: oInstruc = {`NOP,rClear};
+ 		14: oInstruc = {`NOP,rClear};
+ 		15 : oInstruc = {`NOP,rClear};
+ 		16 : oInstruc = {`BAEQ,4'b0,6'd8};
+ 		17: oInstruc = {`NOP,rClear};
+ 		18: oInstruc = {`NOP,rClear};
+ 		19 : oInstruc = {`NOP,rClear};
+ 		20: oInstruc = {`LDCB,2'b00,8'h1}; 
+ 		21: oInstruc = {`NOP,rClear};
+ 		22: oInstruc = {`NOP,rClear};
+ 		23 : oInstruc = {`NOP,rClear};
+ 		24: oInstruc = {`LDCB,2'b00,8'h7}; 
+
+
+
+// // Codigo de prueba de operaciones logicas AND y OR para A y B.
+// 		0 : oInstruc = {`LDCA,2'b00,8'h0};  
+//  		1 : oInstruc = {`NOP,rClear};
+//  		2 : oInstruc = {`NOP,rClear};
+// 		3 : oInstruc = {`LDCB,2'b00,8'hFF};  
+// 		4 : oInstruc = {`ANDA,rClear};  
+//  		5 : oInstruc = {`BAEQ,4'b0,6'b000010};
+//  		6 : oInstruc = {`NOP,rClear};
+//  		7 : oInstruc = {`NOP,rClear};
+//  		8 : oInstruc = {`LDCB,2'b00,8'h1}; 
+//  		9 : oInstruc = {`LDCB,2'b00,8'h7}; 
+
+// // Loop de prueba de suma y branch hacia atras
+// 		0 : oInstruc = {`ADDCA,2'b00,8'h1};  
+// 		1 : oInstruc = {`NOP,rClear};
+// 		2 : oInstruc = {`NOP,rClear};
+// 		3 : oInstruc = {`BACC,4'b0,6'b100001};
+// 		4 : oInstruc = {`NOP,rClear};
+// 		5 : oInstruc = {`NOP,rClear};
+// 		6: oInstruc = {`LDCB,2'b00,8'b1};	
     
-      // 0: oInstruc = {`LDCA,2'b00,8'h7};
-      
+       //0: oInstruc = {`LDCA,2'b00,8'h1};
+
+       //1 : oInstruc = {`ADDA,rClear};
+
+       //2: oInstruc = {`LDCA,2'b00,8'h7};
       // 1: oInstruc = {`LDCB,2'b00,8'h7};
 
       // 2: oInstruc = {`NOP,rClear};
@@ -113,6 +217,7 @@ module ROM(iDir,oInstruc);
       
       // 56: oInstruc = {`ADDB,rClear};
 
+// Datos originales de aqui hacia abajo //
       // 0: oInstruc = {`LDCA,2'b00,8'h5};
       
       // 1: oInstruc = {`LDCB,2'b00,8'h7};
@@ -175,25 +280,28 @@ module ROM(iDir,oInstruc);
       //-----------  Caso para comprobar la correción de hazard de un operaciones consecutivas. --------
       //------------------------------------------------------------------------------------------------
 
-      0: oInstruc = {`LDCA,2'b00,8'h5};
+      // 0: oInstruc = {`LDCA,2'b00,8'h5};
 
-      1: oInstruc = {`LDCB,2'b00,8'h5};
+      // 1: oInstruc = {`LDCB,2'b00,8'h5};
 
-      2: oInstruc = {`NOP,rClear};
+      // 2: oInstruc = {`NOP,rClear};
 
-      3: oInstruc = {`NOP,rClear};
+      // 3: oInstruc = {`NOP,rClear};
 
-      4: oInstruc = {`ADDA,rClear};
+      // 4: oInstruc = {`ADDA,rClear};
 
-      5: oInstruc = {`ADDA,rClear};
+      // 5: oInstruc = {`ADDA,rClear};
 
-      6: oInstruc = {`ADDA,rClear};
+      // 6: oInstruc = {`ADDA,rClear};
 
-      7: oInstruc = {`ADDA,rClear};
+      // 7: oInstruc = {`ADDA,rClear};
 
       //------------------------------------------------------------------------------------------------
       //------------------------------------------------------------------------------------------------
 
+
+      // 57: oInstruc = {`NOP,rClear};
+     
       default: oInstruc = {`NOP,rClear};
     
     endcase
