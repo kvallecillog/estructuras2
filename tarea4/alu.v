@@ -261,7 +261,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
 		 	branchTaken<=1;
-		 	oAluData<=0;        //Revisar si la salida de la ALU en branch o JMP va a cero o no
+		 	oAluData<=oAluData;       //Revisar si la salida de la ALU en branch o JMP va a cero o no
 
 		end
 
@@ -274,7 +274,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
 		 	branchTaken<=BAZ;
-		 	oAluData<=0;
+		 	oAluData<=oAluData;
 
 		end
 
@@ -287,7 +287,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
 		 	branchTaken<=~BAZ;
-		 	oAluData<=0;
+		 	oAluData<=oAluData;
 
 		end
 
@@ -300,7 +300,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
 		 	branchTaken<=BBZ;
-		 	oAluData<=0;
+		 	oAluData<=oAluData;
 
 		end
 	
@@ -313,7 +313,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
 		 	branchTaken<=~BBZ;
-		 	oAluData<=0;
+		 	oAluData<=oAluData;
 
 		end
 	
@@ -326,7 +326,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
  	 		branchTaken<=BCA;
- 	 		oAluData<=0;
+ 	 		oAluData<=oAluData;
 
 		end
 
@@ -339,7 +339,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
  	 		branchTaken<=~BCA;
- 	 		oAluData<=0;
+ 	 		oAluData<=oAluData;
 
 		end
 
@@ -352,7 +352,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
  	 		branchTaken<=BCB;
- 	 		oAluData<=0;
+ 	 		oAluData<=oAluData;
 
 		end
 
@@ -365,7 +365,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
  	 		branchTaken<=~BCB;
- 	 		oAluData<=0;
+ 	 		oAluData<=oAluData;
 
 		end
 
@@ -378,7 +378,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
  	 		branchTaken<=BAN;
- 	 		oAluData<=0;
+ 	 		oAluData<=oAluData;
 
 		end
 
@@ -391,7 +391,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
  	 		branchTaken<=~BAN;
- 	 		oAluData<=0;
+ 	 		oAluData<=oAluData;
 
 		end
 
@@ -404,7 +404,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
  	 		branchTaken<=BBN;
- 	 		oAluData<=0;
+ 	 		oAluData<=oAluData;
 
 		end
 
@@ -417,7 +417,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
  	 		branchTaken<=~BBN;
- 	 		oAluData<=0;
+ 	 		oAluData<=oAluData;
 
 		end
 	
@@ -430,7 +430,7 @@ module alu(
 			BAN<=BAN;
 			BBN<=BBN;
 			branchTaken<=0;
-			oAluData<=0;
+			oAluData<=oAluData;
 
 		end
 

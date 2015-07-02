@@ -93,9 +93,21 @@ module ROM(iDir,oInstruc);
   always @(*) begin
    
    case(iDir)
+
+// Loop de prueba de suma y branch hacia atras
+		0 : oInstruc = {`ADDCA,2'b00,8'h1};  
+		1 : oInstruc = {`NOP,rClear};
+		2 : oInstruc = {`NOP,rClear};
+		3 : oInstruc = {`BACC,4'b0,6'b100001};
+		4 : oInstruc = {`NOP,rClear};
+		5 : oInstruc = {`NOP,rClear};
+		6: oInstruc = {`LDCB,2'b00,8'b1};	
     
-      // 0: oInstruc = {`LDCA,2'b00,8'h7};
-      
+       //0: oInstruc = {`LDCA,2'b00,8'h1};
+
+       //1 : oInstruc = {`ADDA,rClear};
+
+       //2: oInstruc = {`LDCA,2'b00,8'h7};
       // 1: oInstruc = {`LDCB,2'b00,8'h7};
 
       // 2: oInstruc = {`NOP,rClear};
@@ -113,44 +125,44 @@ module ROM(iDir,oInstruc);
       // 8: oInstruc = {`BACS,4'b0,6'd50};
       
       // 56: oInstruc = {`ADDB,rClear};
-
-      0: oInstruc = {`LDCA,2'b00,8'h5};
+// Datos originales de aqui hacia abajo //
+      // 0: oInstruc = {`LDCA,2'b00,8'h5};
       
-      1: oInstruc = {`LDCB,2'b00,8'h7};
+      // 1: oInstruc = {`LDCB,2'b00,8'h7};
 
-      2: oInstruc = {`NOP,rClear};
+      // 2: oInstruc = {`NOP,rClear};
 
-      3: oInstruc = {`NOP,rClear};
+      // 3: oInstruc = {`NOP,rClear};
 
-      4: oInstruc = {`ADDA,rClear};
+      // 4: oInstruc = {`ADDA,rClear};
       
-      5: oInstruc = {`STB,10'h50};
+      // 5: oInstruc = {`STB,10'h50};
 
-      6: oInstruc = {`NOP,rClear};
+      // 6: oInstruc = {`NOP,rClear};
 
-      7: oInstruc = {`NOP,rClear};
+      // 7: oInstruc = {`NOP,rClear};
       
-      8: oInstruc = {`NOP,rClear};
+      // 8: oInstruc = {`NOP,rClear};
 
-      9: oInstruc = {`ADDA,rClear};
+      // 9: oInstruc = {`ADDA,rClear};
 
-      10: oInstruc = {`ADDA,rClear};
+      // 10: oInstruc = {`ADDA,rClear};
 
-      //6: oInstruc = {`SUBB,rClear};
+      // //6: oInstruc = {`SUBB,rClear};
 
-      11: oInstruc = {`NOP,10'h50};
+      // 11: oInstruc = {`NOP,10'h50};
 
-      12: oInstruc = {`NOP,2'b00,8'h5};
+      // 12: oInstruc = {`NOP,2'b00,8'h5};
     
-      13: oInstruc = {`BBEQ,4'b0,6'd48};
+      // 13: oInstruc = {`BBEQ,4'b0,6'd48};
 
-      14: oInstruc = {`LDCA,2'b00,8'h60};
+      // 14: oInstruc = {`LDCA,2'b00,8'h60};
       
-      55: oInstruc = {`LDCB,2'b00,8'h25};
+      // 55: oInstruc = {`LDCB,2'b00,8'h25};
 
-      56: oInstruc = {`NOP,rClear};
+      // 56: oInstruc = {`NOP,rClear};
 
-      57: oInstruc = {`NOP,rClear};
+      // 57: oInstruc = {`NOP,rClear};
      
       default: oInstruc = {`NOP,rClear};
     
