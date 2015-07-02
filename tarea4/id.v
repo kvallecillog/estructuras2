@@ -29,7 +29,7 @@ module decoder(instr,newPC,constant,branchDir,outSelMux,controlAcum,operation,me
 	// instr: Corresponde a la instruccion a decodificar.
 
 	input wire [15:0] instr;
-	input wire signed [9:0] newPC;
+	input wire [9:0] newPC;
 	
 	// Se definen las salidas del modulo que decodifica las instrucciones.
 	// 
@@ -75,9 +75,12 @@ module decoder(instr,newPC,constant,branchDir,outSelMux,controlAcum,operation,me
 	// - saltoRel: Valor del salto relativo de la instrucción si es un branch
 	//   son 5 bits de magnitud y el MSB para signo.
 	//
-	wire signed [5:0] saltoRel;
+	wire [5:0] saltoRel;
+	wire [4:0] dir;
+
 	assign constant = instrInfo [7:0];
 	assign saltoRel = instrInfo [5:0];
+	assign dir = saltoRel[4:0];
 	
 	
 	always @(*) begin
@@ -95,7 +98,14 @@ module decoder(instr,newPC,constant,branchDir,outSelMux,controlAcum,operation,me
 		if(instrDecod == `JMP || instrDecod == `STA || instrDecod == `STB 
 			|| instrDecod == `LDA || instrDecod == `LDB) branchDir = instrInfo;
 		// Para las otras instrucciones es relativo.
-		else branchDir = newPC + saltoRel;
+		else 
+			begin
+
+				if(saltoRel[5]) branchDir = newPC - dir;
+
+				else branchDir = newPC + dir;
+
+			end		
 			
 		
 		

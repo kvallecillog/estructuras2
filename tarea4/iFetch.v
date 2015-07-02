@@ -145,31 +145,39 @@ module ROM(iDir,oInstruc);
  	// 	20: oInstruc = {`LDCB,2'b00,8'h7}; 
 
 
- 	 	0 : oInstruc = {`LDCA,2'b00,8'd53};  
- 		1 : oInstruc = {`NOP,rClear};
- 		2 : oInstruc = {`NOP,rClear};
- 		3 : oInstruc = {`NOP,rClear};
-		4 : oInstruc = {`LDCB,2'b00,8'd83};  
-		5 : oInstruc = {`NOP,rClear};
-		6 : oInstruc = {`NOP,rClear};
-		7 : oInstruc = {`NOP,rClear};
-		8 : oInstruc = {`ANDA,rClear};  
-		9 : oInstruc = {`NOP,rClear};
- 		10 : oInstruc = {`NOP,rClear};
- 		11 : oInstruc = {`NOP,rClear};
- 		12 : oInstruc = {`SUBCA,2'b00,8'd17};
- 		13: oInstruc = {`NOP,rClear};
- 		14: oInstruc = {`NOP,rClear};
- 		15 : oInstruc = {`NOP,rClear};
- 		16 : oInstruc = {`BAEQ,4'b0,6'd8};
- 		17: oInstruc = {`NOP,rClear};
- 		18: oInstruc = {`NOP,rClear};
- 		19 : oInstruc = {`NOP,rClear};
- 		20: oInstruc = {`LDCB,2'b00,8'h1}; 
- 		21: oInstruc = {`NOP,rClear};
- 		22: oInstruc = {`NOP,rClear};
- 		23 : oInstruc = {`NOP,rClear};
- 		24: oInstruc = {`LDCB,2'b00,8'h7}; 
+ 	//  	0 : oInstruc = {`LDCA,2'b00,8'd53};  
+ 	// 	1 : oInstruc = {`NOP,rClear};
+ 	// 	2 : oInstruc = {`NOP,rClear};
+ 	// 	3 : oInstruc = {`NOP,rClear};
+		// 4 : oInstruc = {`LDCB,2'b00,8'd83};  
+		// 5 : oInstruc = {`NOP,rClear};
+		// 6 : oInstruc = {`NOP,rClear};
+		// 7 : oInstruc = {`NOP,rClear};
+		// 8 : oInstruc = {`ANDA,rClear};  
+		// 9 : oInstruc = {`NOP,rClear};
+ 	// 	10 : oInstruc = {`NOP,rClear};
+ 	// 	11 : oInstruc = {`NOP,rClear};
+ 	// 	12 : oInstruc = {`SUBCA,2'b00,8'd17};
+ 	// 	13: oInstruc = {`NOP,rClear};
+ 	// 	14: oInstruc = {`NOP,rClear};
+ 	// 	15 : oInstruc = {`NOP,rClear};
+ 	// 	16 : oInstruc = {`BAEQ,4'b0,6'd8};
+ 	// 	17: oInstruc = {`NOP,rClear};
+ 	// 	18: oInstruc = {`NOP,rClear};
+ 	// 	19 : oInstruc = {`NOP,rClear};
+ 	// 	20: oInstruc = {`LDCB,2'b00,8'h1}; 
+ 	// 	21: oInstruc = {`NOP,rClear};
+ 	// 	22: oInstruc = {`NOP,rClear};
+ 	// 	23 : oInstruc = {`NOP,rClear};
+ 	// 	24: oInstruc = {`LDCB,2'b00,8'h7}; 
+
+ 	 	0: oInstruc = {`LDCB,2'd0,8'd10};
+		1: oInstruc = {`NOP,rClear};
+		2: oInstruc = {`NOP,rClear};
+		3: oInstruc = {`SUBCB,2'd0,8'h1};  
+		4: oInstruc = {`NOP,rClear};
+		5: oInstruc = {`BBNE,4'b0,6'b100110};
+ 		6: oInstruc = {`LDCB,2'b00,8'HFF};	
 
 
 
