@@ -5,9 +5,9 @@ module ex(
 
  input wire aluClk,
  input wire aluReset,
- input wire [7:0] iAcumA,	
- input wire [7:0] iAcumB,
- input wire [7:0] iConst,
+ input wire signed [7:0] iAcumA,	
+ input wire signed [7:0] iAcumB,
+ input wire signed [7:0] iConst,
  input wire [1:0] outSelMuxExe,
  input wire [5:0] iAluInstSel,
  input wire [9:0] branchDir_ID,
@@ -24,8 +24,8 @@ module ex(
 
 );
 
-wire [7:0] iAluOper1;
-wire [7:0] iAluOper2;
+wire signed [7:0] iAluOper1;
+wire signed [7:0] iAluOper2;
 
 wire [2:0] oControlAcum_EX;
 wire [1:0] oMemControl_EX;

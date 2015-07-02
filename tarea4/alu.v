@@ -5,11 +5,11 @@
 
 
 module alu(
- input wire [7:0] iAluOper1,
- input wire [7:0] iAluOper2,
+ input wire signed [7:0] iAluOper1,
+ input wire signed [7:0] iAluOper2,
  input wire [5:0] iAluInstSel,
  output reg branchTaken,
- output reg [7:0] oAluData // Resultado
+ output reg signed [7:0] oAluData // Resultado
 );
 
 
@@ -50,9 +50,9 @@ module alu(
 			oAluData<=oAluData;
 			BCA<=BCA;
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
-			BBZ<=~|iAluOper1; // sE afecta la bandera Z de A.	
+			BBZ<=~|iAluOper2; // sE afecta la bandera Z de A.	
 			BAZ<=BAZ;		// Se mantiene la bandera C de A.
-			BBN<=iAluOper1[7]; // sE afecta la bandera N de A.	
+			BBN<=iAluOper2[7]; // sE afecta la bandera N de A.	
 			BAN<=BAN;		// Se mantiene la bandera N de B.
 			branchTaken<=0;	 // No se toma el branch.		
 
@@ -64,7 +64,7 @@ module alu(
 			oAluData<=iAluOper1;
 			BCA<=BCA; 
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
-			BAZ<=~|iAluOper1; // sE afecta la bandera Z de A.	
+			BAZ<=~|oAluData; // sE afecta la bandera Z de A.	
 			BBZ<=BBZ;		// Se mantiene la bandera C de A.
 			BAN<=iAluOper1[7]; // sE afecta la bandera N de A.	
 			BBN<=BBN;		// Se mantiene la bandera N de B.
@@ -79,10 +79,10 @@ module alu(
 			oAluData<=iAluOper2;
 			BCA<=BCA;
 			BCB<=BCB;		 // Se mantiene la bandera C de B.
-			BBZ<=~|iAluOper1; // sE afecta la bandera Z de A.	
-			BAZ<=BBZ;		// Se mantiene la bandera C de A.
-			BBN<=iAluOper1[7]; // sE afecta la bandera N de A.	
-			BAN<=BBN;		// Se mantiene la bandera N de B.
+			BBZ<=~|iAluOper2; // sE afecta la bandera Z de A.	
+			BAZ<=BAZ;		// Se mantiene la bandera C de A.
+			BBN<=iAluOper2[7]; // sE afecta la bandera N de A.	
+			BAN<=BAN;		// Se mantiene la bandera N de B.
 			branchTaken<=0;	 // No se toma el branch.		
 
 		end
@@ -228,8 +228,8 @@ module alu(
 
 		`ASLA: begin
 			
-			oAluData<=iAluOper1>>1;	
-		    BCA<=BCA;
+			{BCA,oAluData}<=iAluOper1<<1;	
+		    //BCA<=BCA;
 			BCB<=BCB;
 			BAZ<=~|oAluData;
 			BBZ<=BBZ;
@@ -241,8 +241,8 @@ module alu(
 
 		`ASRA: begin
 
-			oAluData<=iAluOper1<<1;
-			BCA<=BCA;
+			{oAluData,BCA}<=iAluOper1>>1;
+			//BCA<=BCA;
 			BCB<=BCB;
 			BAZ<=~|oAluData;
 			BBZ<=BBZ;

@@ -1,19 +1,19 @@
 [*]
 [*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
-[*] Mon Jun 29 06:05:36 2015
+[*] Thu Jul  2 03:53:23 2015
 [*]
-[dumpfile] "/home/aglt93/Escritorio/repositorios/estructuras2/tarea4/pruebaPIPE.vcd"
-[dumpfile_mtime] "Mon Jun 29 06:02:22 2015"
-[dumpfile_size] 29286
-[savefile] "/home/aglt93/Escritorio/repositorios/estructuras2/tarea4/pruebaPipeTodo.sav"
-[timestart] 46400
-[size] 1301 744
+[dumpfile] "/home/kenneth/Documents/repos/estructuras2/tarea4/pruebaPIPE.vcd"
+[dumpfile_mtime] "Thu Jul  2 03:49:01 2015"
+[dumpfile_size] 35731
+[savefile] "/home/kenneth/Documents/repos/estructuras2/tarea4/pruebaPipeTodo.sav"
+[timestart] 0
+[size] 1315 744
 [pos] -1 -1
-*-15.950134 124500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-16.259838 160000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tester.
 [treeopen] tester.pegado.
 [sst_width] 223
-[signals_width] 206
+[signals_width] 214
 [sst_expanded] 1
 [sst_vpaned_height] 211
 @28
@@ -43,7 +43,9 @@ tester.pegado.etapa1.oFetchedInst[15:0]
 (9)tester.pegado.etapa1.oFetchedInst[15:0]
 (10)tester.pegado.etapa1.oFetchedInst[15:0]
 (11)tester.pegado.etapa1.oFetchedInst[15:0]
+>500
 (12)tester.pegado.etapa1.oFetchedInst[15:0]
+>0
 (13)tester.pegado.etapa1.oFetchedInst[15:0]
 (14)tester.pegado.etapa1.oFetchedInst[15:0]
 (15)tester.pegado.etapa1.oFetchedInst[15:0]
@@ -82,9 +84,32 @@ tester.pegado.etapa3.branchDir_EX[9:0]
 tester.pegado.etapa3.branchDir_ID[9:0]
 @28
 tester.pegado.etapa3.branchTaken
-@22
+@c00421
 tester.pegado.etapa3.iAcumA[7:0]
+@29
+(0)tester.pegado.etapa3.iAcumA[7:0]
+(1)tester.pegado.etapa3.iAcumA[7:0]
+(2)tester.pegado.etapa3.iAcumA[7:0]
+(3)tester.pegado.etapa3.iAcumA[7:0]
+(4)tester.pegado.etapa3.iAcumA[7:0]
+(5)tester.pegado.etapa3.iAcumA[7:0]
+(6)tester.pegado.etapa3.iAcumA[7:0]
+(7)tester.pegado.etapa3.iAcumA[7:0]
+@1401201
+-group_end
+@c00024
 tester.pegado.etapa3.iAcumB[7:0]
+@28
+(0)tester.pegado.etapa3.iAcumB[7:0]
+(1)tester.pegado.etapa3.iAcumB[7:0]
+(2)tester.pegado.etapa3.iAcumB[7:0]
+(3)tester.pegado.etapa3.iAcumB[7:0]
+(4)tester.pegado.etapa3.iAcumB[7:0]
+(5)tester.pegado.etapa3.iAcumB[7:0]
+(6)tester.pegado.etapa3.iAcumB[7:0]
+(7)tester.pegado.etapa3.iAcumB[7:0]
+@1401200
+-group_end
 @28
 tester.pegado.etapa3.outSelMuxExe[1:0]
 @22
@@ -95,7 +120,7 @@ tester.pegado.etapa3.iConst[7:0]
 @28
 tester.pegado.etapa3.iControlAcum_ID[2:0]
 tester.pegado.etapa3.iMemControl_ID[1:0]
-@22
+@24
 tester.pegado.etapa3.oAluData[7:0]
 @28
 tester.pegado.etapa3.oControlAcum_EX[2:0]
@@ -132,12 +157,9 @@ tester.pegado.etapa4.iAluDataEX[7:0]
 -group_end
 @28
 tester.pegado.etapa4.iControlAcum_EX[2:0]
-@22
-tester.pegado.etapa4.iDataWriteValue[7:0]
-@28
 tester.pegado.etapa4.iOutMemSelect[1:0]
 tester.pegado.etapa4.oControlAcum_MEM[2:0]
-@c00023
+@c00022
 tester.pegado.etapa4.oDataRamRead[7:0]
 @28
 (0)tester.pegado.etapa4.oDataRamRead[7:0]
@@ -148,7 +170,7 @@ tester.pegado.etapa4.oDataRamRead[7:0]
 (5)tester.pegado.etapa4.oDataRamRead[7:0]
 (6)tester.pegado.etapa4.oDataRamRead[7:0]
 (7)tester.pegado.etapa4.oDataRamRead[7:0]
-@1401201
+@1401200
 -group_end
 @22
 tester.pegado.etapa4.oDataToWB[7:0]
