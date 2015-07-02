@@ -94,14 +94,42 @@ module ROM(iDir,oInstruc);
    
    case(iDir)
 
-// Loop de prueba de suma y branch hacia atras
-		0 : oInstruc = {`ADDCA,2'b00,8'h1};  
-		1 : oInstruc = {`NOP,rClear};
-		2 : oInstruc = {`NOP,rClear};
-		3 : oInstruc = {`BACC,4'b0,6'b100001};
-		4 : oInstruc = {`NOP,rClear};
+
+
+// Codigo de prueba de operaciones logicas AND y OR para A y B.
+		0 : oInstruc = {`LDCA,2'b00,8'hFF};  
+ 		1 : oInstruc = {`NOP,rClear};
+ 		2 : oInstruc = {`NOP,rClear};
+		3 : oInstruc = {`LDCB,2'b00,8'h00};  
+		4 : oInstruc = {`ANDB,rClear};  
 		5 : oInstruc = {`NOP,rClear};
-		6: oInstruc = {`LDCB,2'b00,8'b1};	
+ 		6 : oInstruc = {`NOP,rClear};
+ 		7 : oInstruc = {`BAEQ,4'b0,6'b000010};
+ 		8 : oInstruc = {`NOP,rClear};
+ 		9 : oInstruc = {`NOP,rClear};
+ 		10 : oInstruc = {`LDCB,2'b00,8'h1}; 
+ 		11: oInstruc = {`LDCB,2'b00,8'h7}; 
+
+// // Codigo de prueba de operaciones logicas AND y OR para A y B.
+// 		0 : oInstruc = {`LDCA,2'b00,8'h0};  
+//  		1 : oInstruc = {`NOP,rClear};
+//  		2 : oInstruc = {`NOP,rClear};
+// 		3 : oInstruc = {`LDCB,2'b00,8'hFF};  
+// 		4 : oInstruc = {`ANDA,rClear};  
+//  		5 : oInstruc = {`BAEQ,4'b0,6'b000010};
+//  		6 : oInstruc = {`NOP,rClear};
+//  		7 : oInstruc = {`NOP,rClear};
+//  		8 : oInstruc = {`LDCB,2'b00,8'h1}; 
+//  		9 : oInstruc = {`LDCB,2'b00,8'h7}; 
+
+// // Loop de prueba de suma y branch hacia atras
+// 		0 : oInstruc = {`ADDCA,2'b00,8'h1};  
+// 		1 : oInstruc = {`NOP,rClear};
+// 		2 : oInstruc = {`NOP,rClear};
+// 		3 : oInstruc = {`BACC,4'b0,6'b100001};
+// 		4 : oInstruc = {`NOP,rClear};
+// 		5 : oInstruc = {`NOP,rClear};
+// 		6: oInstruc = {`LDCB,2'b00,8'b1};	
     
        //0: oInstruc = {`LDCA,2'b00,8'h1};
 
