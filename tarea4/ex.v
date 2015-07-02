@@ -115,8 +115,8 @@ assign realAluOp2 = (exeHazardB) ? HZDresult:iAcumB;
 
 //--------------------------------------------------------------------------------------------------------
 
-assign  iAluOper1 = (outSelMuxExe[0]) ? realAluOp1:iConst;
-assign  iAluOper2 = (outSelMuxExe[1]) ? realAluOp2:iConst;
+assign  iAluOper1 = (outSelMuxExe[1]) ? realAluOp1:iConst;
+assign  iAluOper2 = (outSelMuxExe[0]) ? realAluOp2:iConst;
 
 assign oControlAcum_EX = iControlAcum_ID;
 assign oMemControl_EX = iMemControl_ID;
