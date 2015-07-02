@@ -112,7 +112,7 @@ module probador(data,instr,newPC,controlAcum_WB,salidaAcumA,salidaAcumB,branchDi
 		data = 12;
 		controlAcum_WB = `noLoad;
 
-		#8 instr = {`BBNE,4'h0,6'h10};
+		#8 instr = {`BBNE,4'h0,6'b111101};
 		newPC = 10'd5;
 		data = 7;
 		controlAcum_WB = `noLoad;
