@@ -38,7 +38,6 @@ regN #(8) regDataToWBHazard (memClk,memReset,1,oDataToWB,oldDataToWB,oldDataToWB
 assign memHazard = (((oldInstr_MEM == `LDA || oldInstr_MEM == `LDCA) && iInstr_EX == `STA) ||
 					((oldInstr_MEM == `LDB || oldInstr_MEM == `LDCB ) && iInstr_EX == `STB)) ? 1:0;
 
-
 wire [7:0] wDataMemIn;
 
 assign wDataMemIn = (memHazard) ? oldDataToWB:iAluDataEX; 
