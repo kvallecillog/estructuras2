@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 README
 
 ejecutar el comando:
 
 iverilog -o testbench testbench.v
 GTKWAVE pruebaPipeTodo.sav
+=======
+Correr el comando "make" en la carpeta de codigo para compilar.
+
+El comando "make run" correra el ejemplo y abrirá GTKWAVE para ver las señales.
+El comando "make clean" elimina el ejecutable
+>>>>>>> e852e7304ccc4973b6da8ee6dff9da6b93ed143b

@@ -1,0 +1,54 @@
+[*]
+[*] GTKWave Analyzer v3.3.60 (w)1999-2014 BSI
+[*] Tue Jun 30 07:48:31 2015
+[*]
+[dumpfile] "/Users/mora260/Documents/Repos/estructuras2/tarea4/pruebaPIPE.vcd"
+[dumpfile_mtime] "Tue Jun 30 07:46:54 2015"
+[dumpfile_size] 25960
+[savefile] "/Users/mora260/Documents/Repos/estructuras2/tarea4/stallviolento.gtkw"
+[timestart] 0
+[size] 1390 855
+[pos] -1 -1
+*-15.545517 70000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tester.
+[treeopen] tester.pegado.
+[treeopen] tester.pegado.etapa3.
+[sst_width] 368
+[signals_width] 158
+[sst_expanded] 1
+[sst_vpaned_height] 247
+@28
+tester.pegado.clk
+tester.pegado.wStall
+@200
+-
+@28
+tester.pegado.etapa3.oldStall
+tester.pegado.etapa3.loadhazardB
+@22
+tester.pegado.etapa4.oldDataToWB[7:0]
+@200
+-
+@22
+tester.pegado.wNewPC_IF[9:0]
+tester.pegado.etapa1.wPc_pointer[9:0]
+tester.pegado.etapa2.operation[5:0]
+@200
+-
+-
+@22
+tester.pegado.etapa2.acumuladores.salidaAcumA[7:0]
+tester.pegado.etapa2.acumuladores.salidaAcumB[7:0]
+@200
+-
+@22
+tester.pegado.etapa3.iAluOper1[7:0]
+tester.pegado.etapa3.iAluOper2[7:0]
+@200
+-
+-
+@28
+tester.pegado.etapa3.loadhazardA
+tester.pegado.etapa3.loadhazardB
+[pattern_trace] 1
+[pattern_trace] 0
