@@ -1,5 +1,4 @@
 Correr el comando "make" en la carpeta de codigo para compilar.
 
-El comando "make run" correra un ejemplo con un cache L1 de 4kB y uno L2 de 8kB.
-
-El comando "make run-all" correra todo los ejemplos de las simulaciones del informe.
+El comando "make run" correra el ejemplo y abrirá GTKWAVE para ver las señales.
+El comando "make clean" elimina el ejecutable
