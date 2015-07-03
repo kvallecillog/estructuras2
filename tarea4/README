@@ -1,0 +1,6 @@
+README
+
+ejecutar el comando:
+
+iverilog -o testbench testbench.v
+GTKWAVE pruebaPipeTodo.sav

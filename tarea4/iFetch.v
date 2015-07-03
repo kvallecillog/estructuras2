@@ -337,13 +337,13 @@ module ROM(iDir,oInstruc);
 
 		// // Prueba de ASLA
 
- 	// 	0 : oInstruc = {`LDCA,2'b00,8'HFF};  
- 	// 	1 : oInstruc = {`NOP,rClear};
- 	// 	2 : oInstruc = {`NOP,rClear};
- 	// 	3 : oInstruc = {`NOP,rClear};
-		// 4 : oInstruc = {`ASLA,rClear};  
-		// 5 : oInstruc = {`NOP,rClear};
-		// 6 : oInstruc = {`NOP,rClear};
+ 	 213 : oInstruc = {`LDCA,2'b00,8'HFF};  
+ 	 214 : oInstruc = {`NOP,rClear};
+ 	215 : oInstruc = {`NOP,rClear};
+ 		216 : oInstruc = {`NOP,rClear};
+		217 : oInstruc = {`ASLA,rClear};  
+		218 : oInstruc = {`NOP,rClear};
+		219: oInstruc = {`NOP,rClear};
 		// 7 : oInstruc = {`NOP,rClear};
 		// 4 : oInstruc = {`ASLA,rClear};  
 		// 5 : oInstruc = {`NOP,rClear};
