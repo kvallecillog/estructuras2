@@ -17,18 +17,19 @@ module probador (clk,reset);
 	
 	// Entradas.
 	
-
 	initial begin
 	
 		$dumpfile("pruebaPIPE.vcd");
 		$dumpvars;
+
+
 		
 		clk = 0;
 		reset = 0;
 		#5 reset = 1;
 		#23 reset = 0;
 				
-		#1000 $finish;
+		#100000 $finish;
 		
 	end
 	

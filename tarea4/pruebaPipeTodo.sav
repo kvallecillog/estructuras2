@@ -1,17 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
-[*] Thu Jul  2 03:53:23 2015
+[*] Fri Jul  3 05:15:39 2015
 [*]
-[dumpfile] "/home/kenneth/Documents/repos/estructuras2/tarea4/pruebaPIPE.vcd"
-[dumpfile_mtime] "Thu Jul  2 03:49:01 2015"
-[dumpfile_size] 35731
-[savefile] "/home/kenneth/Documents/repos/estructuras2/tarea4/pruebaPipeTodo.sav"
-[timestart] 0
+[dumpfile] "/home/kenneth/Desktop/CodigoGitM/estructuras2/tarea4/pruebaPIPE.vcd"
+[dumpfile_mtime] "Fri Jul  3 05:06:52 2015"
+[dumpfile_size] 7137519
+[savefile] "/home/kenneth/Desktop/CodigoGitM/estructuras2/tarea4/pruebaPipeTodo.sav"
+[timestart] 18657000
 [size] 1315 744
 [pos] -1 -1
-*-16.259838 160000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-18.505440 21107000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tester.
 [treeopen] tester.pegado.
+[treeopen] tester.pegado.etapa3.
 [sst_width] 223
 [signals_width] 214
 [sst_expanded] 1
@@ -78,15 +79,18 @@ tester.pegado.etapa2.salidaAcumA[7:0]
 tester.pegado.etapa2.salidaAcumB[7:0]
 @200
 -
+@28
+tester.pegado.etapa3.aluEx.BCB
+@200
 -
 @22
 tester.pegado.etapa3.branchDir_EX[9:0]
 tester.pegado.etapa3.branchDir_ID[9:0]
 @28
 tester.pegado.etapa3.branchTaken
-@c00421
+@c00420
 tester.pegado.etapa3.iAcumA[7:0]
-@29
+@28
 (0)tester.pegado.etapa3.iAcumA[7:0]
 (1)tester.pegado.etapa3.iAcumA[7:0]
 (2)tester.pegado.etapa3.iAcumA[7:0]
@@ -95,9 +99,9 @@ tester.pegado.etapa3.iAcumA[7:0]
 (5)tester.pegado.etapa3.iAcumA[7:0]
 (6)tester.pegado.etapa3.iAcumA[7:0]
 (7)tester.pegado.etapa3.iAcumA[7:0]
-@1401201
+@1401200
 -group_end
-@c00024
+@c00023
 tester.pegado.etapa3.iAcumB[7:0]
 @28
 (0)tester.pegado.etapa3.iAcumB[7:0]
@@ -108,7 +112,7 @@ tester.pegado.etapa3.iAcumB[7:0]
 (5)tester.pegado.etapa3.iAcumB[7:0]
 (6)tester.pegado.etapa3.iAcumB[7:0]
 (7)tester.pegado.etapa3.iAcumB[7:0]
-@1401200
+@1401203
 -group_end
 @28
 tester.pegado.etapa3.outSelMuxExe[1:0]

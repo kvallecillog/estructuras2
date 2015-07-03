@@ -18,6 +18,8 @@ output reg [DATA_WIDTH-1:0] oDataMemOut
 
 reg [DATA_WIDTH-1:0] Ram [MEM_SIZE:0];
 
+	initial $readmemh("randomValuesRam.dat", Ram , 0, 1023); 
+
 always @(posedge clk)
 begin 
 

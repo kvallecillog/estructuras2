@@ -4,6 +4,7 @@
 `include "id.v"
 `include "ex.v"
 `include "mem.v"
+//`include "testbench.v"
 
 `define SIZE_REG(X,Y) X+Y  
 
@@ -13,6 +14,7 @@ module pipeline (clk,reset);
 
   // Entradas 
   input clk,reset;
+
   
 
   //////////////////////////////////////////////////////////////////////////////
