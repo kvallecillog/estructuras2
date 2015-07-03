@@ -1,1 +1,0 @@
-// Modulo de control del pipe.
